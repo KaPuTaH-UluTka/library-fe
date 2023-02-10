@@ -1,0 +1,84 @@
+.review-item-wrapper {
+    overflow: hidden;
+    .review-item {
+        &-header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 24px;
+            padding-bottom: 16px;
+
+            .review-item-avatar {
+                width: 32px;
+                height: 32px;
+            }
+
+            .review-item-info {
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 24px;
+                align-items: center;
+                letter-spacing: 0.1px;
+                color: var(--dark-gray-color);
+
+                span {
+                    padding-left: 24px;
+                }
+            }
+        }
+
+        .book-rating {
+            gap: 12px;
+        }
+
+        &-feedback {
+            margin-top: 16px;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 0.1px;
+            color: var(--black-color);
+        }
+    }
+}
+
+@media (max-width: 768px) {}
+
+@media (max-width: 320px) {
+    .review-item-wrapper {
+        .review-item {
+            &-header {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 18px;
+                padding-bottom: 12px;
+
+                .review-item-avatar {
+                    width: 32px;
+                    height: 32px;
+                }
+
+                .review-item-info {
+                    font-size: 15px;
+                    line-height: 20px;
+                    align-items: center;
+                    width: 154px;
+
+                    span {
+                        display: block;
+                        padding-left: 0;
+                    }
+                }
+            }
+
+            &-feedback {
+                width: 288px;
+                margin-top: 6px;
+                font-size: 15px;
+                line-height: 20px;
+                letter-spacing: 0.1px;
+            }
+        }
+    }
+}

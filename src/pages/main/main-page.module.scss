@@ -1,0 +1,18 @@
+.main-page {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    min-height: calc(100vh - 161px);
+    margin-top: 50px;
+}
+@media (max-width: 768px) {
+    .main-page {
+        margin-top: 38px;
+    }
+}
+
+@media (max-width: 320px) {
+    .main-page {
+        margin-top: 11px;
+    }
+}
