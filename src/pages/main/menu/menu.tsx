@@ -1,35 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { MenuTestId } from '../../../types/test-id';
 
 import classes from './menu.module.scss';
+import {bookApi} from '../../../store/reducers/book-reducer';
 
 export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: (arg: boolean) => void, isMenuOpen: boolean }) => {
-
-    const bookCategories = [{
-        'category': 'business',
-        'title': 'Бизнес книги',
-        'count': 14
-    }, { 'category': 'detectives', 'title': 'Детективы', 'count': 8 }, {
-        'category': 'Детские книги', 'title': 'Бизнес книги',
-        'count': 14
-    }, { 'category': 'foreign literature', 'title': 'Зарубежная литература', 'count': 2 }, {
-        'category': 'История', 'title': 'Бизнес книги',
-        'count': 5
-    }, { 'category': 'classic literature', 'title': 'Классическая литература', 'count': 12 }, {
-        'category': 'Psychology books', 'title': 'Книги по психологии',
-        'count': 11
-    }, { 'category': 'computer literature', 'title': 'Компьютерная литература', 'count': 54 }, {
-        'category': 'culture and art', 'title': 'Культура и искусство',
-        'count': 5
-    }, { 'category': 'science and education', 'title': 'Наука и образование', 'count': 2 }, {
-        'category': 'nonfiction literature', 'title': 'Публицистическая литература',
-        'count': 0
-    }, { 'category': 'reference books', 'title': 'Справочники', 'count': 10 }, {
-        'category': 'fantasy', 'title': 'Фантастика',
-        'count': 12
-    }, { 'category': 'humorous literature', 'title': 'Юмористическая литература', 'count': 8 }];
+    const {data: bookCategories} = bookApi.useGetBookCategoriesQuery();
 
     const [showcaseStatus, setShowcaseStatus] = useState(!props.burger);
 
@@ -118,11 +96,11 @@ export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: 
                         to="/books/all">Все книги</NavLink>
                     </li>
 
-                    {bookCategories.map((el) => <li className={classes['category-list-item']}
-                                                    key={el.category}>
+                    {bookCategories && bookCategories.map((el) => <li className={classes['category-list-item']}
+                                                    key={el.id}>
                         <NavLink onClick={(e) => props.burger && booksHandler(e)}
                                  className={({ isActive }) => isActive ? classes['category-list-item-link-active'] : classes['category-list-item-link']}
-                                 to={`/books/${el.category}`}>{el.title}<span>{el.count}</span></NavLink>
+                                 to={`/books/${el.path}`}>{el.name}<span>1</span></NavLink>
                     </li>)}
                 </ul>
                 <NavLink data-test-id={props.testId.termsId}

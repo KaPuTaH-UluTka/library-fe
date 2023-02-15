@@ -20,14 +20,14 @@ module.exports = {
                 devDependencies: ['**/*.test.{ts,tsx,js,jsx}'],
             },
         ],
-        'import/no-default-export': 'error',
         indent: 'off', // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/indent.md
         '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^action' }],
-        "no-nested-ternary": "off",
-        "no-unneeded-ternary": "off",
-        "react/no-array-index-key": "off",
-        "jsx-a11y/click-events-have-key-events": "off",
-        "jsx-a11y/no-static-element-interactions": "off"
+        'no-nested-ternary': 'off',
+        'no-unneeded-ternary': 'off',
+        'react/no-array-index-key': 'off',
+        'jsx-a11y/click-events-have-key-events': 'off',
+        'jsx-a11y/no-static-element-interactions': 'off',
+        'no-param-reassign': 'off'
     },
     ignorePatterns: ['coverage', 'cypress.config.ts'],
 };

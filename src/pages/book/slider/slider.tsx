@@ -3,10 +3,6 @@ import { FreeMode, Navigation, Pagination, Scrollbar, Thumbs } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperInterface } from 'swiper/types';
 
-import FirstImg from './assets/book.png';
-import defaultImg from './assets/defaultBook.png';
-import SecondImg from './assets/secondSlide.png';
-
 import classes from './slider.module.scss';
 
 import 'swiper/css';
@@ -17,22 +13,9 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/pagination';
 
 
-export const Slider = (props: { images: string[] }) => {
+export const Slider = (props: { images: Array<{url: string}> }) => {
+
     const [thumbsSwiper, setThumbsSwiper] = useState<null | SwiperInterface>(null);
-
-    const parseImg = (img: string) => {
-        const path = img.split('/')[2];
-
-        if (path === 'book.png') {
-            return FirstImg;
-        }
-        if (path === 'secondSlide.png') {
-            return SecondImg;
-        }
-
-        return defaultImg;
-    };
-
 
     return (
         <div className={classes.slider}>
@@ -47,7 +30,7 @@ export const Slider = (props: { images: string[] }) => {
             >
                 {props.images.map((el, index) =>
                     <SwiperSlide key={index} className={classes['main-slide']}>
-                        <img src={parseImg(el)} alt={el}/>
+                        <img src={el.url} alt={el.url}/>
                     </SwiperSlide>
                 )}
             </Swiper>
@@ -65,7 +48,7 @@ export const Slider = (props: { images: string[] }) => {
             >
                 {props.images.map((el, index) =>
                     <SwiperSlide data-test-id="slide-mini" key={index} className={classes['thumbs-item']}>
-                        <img src={parseImg(el)} alt={el}/>
+                        <img src={el.url} alt={el.url}/>
                     </SwiperSlide>
                 )}
             </Swiper>

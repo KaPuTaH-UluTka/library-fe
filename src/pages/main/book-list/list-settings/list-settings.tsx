@@ -1,14 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 import ListGrayIcon from '../../../../assets/book-list-settings/list-gray.svg';
 import ListWhiteIcon from '../../../../assets/book-list-settings/list-white.svg';
 import searchIcon from '../../../../assets/book-list-settings/search.svg';
 import WindowGrayIcon from '../../../../assets/book-list-settings/window-gray.svg';
 import WindowWhiteIcon from '../../../../assets/book-list-settings/window-white.svg';
+import {useAppDispatch, useAppSelector} from '../../../../hooks/redux';
+import {
+    setListView,
+    setWindowView
+} from '../../../../store/reducers/list-view-reducer';
 
 import classes from './list-settings.module.scss';
 
-export const ListSettings = (props: { listState: boolean, setListState: (arg0: boolean) => void }) => {
+export const ListSettings = () => {
+    const dispatch = useAppDispatch();
+    const {listView} = useAppSelector(state => state.listViewReducer);
 
     const [isSearchOpen, searchOpenToggle] = useState(false);
 
@@ -20,9 +27,9 @@ export const ListSettings = (props: { listState: boolean, setListState: (arg0: b
     const ref = useRef<HTMLDivElement>(null);
     const resizeHandler = () => {
         if (ref.current) {
-            const { clientHeight, clientWidth } = ref.current;
+            const {clientHeight, clientWidth} = ref.current;
 
-            setSize({ clientHeight, clientWidth });
+            setSize({clientHeight, clientWidth});
         }
     };
 
@@ -51,7 +58,7 @@ export const ListSettings = (props: { listState: boolean, setListState: (arg0: b
                     <form className={classes['search-form']}>
                         <input className={isSearchOpen ? classes.search : classes.hide}
                                type="search" data-test-id="input-search"
-                               defaultValue="Поиск книги или автора..." />
+                               defaultValue="Поиск книги или автора..."/>
                         <button type="button" data-test-id="button-search-close"
                                 onClick={closeSearch}
                                 className={isSearchOpen ? classes['search-btn-close'] : classes.hide}>
@@ -61,11 +68,11 @@ export const ListSettings = (props: { listState: boolean, setListState: (arg0: b
                     <button type="button" data-test-id="button-search-open"
                             className={searchState ? classes.hide : classes['search-btn-open']}
                             onClick={openSearch}>
-                        <img src={searchIcon} alt="search-icon" />
+                        <img src={searchIcon} alt="search-icon"/>
                     </button>
                 </React.Fragment> : <form className={classes['search-form']}>
                     <input className={classes.search} type="search" data-test-id="input-search"
-                           defaultValue="Поиск книги или автора..." />
+                           defaultValue="Поиск книги или автора..."/>
                 </form>}
 
                 <select className={searchState ? classes.hide : classes.sort} name="sort" id="sort">
@@ -75,17 +82,17 @@ export const ListSettings = (props: { listState: boolean, setListState: (arg0: b
             <div className={searchState ? classes.hide : classes['list-style']}>
 
                 <button
-                    className={props.listState ? `${classes.gradient} ${classes['change-view-btn']}` : classes['change-view-btn']}
-                    onClick={() => props.setListState(true)} type="button"
+                    className={listView ? `${classes.gradient} ${classes['change-view-btn']}` : classes['change-view-btn']}
+                    onClick={() => dispatch(setWindowView())} type="button"
                     data-test-id="button-menu-view-window"
-                ><img src={props.listState ? WindowWhiteIcon : WindowGrayIcon} alt="window-icon" />
+                ><img src={listView ? WindowWhiteIcon : WindowGrayIcon} alt="window-icon"/>
                 </button>
 
                 <button
-                    className={props.listState ? classes['change-view-btn'] : `${classes.gradient} ${classes['change-view-btn']}`}
-                    onClick={() => props.setListState(false)} type="button"
+                    className={listView ? classes['change-view-btn'] : `${classes.gradient} ${classes['change-view-btn']}`}
+                    onClick={() => dispatch(setListView())} type="button"
                     data-test-id="button-menu-view-list"
-                ><img src={props.listState ? ListGrayIcon : ListWhiteIcon} alt="list-icon" />
+                ><img src={listView ? ListGrayIcon : ListWhiteIcon} alt="list-icon"/>
                 </button>
 
             </div>
