@@ -22,6 +22,9 @@
             height: 86px;
             border: 1px solid var(--gray-color);
             border-radius: 3px;
+            img {
+                height: 84px;
+            }
         }
     }
 }
@@ -29,7 +32,7 @@
 .shadow {
     position: absolute;
     width: 445px;
-    height: 88px;
+    height: 94px;
     margin-top: 608px;
     background: linear-gradient(to right, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 20%,rgba(255,255,255,0) 80%, rgba(255,255,255,1) 100%);
     z-index: 500;

@@ -11,6 +11,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import 'swiper/css/scrollbar';
 import 'swiper/css/pagination';
+import {API_URL} from "../../../utils/constants";
 
 
 export const Slider = (props: { images: Array<{url: string}> }) => {
@@ -30,7 +31,7 @@ export const Slider = (props: { images: Array<{url: string}> }) => {
             >
                 {props.images.map((el, index) =>
                     <SwiperSlide key={index} className={classes['main-slide']}>
-                        <img src={el.url} alt={el.url}/>
+                        <img src={API_URL + el.url} alt={el.url}/>
                     </SwiperSlide>
                 )}
             </Swiper>
@@ -48,7 +49,7 @@ export const Slider = (props: { images: Array<{url: string}> }) => {
             >
                 {props.images.map((el, index) =>
                     <SwiperSlide data-test-id="slide-mini" key={index} className={classes['thumbs-item']}>
-                        <img src={el.url} alt={el.url}/>
+                        <img src={API_URL + el.url} alt={el.url}/>
                     </SwiperSlide>
                 )}
             </Swiper>

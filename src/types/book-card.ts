@@ -1,4 +1,6 @@
-export interface BookInterface {
+import {CommentInterface} from './book';
+
+export interface BookCardInterface {
     id: number,
     title: string,
     rating: number,
@@ -14,17 +16,16 @@ export interface BookInterface {
     authors: [
         string
     ],
-    images: [
+    image:
         {
             url: string
         },
-    ],
     categories: [
         string,
         string
     ],
     comments: CommentInterface[
-    ] | null,
+        ] | null,
     booking: {
         id: number | null,
         order: boolean | null,
@@ -48,17 +49,4 @@ export interface BookInterface {
             userId: number
         }
     ]
-}
-
-export interface CommentInterface {
-    id: number,
-        rating: number,
-        text: string,
-        createdAt: string,
-        user: {
-        commentUserId: number,
-            firstName: string | null,
-            lastName: string | null,
-            avatarUrl: string
-    }
 }

@@ -1,8 +1,9 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
 import {BookCategoryInterface} from '../../types/book-category';
-import {BookInterface} from '../../types/upd-book';
+import {BookInterface} from '../../types/book';
 import {API_URL} from '../../utils/constants';
+import {BookCardInterface} from '../../types/book-card';
 
 export const bookApi = createApi({
     reducerPath: 'bookApi',
@@ -11,7 +12,7 @@ export const bookApi = createApi({
         getBookCategories: builder.query<BookCategoryInterface[], void>({
             query: () => '/categories',
         }),
-        getAllBooks: builder.query<BookInterface[], void>({
+        getAllBooks: builder.query<BookCardInterface[], void>({
             query: () => '/books',
         }),
         getBookById: builder.query<BookInterface, string | null>({

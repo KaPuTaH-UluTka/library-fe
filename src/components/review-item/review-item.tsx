@@ -1,7 +1,7 @@
 import React from 'react';
 
 import reviewAvatar from '../../assets/review_avatar.svg';
-import {CommentInterface} from '../../types/upd-book';
+import {CommentInterface} from '../../types/book';
 import {API_URL} from '../../utils/constants';
 import {BookRating} from '../book-rating/book-rating';
 

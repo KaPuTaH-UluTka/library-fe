@@ -27,7 +27,8 @@ export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: 
         e.stopPropagation();
         if (!showcaseStatus) {
             setShowcaseStatus(true);
-
+            setTermsStatus(false);
+            setContractStatus(false);
             return;
         }
         if (props.burger && categoryStatus) {

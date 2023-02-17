@@ -1,33 +1,50 @@
-import React, {useState} from 'react';
-import { useParams} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {useLocation, useParams} from 'react-router-dom';
 
 import BlackChevron from '../../assets/black-chevron.svg';
 import noImageBook from '../../assets/defaultBook.png';
 import {BookLink} from '../../components/book-link/book-link';
 import {BookRating} from '../../components/book-rating/book-rating';
+import {ErrorView} from '../../components/error-view/error-view';
+import {Loader} from '../../components/loader/loader';
 import {ReviewItem} from '../../components/review-item/review-item';
+import {useAppDispatch, useAppSelector} from '../../hooks/redux';
+import {bookApi} from '../../store/reducers/book-reducer';
+import {setErrorTrue} from '../../store/reducers/error-reducer';
+import {API_URL} from '../../utils/constants';
 
 import {Slider} from './slider/slider';
 
 import classes from './book-page.module.scss';
-import {bookApi} from '../../store/reducers/book-reducer';
-import {Loader} from '../../components/loader/loader';
-import {API_URL} from "../../utils/constants";
 
 export const BookPage = () => {
+
+    const location = useLocation();
+
     const {bookId} = useParams();
 
-    const {data: book} = bookApi.useGetBookByIdQuery(bookId ? bookId : null);
+    const dispatch = useAppDispatch();
+
+    const {responseError} = useAppSelector(state => state.errorReducer);
+
+    const {data: book, isError, isLoading} = bookApi.useGetBookByIdQuery(bookId ? bookId : null);
 
     const [isReviewsOpen, setReviewsState] = useState(false);
+
+    useEffect(() => {
+        if (isError) {
+            dispatch(setErrorTrue());
+        }
+    },[dispatch, isError])
 
     const booking = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.stopPropagation();
     };
 
-    return <section className={classes['book-page-wrapper']}>
-        {book ? <React.Fragment><BookLink book={book}/>
-            <div className={classes['book-page']}>
+    return <section className={classes['book-page']}>
+        <div className={classes['book-page-wrapper']}>
+            <BookLink bookTitle={book?.title} category={location.state}/>
+            {book && <div className={classes['book-page-info']}>
                 <div className={classes.book}>
                     {book.images && book.images.length > 1 ? <Slider images={book.images}/> :
                         <img className={classes['book-img']}
@@ -108,7 +125,7 @@ export const BookPage = () => {
                                 <span>{book.categories.map(el => el)}</span>
                             </li>
                             <li className={classes['detailed-info-list-item']}>
-                                <span>{book.weight}</span>
+                                <span>{`${book.weight} г.`}</span>
                             </li>
                             <li className={classes['detailed-info-list-item']}>
                                 <span>{book.ISBN}</span>
@@ -129,14 +146,17 @@ export const BookPage = () => {
                         type="button"><img src={BlackChevron} alt="black-chevron"/></button>
 
                     <div className={isReviewsOpen ? classes['reviews-list'] : classes.hide}>
-                        {book.comments && book.comments.map((el) => <ReviewItem comment={el} key={el.id}/>)}
+                        {book.comments && book.comments.map((el) => <ReviewItem comment={el}
+                                                                                key={el.id}/>)}
                     </div>
                     <button className={classes['reviews-btn']} type="button"
                             data-test-id='button-rating'>
                         Оценить книгу
                     </button>
                 </div>
-            </div>
-        </React.Fragment> : <Loader/>}
-    </section>;
+            </div>}
+            {isLoading && <Loader/>}
+            {responseError && <ErrorView/>}
+        </div>
+    </section>
 };

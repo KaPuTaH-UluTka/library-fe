@@ -9,6 +9,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 60;
     animation: showLoader 0.2s linear;
     img {
         animation: rotate 1s infinite;

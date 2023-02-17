@@ -1,5 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Outlet } from 'react-router-dom';
+
+import {ErrorView} from '../../components/error-view/error-view';
+import {useAppSelector} from '../../hooks/redux';
 
 import { Menu } from './menu/menu';
 
@@ -14,7 +17,9 @@ export const MainPage = () => {
         contractId: 'navigation-contract'
     };
 
+
     const [size, setSize] = useState<{clientHeight: null | number, clientWidth: null | number}>({clientHeight: null, clientWidth: null});
+
     const ref = useRef<HTMLElement>(null);
     const resizeHandler = () => {
         if(ref.current){
@@ -23,6 +28,7 @@ export const MainPage = () => {
             setSize({ clientHeight, clientWidth });
         }
     };
+
 
     useEffect(() => {
         window.addEventListener('resize', resizeHandler);

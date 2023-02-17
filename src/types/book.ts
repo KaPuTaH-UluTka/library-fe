@@ -1,29 +1,64 @@
-export interface Book {
-    id: number
-    name: string,
-    images?: string[],
-    author: string,
-    category: string,
-    issueDate: number,
-    onBooking: boolean,
-    bookingExpires?: string,
-    publishing: string,
-    about: string,
-    pagesCount: number,
-    binding: string,
-    size: string,
-    genre: string,
+export interface BookInterface {
+    id: number,
+    title: string,
+    rating: number,
+    issueYear: string,
+    description: string,
+    publish: string,
+    pages: string,
+    cover: string,
     weight: string,
-    isbn: string,
+    format: string,
+    ISBN: string,
     producer: string,
-    rating?: number,
-    reviews?: Review[],
+    authors: [
+        string
+    ],
+    images: [
+        {
+            url: string
+        },
+    ],
+    categories: [
+        string,
+        string
+    ],
+    comments: CommentInterface[
+    ] | null,
+    booking: {
+        id: number | null,
+        order: boolean | null,
+        dateOrder: string,
+        customerId: number,
+        customerFirstName: string,
+        customerLastName: string
+    },
+    delivery: {
+        id: number | null,
+        handed: boolean | null,
+        dateHandedFrom: string,
+        dateHandedTo: string,
+        recipientId: number,
+        recipientFirstName: string,
+        recipientLastName: string
+    } | null,
+    histories: [
+        {
+            id: number,
+            userId: number
+        }
+    ]
 }
 
-export interface Review {
-    userId: number,
-    userName: string,
-    date: string,
-    rating: number,
-    feedback?: string,
+export interface CommentInterface {
+    id: number,
+        rating: number,
+        text: string,
+        createdAt: string,
+        user: {
+        commentUserId: number,
+            firstName: string | null,
+            lastName: string | null,
+            avatarUrl: string
+    }
 }
