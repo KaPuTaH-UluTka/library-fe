@@ -7,7 +7,7 @@ import classes from './menu.module.scss';
 import {bookApi} from '../../../store/reducers/book-reducer';
 
 export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: (arg: boolean) => void, isMenuOpen: boolean }) => {
-    const {data: bookCategories} = bookApi.useGetBookCategoriesQuery();
+    const {data: bookCategories, isSuccess} = bookApi.useGetBookCategoriesQuery();
 
     const [showcaseStatus, setShowcaseStatus] = useState(!props.burger);
 
@@ -29,6 +29,7 @@ export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: 
             setShowcaseStatus(true);
             setTermsStatus(false);
             setContractStatus(false);
+
             return;
         }
         if (props.burger && categoryStatus) {
@@ -85,17 +86,17 @@ export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: 
                 <NavLink data-test-id={props.testId.showcaseId}
                          className={showcaseStatus ? `${classes['general-link']} ${classes.active}` : classes['general-link']}
                          onClick={(e) => booksHandler(e)} to="/">Витрина книг
-                    {showcaseStatus && <div
+                    {isSuccess && showcaseStatus && <div
                         className={categoryStatus ? classes['general-link-chevron-active'] : classes['general-link-chevron']}
                     />}
                 </NavLink>
                 <ul className={categoryStatus ? classes['category-list-active'] : classes['category-list']}>
-                    <li className={classes['category-list-item']}><NavLink
+                    {isSuccess && <li className={classes['category-list-item']}><NavLink
                         data-test-id={props.testId.booksId}
                         onClick={(e) => props.burger && booksHandler(e)}
                         className={({ isActive }) => isActive ? classes['category-list-item-link-active'] : classes['category-list-item-link']}
                         to="/books/all">Все книги</NavLink>
-                    </li>
+                    </li>}
 
                     {bookCategories && bookCategories.map((el) => <li className={classes['category-list-item']}
                                                     key={el.id}>
