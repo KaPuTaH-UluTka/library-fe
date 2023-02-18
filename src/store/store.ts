@@ -1,12 +1,14 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 
 import {bookApi} from './reducers/book-reducer';
-import listViewReducer from './reducers/list-view-reducer';
+import categoryReducer from './reducers/category-reducer';
 import errorReducer from './reducers/error-reducer';
+import listViewReducer from './reducers/list-view-reducer';
 
 const rootReducer = combineReducers({
     listViewReducer,
     errorReducer,
+    categoryReducer,
     [bookApi.reducerPath]: bookApi.reducer
 });
 

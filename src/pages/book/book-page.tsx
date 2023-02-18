@@ -19,8 +19,6 @@ import classes from './book-page.module.scss';
 
 export const BookPage = () => {
 
-    const location = useLocation();
-
     const {bookId} = useParams();
 
     const dispatch = useAppDispatch();
@@ -43,7 +41,7 @@ export const BookPage = () => {
 
     return <section className={classes['book-page']}>
         <div className={classes['book-page-wrapper']}>
-            <BookLink bookTitle={book?.title} category={location.state}/>
+            <BookLink bookTitle={book?.title}/>
             {book && <div className={classes['book-page-info']}>
                 <div className={classes.book}>
                     {book.images && book.images.length > 1 ? <Slider images={book.images}/> :

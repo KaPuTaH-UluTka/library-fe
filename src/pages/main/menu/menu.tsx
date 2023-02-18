@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, {useState} from 'react';
+import {NavLink} from 'react-router-dom';
 
-import { MenuTestId } from '../../../types/test-id';
+import {useAppDispatch} from '../../../hooks/redux';
+import {bookApi} from '../../../store/reducers/book-reducer';
+import {setCategory} from '../../../store/reducers/category-reducer';
+import {BookCategoryInterface} from '../../../types/book-category';
+import {MenuTestId} from '../../../types/test-id';
 
 import classes from './menu.module.scss';
-import {bookApi} from '../../../store/reducers/book-reducer';
 
 export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: (arg: boolean) => void, isMenuOpen: boolean }) => {
+
+    const dispatch = useAppDispatch();
+
     const {data: bookCategories, isSuccess} = bookApi.useGetBookCategoriesQuery();
 
     const [showcaseStatus, setShowcaseStatus] = useState(!props.burger);
@@ -23,7 +29,9 @@ export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: 
         body.classList.add('no-scroll');
     }
 
-    const booksHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    const defaultCategory = {name: 'Все книги', path: 'all', id: 0}
+
+    const booksHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, category?: BookCategoryInterface) => {
         e.stopPropagation();
         if (!showcaseStatus) {
             setShowcaseStatus(true);
@@ -34,6 +42,7 @@ export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: 
         }
         if (props.burger && categoryStatus) {
             body.classList.remove('no-scroll');
+            dispatch(setCategory(category));
             if (props.menuToggle) props.menuToggle(false);
         }
         setShowcaseStatus(true);
@@ -42,9 +51,15 @@ export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: 
         } else {
             setCategoryStatus(true);
         }
+        dispatch(setCategory(category));
         setTermsStatus(false);
         setContractStatus(false);
     };
+
+
+    const desktopBooksHandler = (category: BookCategoryInterface) => {
+        dispatch(setCategory(category));
+    }
 
     const termsHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         e.stopPropagation();
@@ -81,8 +96,9 @@ export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: 
 
 
     return (
-        <div  className={props.isMenuOpen ? classes['menu-wrapper'] : classes.hide} data-test-id={props.testId.burgerNav} onClick={(e) => closeMenu(e)}>
-            <div className={ classes.menu} onClick={(e) => e.stopPropagation()}>
+        <div className={props.isMenuOpen ? classes['menu-wrapper'] : classes.hide}
+             data-test-id={props.testId.burgerNav} onClick={(e) => closeMenu(e)}>
+            <div className={classes.menu} onClick={(e) => e.stopPropagation()}>
                 <NavLink data-test-id={props.testId.showcaseId}
                          className={showcaseStatus ? `${classes['general-link']} ${classes.active}` : classes['general-link']}
                          onClick={(e) => booksHandler(e)} to="/">Витрина книг
@@ -93,16 +109,18 @@ export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: 
                 <ul className={categoryStatus ? classes['category-list-active'] : classes['category-list']}>
                     {isSuccess && <li className={classes['category-list-item']}><NavLink
                         data-test-id={props.testId.booksId}
-                        onClick={(e) => props.burger && booksHandler(e)}
-                        className={({ isActive }) => isActive ? classes['category-list-item-link-active'] : classes['category-list-item-link']}
+                        onClick={(e) => props.burger ? booksHandler(e) : desktopBooksHandler(defaultCategory)}
+                        className={({isActive}) => isActive ? classes['category-list-item-link-active'] : classes['category-list-item-link']}
                         to="/books/all">Все книги</NavLink>
                     </li>}
 
-                    {bookCategories && bookCategories.map((el) => <li className={classes['category-list-item']}
-                                                    key={el.id}>
-                        <NavLink onClick={(e) => props.burger && booksHandler(e)}
-                                 className={({ isActive }) => isActive ? classes['category-list-item-link-active'] : classes['category-list-item-link']}
-                                 to={`/books/${el.path}`}>{el.name}<span>1</span></NavLink>
+                    {bookCategories && bookCategories.map((el) => <li
+                        className={classes['category-list-item']}
+                        key={el.id}>
+                        <NavLink
+                            onClick={(e) => props.burger ? booksHandler(e, el) : desktopBooksHandler(el)}
+                            className={({isActive}) => isActive ? classes['category-list-item-link-active'] : classes['category-list-item-link']}
+                            to={`/books/${el.path}`}>{el.name}<span>1</span></NavLink>
                     </li>)}
                 </ul>
                 <NavLink data-test-id={props.testId.termsId}
@@ -114,7 +132,7 @@ export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: 
                          onClick={contractHandler} to="/contract">Договор
                     оферты</NavLink>
                 {props.burger && <React.Fragment>
-                    <div className={classes.separator} />
+                    <div className={classes.separator}/>
                     <NavLink
                         className={`${classes['general-link']} ${classes['general-link-profile']}`}
                         to="">Профиль</NavLink>
