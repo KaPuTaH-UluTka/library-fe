@@ -1,0 +1,93 @@
+.contract {
+    max-width: 825px;
+    margin-top: 5px;
+    margin-left: 3px;
+    padding-bottom: 60px;
+
+    &-title {
+        font-family: 'Montserrat', serif;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 40px;
+        color: var(--black-color);
+
+    }
+
+    .contract-list {
+        .contract-list-title {
+            font-family: 'Montserrat', serif;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 0.1px;
+            color: var(--black-color);
+            margin: 0;
+            margin-top: 32px;
+        }
+
+        .contract-list-paragraph {
+            font-family: 'Montserrat', serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 0.1px;
+            margin-top: 16px;
+            margin-left: 30px;
+            color: var(--black-color);
+
+            &-subparagraph {
+                margin-top: 16px;
+                margin-left: 30px;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .contract {
+        max-width: 640px;
+        margin-top: 0px;
+
+        &-title {
+            max-width: 600px;
+        }
+    }
+}
+
+@media (max-width: 320px) {
+    .contract {
+        max-width: 288px;
+        margin-top: 0px;
+        padding-bottom: 0;
+
+        &-title {
+            width: 288px;
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 28px;
+        }
+        .contract-list {
+            .contract-list-title {
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 24px;
+            }
+
+            .contract-list-paragraph {
+                width: 258px;
+                font-weight: 400;
+                font-size: 15px;
+                line-height: 20px;
+
+                &-subparagraph {
+                    width: 210px;
+                    margin-top: 16px;
+                    margin-left: 30px;
+                }
+            }
+        }
+    }
+}
