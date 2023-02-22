@@ -1,9 +1,9 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
-import {BookCategoryInterface} from '../../types/book-category';
 import {BookInterface} from '../../types/book';
-import {API_URL} from '../../utils/constants';
 import {BookCardInterface} from '../../types/book-card';
+import {BookCategoryInterface} from '../../types/book-category';
+import {API_URL} from '../../utils/constants';
 
 export const bookApi = createApi({
     reducerPath: 'bookApi',

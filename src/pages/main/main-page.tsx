@@ -1,9 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import {ErrorView} from '../../components/error-view/error-view';
-import {useAppSelector} from '../../hooks/redux';
-
 import { Menu } from './menu/menu';
 
 import classes from './main-page.module.scss';

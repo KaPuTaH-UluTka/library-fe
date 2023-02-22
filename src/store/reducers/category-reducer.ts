@@ -11,7 +11,7 @@ const initialState: CategoryState = {
 }
 
 export const CategoryReducer = createSlice({
-        name: 'list-view',
+        name: 'category',
         initialState,
         reducers: {
             setCategory: (state, category) => {
