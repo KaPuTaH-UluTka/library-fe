@@ -5,7 +5,7 @@ interface SortState {
 }
 
 const initialState: SortState = {
-    sortOrder: true
+    sortOrder: false
 }
 
 export const SortReducer = createSlice({

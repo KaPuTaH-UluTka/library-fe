@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import classNames from 'classnames';
 
 import ListGrayIcon from '../../../../assets/book-list-settings/list-gray.svg';
@@ -12,21 +12,16 @@ import {
     setListView,
     setWindowView
 } from '../../../../store/reducers/list-view-reducer';
-
-import classes from './list-settings.module.scss';
 import {setSortOrder} from '../../../../store/reducers/sort-order-reducer';
 
-export const ListSettings = (props: {sortOrder: boolean}) => {
+import classes from './list-settings.module.scss';
+
+export const ListSettings = (props: {sortOrder: boolean, searchValue: string, setSearchValue: (searchValue: string) => void}) => {
     const dispatch = useAppDispatch();
     const {listView} = useAppSelector(state => state.listViewReducer);
 
     const [isSearchOpen, searchOpenToggle] = useState(false);
 
-    const [searchValue, setSearchValue] = useState('');
-
-
-
-    const searchState = window.innerWidth < 550 && isSearchOpen;
     const openSearch = () => {
         searchOpenToggle(true);
     };
@@ -38,23 +33,48 @@ export const ListSettings = (props: {sortOrder: boolean}) => {
     const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
         const target = event.target as HTMLInputElement;
 
-        setSearchValue(target.value);
+        props.setSearchValue(target.value);
     }
 
     const changeOrder = () => {
         dispatch(setSortOrder());
     }
 
+    const [size, setSize] = useState<{ clientHeight: null | number, clientWidth: null | number }>({
+        clientHeight: null,
+        clientWidth: null
+    });
+
+    const searchState = size.clientWidth && size.clientWidth < 550 && isSearchOpen;
+
+    const ref = useRef<HTMLDivElement>(null);
+    const resizeHandler = () => {
+        if (ref.current) {
+            const {clientHeight, clientWidth} = ref.current;
+
+            setSize({clientHeight, clientWidth});
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('resize', resizeHandler);
+        resizeHandler();
+
+        return () => {
+            window.removeEventListener('resize', resizeHandler);
+        };
+    }, [size.clientWidth]);
+
 
     return (
-        <div className={classes.settings}>
+        <div className={classes.settings} ref={ref}>
             <div className={classes['search-and-sort']}>
-                {window.innerWidth < 550 ? <React.Fragment>
+                {size.clientWidth && size.clientWidth < 550 ? <React.Fragment>
                         <form className={classes['search-form']} onChange={(e) => handleSearch(e)}>
                             <input
-                                className={isSearchOpen ? classNames(classes.search, {[classes['search-active']]: searchValue}) : classes.hide}
+                                className={isSearchOpen ? classNames(classes.search, {[classes['search-active']]: props.searchValue}) : classes.hide}
                                 type="search" data-test-id="input-search"
-                                placeholder="Поиск книги или автора..."/>
+                                placeholder="Поиск книги или автора…"/>
                             <button type="button" data-test-id="button-search-close"
                                     onClick={closeSearch}
                                     className={isSearchOpen ? classes['search-btn-close'] : classes.hide}>
@@ -69,9 +89,9 @@ export const ListSettings = (props: {sortOrder: boolean}) => {
                     </React.Fragment> :
                     <form className={classes['search-form']} onChange={(e) => handleSearch(e)}>
                         <input
-                            className={classNames(classes.search, {[classes['search-active']]: searchValue})}
+                            className={classNames(classes.search, {[classes['search-active']]: props.searchValue})}
                             type="search" data-test-id="input-search"
-                            placeholder="Поиск книги или автора..."/>
+                            placeholder="Поиск книги или автора…"/>
                     </form>}
 
                 <button className={searchState ? classes.hide : classes.sort} type="button"

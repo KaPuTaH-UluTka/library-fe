@@ -10,7 +10,7 @@ import {ErrorView} from '../../components/error-view/error-view';
 import {Loader} from '../../components/loader/loader';
 import {ReviewItem} from '../../components/review-item/review-item';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
-import {bookApi} from '../../store/reducers/book-reducer';
+import {bookApi} from '../../store/api/book-api';
 import {setErrorTrue} from '../../store/reducers/error-reducer';
 import {API_URL} from '../../utils/constants';
 
@@ -26,7 +26,7 @@ export const BookPage = () => {
 
     const {responseError} = useAppSelector(state => state.errorReducer);
 
-    const {data: book, isError, isLoading} = bookApi.useGetBookByIdQuery(bookId ? bookId : null);
+    const {data: book, isError, isLoading} = bookApi.useGetBookByIdQuery(bookId || '0');
 
     const [isReviewsOpen, setReviewsState] = useState(false);
 

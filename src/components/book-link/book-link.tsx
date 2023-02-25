@@ -1,7 +1,7 @@
 
 import {Link} from 'react-router-dom';
 
-import {useAppSelector} from "../../hooks/redux";
+import {useAppSelector} from '../../hooks/redux';
 
 import classes from './book-link.module.scss';
 

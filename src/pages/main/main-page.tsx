@@ -8,6 +8,8 @@ import classes from './main-page.module.scss';
 export const MainPage = () => {
     const testId = {
         burgerNav: '',
+        navigationLink: 'navigation-',
+        navigationLinkCount: 'navigation-book-count-for-',
         showcaseId: 'navigation-showcase',
         booksId: 'navigation-books',
         termsId: 'navigation-terms',
@@ -38,7 +40,7 @@ export const MainPage = () => {
 
 
     return (<section className={classes['main-page']} ref={ref}>
-            {size.clientWidth && size.clientWidth > 900 && <Menu burger={false} testId={testId} isMenuOpen={true}/>}
+            {size.clientWidth && size.clientWidth > 899 && <Menu burger={false} testId={testId} isMenuOpen={true}/>}
             <Outlet />
         </section>
     );

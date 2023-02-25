@@ -1,22 +1,25 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import {createSlice} from '@reduxjs/toolkit';
 
 import {BookInterface} from '../../types/book';
-import {BookCardInterface} from '../../types/book-card';
-import {BookCategoryInterface} from '../../types/book-category';
-import {API_URL} from '../../utils/constants';
 
-export const bookApi = createApi({
-    reducerPath: 'bookApi',
-    baseQuery: fetchBaseQuery({ baseUrl: `${API_URL}/api` }),
-    endpoints: (builder) => ({
-        getBookCategories: builder.query<BookCategoryInterface[], void>({
-            query: () => '/categories',
-        }),
-        getAllBooks: builder.query<BookCardInterface[], void>({
-            query: () => '/books',
-        }),
-        getBookById: builder.query<BookInterface, string | null>({
-            query: (id) => `/books/${id}`,
-        }),
-    }),
-});
+interface BooksState {
+   books: BookInterface[]
+}
+
+const initialState: BooksState = {
+    books: []
+}
+
+export const BooksReducer = createSlice({
+        name: 'books',
+        initialState,
+        reducers: {
+            setBooks: (state, books) => {
+                state.books = books.payload;
+            },
+        }
+    }
+);
+
+export default BooksReducer.reducer;
+export const { setBooks } = BooksReducer.actions;
