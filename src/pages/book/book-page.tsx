@@ -1,15 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {useLocation, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 import BlackChevron from '../../assets/black-chevron.svg';
 import noImageBook from '../../assets/defaultBook.png';
+import {BookDetails} from '../../components/book-details/book-details';
 import {BookLink} from '../../components/book-link/book-link';
 import {BookRating} from '../../components/book-rating/book-rating';
 import {ErrorView} from '../../components/error-view/error-view';
 import {Loader} from '../../components/loader/loader';
 import {ReviewItem} from '../../components/review-item/review-item';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
-import {bookApi} from '../../store/reducers/book-reducer';
+import {bookApi} from '../../store/api/book-api';
 import {setErrorTrue} from '../../store/reducers/error-reducer';
 import {API_URL} from '../../utils/constants';
 
@@ -25,7 +26,7 @@ export const BookPage = () => {
 
     const {responseError} = useAppSelector(state => state.errorReducer);
 
-    const {data: book, isError, isLoading} = bookApi.useGetBookByIdQuery(bookId ? bookId : null);
+    const {data: book, isError, isLoading} = bookApi.useGetBookByIdQuery(bookId || '0');
 
     const [isReviewsOpen, setReviewsState] = useState(false);
 
@@ -49,7 +50,7 @@ export const BookPage = () => {
                              src={book.images ? API_URL + book.images[0].url : noImageBook}
                              alt={book.title}/>}
                     <div className={classes['book-info']}>
-                        <h2 className={classes['book-info-title']}>{book.title}</h2>
+                        <h2 className={classes['book-info-title']} data-test-id='book-title'>{book.title}</h2>
                         <div
                             className={classes['book-info-author']}>{`
                             ${book.authors.map(el => el)}
@@ -76,64 +77,7 @@ export const BookPage = () => {
                             <p className={classes['rating-info-number']}>{book.rating}</p>}
                     </div>
                 </div>
-                <div className={classes['detailed-info']}>
-                    <h5 className={classes['detailed-info-title']}>Подробная информация</h5>
-                    <div className={classes['detailed-info-list-wrapper']}>
-                        <ul className={classes['detailed-info-list']}>
-                            <li className={classes['detailed-info-list-item']}>Издательство
-                            </li>
-                            <li className={classes['detailed-info-list-item']}>Год
-                                издания
-                            </li>
-                            <li className={classes['detailed-info-list-item']}>Страниц
-                            </li>
-                            <li className={classes['detailed-info-list-item']}>Переплёт
-                            </li>
-                            <li className={classes['detailed-info-list-item']}>Формат
-                            </li>
-                        </ul>
-                        <ul className={classes['detailed-info-list']}>
-                            <li className={classes['detailed-info-list-item']}>
-                                <span>{book.publish}</span>
-                            </li>
-                            <li className={classes['detailed-info-list-item']}>
-                                <span>{book.issueYear}</span></li>
-                            <li className={classes['detailed-info-list-item']}>
-                                <span>{book.pages}</span>
-                            </li>
-                            <li className={classes['detailed-info-list-item']}>
-                                <span>{book.cover}</span>
-                            </li>
-                            <li className={classes['detailed-info-list-item']}>
-                                <span>{book.format}</span>
-                            </li>
-                        </ul>
-                        <ul className={classes['detailed-info-list']}>
-                            <li className={classes['detailed-info-list-item']}>Жанр
-                            </li>
-                            <li className={classes['detailed-info-list-item']}>Вес
-                            </li>
-                            <li className={classes['detailed-info-list-item']}>ISBN
-                            </li>
-                            <li className={classes['detailed-info-list-item']}>Изготовитель
-                            </li>
-                        </ul>
-                        <ul className={classes['detailed-info-list']}>
-                            <li className={classes['detailed-info-list-item']}>
-                                <span>{book.categories.map(el => el)}</span>
-                            </li>
-                            <li className={classes['detailed-info-list-item']}>
-                                <span>{`${book.weight} г.`}</span>
-                            </li>
-                            <li className={classes['detailed-info-list-item']}>
-                                <span>{book.ISBN}</span>
-                            </li>
-                            <li className={classes['detailed-info-list-item']}>
-                                <span>{book.producer}</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                <BookDetails book={book} />
                 <div className={classes.reviews}>
                     <h5 className={classes['reviews-title']}>Отзывы<span>{book.comments ? book.comments.length : 0}</span>
                     </h5>

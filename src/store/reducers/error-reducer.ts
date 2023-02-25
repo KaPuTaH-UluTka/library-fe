@@ -9,7 +9,7 @@ const initialState: ErrorState = {
 }
 
 export const ErrorReducer = createSlice({
-        name: 'list-view',
+        name: 'error',
         initialState,
         reducers: {
             setErrorTrue: (state) => {

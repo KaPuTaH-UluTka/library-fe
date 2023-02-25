@@ -1,0 +1,29 @@
+.book-empty {
+    display: flex;
+    margin-top: 200px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    &-title {
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 40px;
+        letter-spacing: 0.1px;
+        color: var(--gray-color);
+        text-align: center;
+    }
+}
+@media (max-width: 768px) {
+    .book-empty {
+        margin-top: 226px;
+    }
+}
+@media (max-width: 320px) {
+    .book-empty {
+        margin-top: 137px;
+        &-title {
+            font-size: 18px;
+            line-height: 28px;
+        }
+    }
+}

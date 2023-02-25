@@ -12,6 +12,8 @@ export const Header = () => {
 
     const testId = {
         burgerNav: 'burger-navigation',
+        navigationLink: 'burger-',
+        navigationLinkCount: 'burger-book-count-for-',
         showcaseId: 'burger-showcase',
         booksId: 'burger-books',
         termsId: 'burger-terms',
