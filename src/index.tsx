@@ -10,6 +10,9 @@ import {Contract} from './pages/contract/contract';
 import {BookList} from './pages/main/book-list/book-list';
 import {MainPage} from './pages/main/main-page';
 import {Terms} from './pages/terms/terms';
+import {Login} from './pages/welcome/login/login';
+import {Registration} from './pages/welcome/registration/registration';
+import {Welcome} from './pages/welcome/welcome';
 import {store} from './store/store';
 
 import './index.scss';
@@ -29,6 +32,10 @@ root.render(
                         <Route path="/terms" element={<Terms/>}/>
                     </Route>
                     <Route path="/books/:category/:bookId" element={<BookPage/>}/>
+                    <Route path="/users" element={<Welcome/>}>
+                        <Route path="registration" element={<Registration/>}/>
+                        <Route path="login" element={<Login/>}/>
+                    </Route>
                 </Routes>
                 <Footer/>
             </HashRouter>

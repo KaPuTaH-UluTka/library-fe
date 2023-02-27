@@ -1,0 +1,19 @@
+.welcome-wrapper{
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .welcome-title {
+        color: var(--white-color);
+    }
+    .welcome {
+        width: 600px;
+        height: 500px;
+        margin-top: 50px;
+        background: var(--white-color);
+        border-radius: 30px;
+    }
+}
