@@ -3,17 +3,18 @@ import ReactDOM from 'react-dom/client';
 import {Provider} from 'react-redux';
 import {HashRouter, Navigate, Route, Routes} from 'react-router-dom';
 
-import {Footer} from './footer/footer';
-import {Header} from './header/header';
+import {AuthLayout} from './components/auth-layout/auth-layout';
+import {MainLayout} from './components/main-layout/main-layout';
+import {ForgotPass} from './pages/authorization/forgot-pass/forgot-pass';
+import {Login} from './pages/authorization/login/login';
+import {Registration} from './pages/authorization/registration/registration';
 import {BookPage} from './pages/book/book-page';
 import {Contract} from './pages/contract/contract';
 import {BookList} from './pages/main/book-list/book-list';
 import {MainPage} from './pages/main/main-page';
 import {Terms} from './pages/terms/terms';
-import {Login} from './pages/welcome/login/login';
-import {Registration} from './pages/welcome/registration/registration';
-import {Welcome} from './pages/welcome/welcome';
 import {store} from './store/store';
+import {AppPaths} from './types/constants/constants';
 
 import './index.scss';
 
@@ -23,21 +24,23 @@ root.render(
     <React.StrictMode>
         <Provider store={store()}>
             <HashRouter>
-                <Header/>
                 <Routes>
-                    <Route path="/" element={<MainPage/>}>
-                        <Route path="/" element={<Navigate to="/books/all"/>}/>
-                        <Route path="/books/:category" element={<BookList/>}/>
-                        <Route path="/contract" element={<Contract/>}/>
-                        <Route path="/terms" element={<Terms/>}/>
+                    <Route path={AppPaths.main} element={<MainLayout><MainPage/></MainLayout>}>
+                        <Route path={AppPaths.main} element={<Navigate to={AppPaths.booksAll}/>}/>
+                        <Route path={AppPaths.booksCategory} element={<BookList/>}/>
+                        <Route path={AppPaths.contract} element={<Contract/>}/>
+                        <Route path={AppPaths.terms} element={<Terms/>}/>
                     </Route>
-                    <Route path="/books/:category/:bookId" element={<BookPage/>}/>
-                    <Route path="/users" element={<Welcome/>}>
-                        <Route path="registration" element={<Registration/>}/>
-                        <Route path="login" element={<Login/>}/>
-                    </Route>
+                    <Route path={AppPaths.book}
+                           element={
+                               <MainLayout>
+                                   <BookPage/>
+                               </MainLayout>
+                           }/>
+                    <Route path={AppPaths.registration} element={<AuthLayout><Registration/></AuthLayout>}/>
+                    <Route path={AppPaths.auth} element={<AuthLayout><Login/></AuthLayout>}/>
+                    <Route path={AppPaths.forgotPass}  element={<AuthLayout><ForgotPass/></AuthLayout>}/>
                 </Routes>
-                <Footer/>
             </HashRouter>
         </Provider>
     </React.StrictMode>

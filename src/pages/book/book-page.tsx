@@ -12,11 +12,11 @@ import {ReviewItem} from '../../components/review-item/review-item';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {bookApi} from '../../store/api/book-api';
 import {setErrorTrue} from '../../store/reducers/error-reducer';
-import {API_URL} from '../../utils/constants';
 
 import {Slider} from './slider/slider';
 
 import classes from './book-page.module.scss';
+import {API_URL} from "../../store/api/api-url";
 
 export const BookPage = () => {
 

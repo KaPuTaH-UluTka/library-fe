@@ -1,10 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import classes from './login.module.scss';
+import classes from './forgot-pass.module.scss';
 
-export const Login = () => {
-    console.log('login')
+export const ForgotPass = () => {
+    console.log('forgot')
 
     return (
         <div>

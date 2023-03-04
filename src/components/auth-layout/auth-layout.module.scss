@@ -1,4 +1,4 @@
-.welcome-wrapper{
+.auth-wrapper{
     width: 100%;
     min-height: 100vh;
     background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
@@ -6,14 +6,17 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    .welcome-title {
+    .auth-title {
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 40px;
         color: var(--white-color);
     }
-    .welcome {
-        width: 600px;
-        height: 500px;
-        margin-top: 50px;
+    .auth {
+        width: 528px;
+        margin-top: 46px;
         background: var(--white-color);
-        border-radius: 30px;
+        border-radius: 16px;
+        padding: 48px 56px;
     }
 }

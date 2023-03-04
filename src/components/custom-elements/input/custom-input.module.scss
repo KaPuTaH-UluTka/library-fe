@@ -1,0 +1,90 @@
+.inputWrapper {
+    .input {
+        border: none;
+        background: var(--milk-color);
+        color: var(--black-color);
+        border-bottom: var(--gray-color) 1px solid;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 18px;
+        outline: none;
+        height: 56px;
+        width: 100%;
+        margin-top: 16px;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        padding-left: 12px;
+        padding-top: 5px;
+        transition: 0.2s;
+    }
+
+    .placeholder {
+        color: var(--black-color);
+        position: absolute;
+        margin-left: -404px;
+        margin-top: 37px;
+        transition: 0.2s;
+        pointer-events: none;
+
+        &.focus {
+            transform: translateY(-15px);
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+            transition: 0.2s;
+            color: var(--gray-color);
+        }
+    }
+
+    .inputError {
+        border-bottom: var(--form-error-color) 1px solid;
+        transition: 0.2s;
+    }
+
+    .errorPhone {
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        margin-left: 12px;
+        margin-top: 4px;
+        color: var(--gray-color);
+
+        &.active {
+            color: var(--form-error-color);
+        }
+    }
+
+    .error {
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        margin-left: 12px;
+        margin-top: 4px;
+        color: var(--gray-color);
+        display: none;
+
+        &.visibleError {
+            color: var(--form-error-color);
+            display: block;
+        }
+
+        &.hideError {
+            display: none;
+        }
+    }
+
+    .checkPassImg {
+        position: absolute;
+        top: 20px;
+        right: 40px;
+        width: 25px;
+    }
+
+    .eyeImg {
+        position: absolute;
+        top: 20px;
+        right: 10px;
+        width: 25px;
+        cursor: pointer;
+    }
+}

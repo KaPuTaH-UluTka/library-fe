@@ -3,6 +3,8 @@ import { FreeMode, Navigation, Pagination, Scrollbar, Thumbs } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperInterface } from 'swiper/types';
 
+import {API_URL} from '../../../store/api/api-url';
+
 import classes from './slider.module.scss';
 
 import 'swiper/css';
@@ -11,7 +13,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import 'swiper/css/scrollbar';
 import 'swiper/css/pagination';
-import {API_URL} from "../../../utils/constants";
 
 
 export const Slider = (props: { images: Array<{url: string}> }) => {

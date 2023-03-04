@@ -5,8 +5,8 @@ import noImageBook from '../../../../assets/defaultBook.png'
 import {BookRating} from '../../../../components/book-rating/book-rating';
 import {Highlight} from '../../../../components/search-hightlight/search-highlight';
 import {useAppSelector} from '../../../../hooks/redux';
+import {API_URL} from '../../../../store/api/api-url';
 import {BookCardInterface} from '../../../../types/book-card';
-import {API_URL} from '../../../../utils/constants';
 
 import classesList from './book-card-list.module.scss';
 import classesWindow from './book-card-window.module.scss';
