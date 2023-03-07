@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {ErrorView} from '../../../components/error-view/error-view';
 import {Loader} from '../../../components/loader/loader';
 import {useAppDispatch, useAppSelector} from '../../../hooks/redux';
-import {bookApi} from '../../../store/api/book-api';
+import {libraryApi} from '../../../store/api/library-api';
 import {setBooks} from '../../../store/reducers/book-reducer';
 import {setErrorTrue} from '../../../store/reducers/error-reducer';
 
@@ -15,7 +15,7 @@ import {BookNotExist} from '../../../components/book-not-exist/book-not-exist';
 
 export const BookList = () => {
     const dispatch = useAppDispatch();
-    const {data: books, isLoading, isError} = bookApi.useGetAllBooksQuery();
+    const {data: books, isLoading, isError} = libraryApi.useGetAllBooksQuery();
 
     const {responseError} = useAppSelector(state => state.errorReducer);
 

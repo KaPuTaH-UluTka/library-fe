@@ -11,8 +11,8 @@ export const BookRating = (props: { rating: number }) => {
     return (
         <div className={classes['book-rating']}>
             {stars.map(star => props.rating < star ?
-                <img src={starIcon} alt='rating-empty'/>
+                <img src={starIcon} alt='rating-empty' key={star}/>
                 :
-                <img src={filledStarIcon} alt='rating'/>)}
+                <img src={filledStarIcon} alt='rating' key={star}/>)}
         </div>)
 };

@@ -3,14 +3,15 @@ import {NavLink} from 'react-router-dom';
 import classNames from 'classnames';
 
 import {useAppDispatch, useAppSelector} from '../../../hooks/redux';
-import {bookApi} from '../../../store/api/book-api';
+import {libraryApi} from '../../../store/api/library-api';
 import {setCategories, setCategory} from '../../../store/reducers/category-reducer';
 import {BookCategoryInterface} from '../../../types/book-category';
 import {MenuTestId} from '../../../types/test-id';
 import {countCategories} from '../../../utils/categories-counter';
 
 import classes from './menu.module.scss';
-import {AppPaths} from "../../../types/constants/constants";
+import {AppPaths, DataTestId} from "../../../types/constants/constants";
+import {logout} from "../../../store/reducers/user-reducer";
 
 export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: (arg: boolean) => void, isMenuOpen: boolean }) => {
 
@@ -20,7 +21,7 @@ export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: 
 
     const {books} = useAppSelector(state => state.bookReducer);
 
-    const {data: bookCategories, isSuccess} = bookApi.useGetBookCategoriesQuery();
+    const {data: bookCategories, isSuccess} = libraryApi.useGetBookCategoriesQuery();
 
     const [showcaseStatus, setShowcaseStatus] = useState(true);
 
@@ -113,6 +114,10 @@ export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: 
         bookInCategory = countCategories(books);
     }
 
+    const handleLogout = () => {
+        dispatch(logout());
+    }
+
 
     return (
         <div className={props.isMenuOpen ? classes['menu-wrapper'] : classes.hide}
@@ -158,9 +163,9 @@ export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: 
                     <NavLink
                         className={classNames(classes['general-link'], classes['general-link-profile'])}
                         to="">Профиль</NavLink>
-                    <NavLink
+                    <NavLink data-test-id={DataTestId.ExitButton}
                         className={classNames(classes['general-link'], classes['general-link-exit'])}
-                        to="">Выход</NavLink></React.Fragment>}
+                        to={AppPaths.auth} onClick={handleLogout}>Выход</NavLink></React.Fragment>}
             </div>
         </div>
     );

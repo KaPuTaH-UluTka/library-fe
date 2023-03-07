@@ -8,12 +8,21 @@ export interface User {
 }
 
 export interface RegisteredUser {
-    email: string,
-    username: string,
-    password: string,
-    firstName: string,
-    lastName: string,
-    phone: string
+    jwt: string,
+
+    user: {
+        id: number
+        username: string
+        email: string
+        provider: string
+        confirmed: boolean
+        blocked: false
+        createdAt: string
+        updatedAt: string
+        firstName: string
+        lastName: string
+        phone: string
+    }
 }
 
 export interface LoginUser {
@@ -21,7 +30,11 @@ export interface LoginUser {
     password: string,
 }
 
-export interface ResetUser {
+export interface ForgotPassword {
+    email: string
+}
+
+export interface ResetPassword {
     password: string,
     passwordConfirmation: string,
     code: string

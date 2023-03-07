@@ -26,7 +26,7 @@ root.render(
             <HashRouter>
                 <Routes>
                     <Route path={AppPaths.main} element={<MainLayout><MainPage/></MainLayout>}>
-                        <Route path={AppPaths.main} element={<Navigate to={AppPaths.booksAll}/>}/>
+                        <Route path={AppPaths.main} element={<Navigate to="/books/all"/>}/>
                         <Route path={AppPaths.booksCategory} element={<BookList/>}/>
                         <Route path={AppPaths.contract} element={<Contract/>}/>
                         <Route path={AppPaths.terms} element={<Terms/>}/>

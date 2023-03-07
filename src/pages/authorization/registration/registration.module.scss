@@ -1,143 +1,91 @@
-.registrationWrapper {
-    .registration {
-        &Title {
-            font-weight: 700;
-            font-size: 24px;
-            line-height: 30px;
-            color: var(--black-color);
-        }
+.registration {
+    width: 528px;
+    margin-top: 46px;
+    background: var(--white-color);
+    border-radius: 16px;
+    padding: 48px 56px;
 
-        &Counter {
-            font-weight: 600;
-            font-size: 14px;
-            line-height: 18px;
-            color: var(--black-color);
-        }
+    &Title {
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 30px;
+        color: var(--black-color);
+    }
 
-        .accountExist {
-            margin-top: 16px;
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 24px;
-            letter-spacing: 0.1px;
-            color: var(--gray-color);
-        }
+    &Counter {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 18px;
+        color: var(--black-color);
+    }
 
-        .loginLink {
-            font-weight: 600;
-            font-size: 12px;
-            line-height: 18px;
-            letter-spacing: 0.2px;
-            text-transform: uppercase;
-            color: var(--black-color);
-        }
+    .accountExist {
+        margin-top: 16px;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.1px;
+        color: var(--gray-color);
+    }
 
-        &Form {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            margin-top: 16px;
+    .loginLink {
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 18px;
+        letter-spacing: 0.2px;
+        text-transform: uppercase;
+        color: var(--black-color);
+    }
 
-            &-input {
-                border: none;
-                background: var(--milk-color);
-                color: var(--black-color);
-                border-bottom: var(--gray-color) 1px solid;
-                font-weight: 400;
-                font-size: 14px;
-                line-height: 18px;
-                outline: none;
-                height: 56px;
-                width: 416px;
-                margin-top: 16px;
-                border-top-left-radius: 4px;
-                border-top-right-radius: 4px;
-                padding-left: 12px;
-                padding-top: 5px;
-                transition: 0.2s;
-
-                &-label {
-                    color: var(--black-color);
-                    position: absolute;
-                    margin-left: 12px;
-                    transition: 0.2s;
-                }
-            }
-
-            .input-error {
-                border-bottom: var(--form-error-color) 1px solid;
-                transition: 0.2s;
-            }
-
-            .label-login {
-                margin-top: 35px;
-            }
-
-            .label-password {
-                margin-top: 123px;
-            }
-
-            .registration-form-login:focus ~ .label-login, .registration-form-login:not(:placeholder-shown) ~ .label-login {
-                font-weight: 500;
-                font-size: 12px;
-                line-height: 16px;
-                color: var(--gray-color);
-                transform: translateY(-15px);
-                transition: 0.2s;
-            }
-
-            .registration-form-password:focus ~ .label-password, .registration-form-password:not(:placeholder-shown) ~ .label-password {
-                font-weight: 500;
-                font-size: 12px;
-                line-height: 16px;
-                color: var(--gray-color);
-                transform: translateY(-18px);
-                transition: 0.2s;
-            }
-
-            &-error {
-                font-weight: 500;
-                font-size: 12px;
-                line-height: 16px;
-                margin-left: 12px;
-                color: var(--gray-color);
-
-                .error-active {
-                    color: var(--form-error-color);
-                }
-
-                .mistake {
-                    color: var(--form-error-color);
-                }
-            }
-
-            .submitBtn {
-                width: 416px;
-                height: 52px;
-                margin-top: 32px;
-                background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
-                border-radius: 20px;
-                border: none;
-                font-family: 'Montserrat', serif;
-                font-style: normal;
-                font-weight: 600;
-                font-size: 12px;
-                line-height: 18px;
-                letter-spacing: 0.2px;
-                text-transform: uppercase;
-                cursor: pointer;
-                color: var(--white-color);
-            }
-            .submitBtn:disabled {
-                background: #F9F9FA;
-                border: 1px solid #BFC4C9;
-                color: var(--gray-color);
-                cursor: auto;
-            }
-        }
+    &Form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-top: 16px;
     }
 }
 
+.modalTitle {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    color: var(--black-color);
+}
+
+.modalMessage {
+    margin-top: 32px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+    color: var(--black-color);
+    text-align: center;
+}
+
+.submitBtn {
+    width: 416px;
+    height: 52px;
+    margin-top: 32px;
+    background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+    border-radius: 20px;
+    border: none;
+    font-family: 'Montserrat', serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--white-color);
+}
+
+.submitBtn:disabled {
+    background: #F9F9FA;
+    border: 1px solid #BFC4C9;
+    color: var(--gray-color);
+    cursor: auto;
+}
 
 
 

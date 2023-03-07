@@ -1,72 +1,95 @@
 import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {yupResolver} from '@hookform/resolvers/yup';
-import classNames from 'classnames';
 
-import {AppPaths} from '../../../types/constants/constants';
+import {CustomInput} from '../../../components/custom-elements/input/custom-input';
+import {Loader} from '../../../components/loader/loader';
+import {ModalAuthLayout} from '../../../components/modal-auth-layout/modal-auth-layout';
+import {useRegistrationErrors} from '../../../hooks/use-registration-errors';
+import {isFetchBaseQueryError} from '../../../store/api/api-helpers';
+import {libraryApi} from '../../../store/api/library-api';
+import {AppPaths, DataTestId} from '../../../types/constants/constants';
 import {User} from '../../../types/user';
+import {selectRegistrationSchema} from '../../../utils/authorization';
 
-import {passwordSchema, stageOneSchema, usernameSchema} from './validation';
+import {passwordSchema, usernameSchema} from '../validation';
 
 import classes from './registration.module.scss';
-import {CustomInput} from '../../../components/custom-elements/input/custom-input';
-import {useRegistrationErrors} from '../../../hooks/use-registration-errors';
 
 export const Registration = () => {
-    const [stageOne, setStageOne] = useState(true);
-    const [stageTwo, setStageTwo] = useState(false);
-    const [stageThree, setStageThree] = useState(false);
-    const [stageCounter, setStageCounter] = useState(1);
+    const [registrationStage, setRegistrationStage] = useState(1);
+    const navigate = useNavigate()
+    const [createUser, {isSuccess, isError, isLoading, error, reset: apiReset}] = libraryApi.useCreateUserMutation()
 
-    const {register, formState: {errors}, handleSubmit, watch, clearErrors,} = useForm<User>({
-        defaultValues: {
-            'email': '',
-            'username': '',
-            'password': '',
-            'firstName': '',
-            'lastName': '',
-            'phone': ''
-        },
+    const {register, formState: {errors}, handleSubmit, watch, clearErrors, reset} = useForm<User>({
         mode: 'onBlur',
-        reValidateMode: 'onBlur',
         shouldFocusError: false,
-        resolver: yupResolver(stageOneSchema)
+        resolver: yupResolver(selectRegistrationSchema(registrationStage))
     });
 
-    const toSecondStage = () => {
-        setStageOne(false);
-        setStageTwo(true);
-        setStageCounter(stageCounter + 1);
-    }
-
-    const toThirdStage = () => {
-        setStageTwo(false);
-        setStageThree(true);
-        setStageCounter(stageCounter + 1);
-    }
-
-    const registration = (data: User) => {
-        if(stageThree){
-            console.log('register');
+    const submitHandler = (data: User) => {
+        if(registrationStage < 3){
+            setRegistrationStage(registrationStage + 1);
         }
-        console.log(data);
+        if (registrationStage === 3 && !isError && !isSuccess) {
+            createUser(data);
+        }
+        if (isSuccess) {
+            navigate(AppPaths.auth)
+        }
+        if (isError) {
+            reset();
+            apiReset();
+            setRegistrationStage(1);
+        }
     }
 
-    const { errorsArr: errorsUsername } = useRegistrationErrors(usernameSchema, watch('username'), 'username');
-    const { errorsArr: errorsPassword } = useRegistrationErrors(passwordSchema, watch('password'), 'password');
+    const {errorsArr: errorsUsername} = useRegistrationErrors(usernameSchema, watch('username'), 'username');
+    const {errorsArr: errorsPassword} = useRegistrationErrors(passwordSchema, watch('password'), 'password');
 
-    return (
-        <div className={classes.registrationWrapper}>
-            <div className={classes.registration}>
+    console.log(errors, !!errors.username);
+
+    return (<>
+            {isSuccess && (
+                <ModalAuthLayout>
+                    <h2 className={classes.modalTitle}>Регистрация успешна</h2>
+                    <p className={classes.modalMessage}>
+                        Регистрация прошла успешно. Зайдите в личный кабинет, используя свои логин и
+                        пароль
+                    </p>
+                    <form onSubmit={handleSubmit(submitHandler)}>
+                        <button type="submit"
+                                className={classes.submitBtn}>
+                            Вход
+                        </button>
+                    </form>
+                </ModalAuthLayout>
+            )}
+            {isError && (
+                <ModalAuthLayout>
+                    <h2 className={classes.modalTitle}>Данные не сохранились</h2>
+                    <p className={classes.modalMessage}>
+                        {isFetchBaseQueryError(error) && error.status === 400 ? 'Такой логин или e-mail уже записан в системе. Попробуйте зарегистрироваться по другому логину или e-mail.' : 'Что-то пошло не так и ваша регистрация не завершилась. Попробуйте ещё раз'}
+                    </p>
+                    <form onSubmit={handleSubmit(submitHandler)}>
+                        <button type="submit"
+                                className={classes.submitBtn}>
+                            {isFetchBaseQueryError(error) && error.status === 400 ? 'Назад к регистрации' : 'Повторить'}
+
+                        </button>
+                    </form>
+                </ModalAuthLayout>
+            )}
+            {!isError && !isSuccess && (<div className={classes.registration}>
                 <h2 className={classes.registrationTitle}>Регистрация</h2>
-                <p className={classes.registrationCounter}>{`${stageCounter} шаг из 3`}</p>
+                <p className={classes.registrationCounter}>{`${registrationStage} шаг из 3`}</p>
                 <form className={classes.registrationForm}
-                      onSubmit={handleSubmit(registration)}>
-                    {stageOne && <>
+                      onSubmit={handleSubmit(submitHandler)} data-test-id={DataTestId.RegisterForm}>
+                    {registrationStage === 1 && <>
                         <CustomInput
                             label='username'
-                            register={register('username')}
+                            register={register('username', {required: true})}
                             error={errors.username}
                             placeholder='Придумайте логин для входа'
                             watchName={watch('username')}
@@ -87,47 +110,59 @@ export const Registration = () => {
                             clearErrors={clearErrors}
                         />
                     </>}
-                    {stageTwo && <><input id="firstName" placeholder=" " {...register('firstName', {
-                        required: true,
-                        minLength: {value: 1, message: 'Поле не может быть пустым'},
-                    })}
-                                          className={classNames(classes['registration-form-input'], classes['registration-form-name'])}
-                                          type="text"/>
-                        <label htmlFor="firstName"
-                               className={classes['registration-form-input-label']}>Имя</label>
-                        {errors.firstName?.message && <p role="alert"
-                                                         className={classes['registration-form-error']}>{errors.firstName?.message}</p>}
-                        <input id="lastName" placeholder=" " {...register('lastName', {
-                            required: true,
-                            minLength: {value: 1, message: 'Поле не может быть пустым'}
-                        })}
-                               className={classNames(classes['registration-form-input'], classes['registration-form-surname'])}
-                               type="text"/>
-                        <label htmlFor="lastName"
-                               className={classNames(classes['registration-form-input-label'], classes['label-surname'])}>Фамилия</label>
-                        {errors.lastName?.message && <p role="alert"
-                                                        className={classes['registration-form-error']}>{errors.lastName?.message}</p>}</>}
-                    {stageThree && <><input id="phone" placeholder=" "
-                                            className={classNames(classes['registration-form-input'], classes['registration-form-phone'])}
-                                            type="tel"/>
-                        <label htmlFor="phone" className={classes['registration-form-input-label']}>Номер
-                            телефона</label>
-                        <input id="email" placeholder=" "
-                               className={classNames(classes['registration-form-input'], classes['registration-form-mail'])}
-                               type="email"/>
-                        <label htmlFor="email"
-                               className={classes['registration-form-input-label']}>E-mail</label></>}
-                    {stageOne && <button type="button" className={classes.submitBtn}
-                                         onClick={toSecondStage}>Следующий шаг</button>}
-                    {stageTwo && <button type="button" className={classes.submitBtn}
-                                         onClick={toThirdStage}>Последний шаг</button>}
-                    {stageThree &&
-                        <button type="submit" className={classes.submitBtn}>Зарегистрироваться</button>}
+                    {registrationStage === 2 && <>
+                        <CustomInput
+                            label='firstName'
+                            register={register('firstName')}
+                            error={errors.firstName}
+                            placeholder='Имя'
+                            watchName={watch('firstName')}
+                            type='text'
+                            clearErrors={clearErrors}
+                        />
+                        <CustomInput
+                            label='lastName'
+                            register={register('lastName')}
+                            error={errors.lastName}
+                            placeholder='Фамилия'
+                            watchName={watch('lastName')}
+                            type='text'
+                            clearErrors={clearErrors}
+                        /></>}
+                    {registrationStage === 3 && <>
+                        <CustomInput
+                            label='phone'
+                            register={register('phone')}
+                            messageHelper='В формате +375 (xx) xxx-xx-xx'
+                            error={errors.phone}
+                            placeholder='Номер телефона'
+                            watchName={watch('phone')}
+                            type='text'
+                            mask='+375 (99) 999-99-99'
+                            maskPlaceholder='x'
+                            clearErrors={clearErrors}
+                        />
+                        <CustomInput
+                            label='email'
+                            register={register('email')}
+                            error={errors.email}
+                            placeholder='E-mail'
+                            watchName={watch('email')}
+                            type='email'
+                            clearErrors={clearErrors}
+                        /></>}
+                    <button type="submit"
+                            className={classes.submitBtn}>
+                        {registrationStage === 1 && 'Следующий шаг'}
+                        {registrationStage === 2 && 'Последний шаг'}
+                        {registrationStage === 3 && 'Зарегистрироваться'}
+                    </button>
                 </form>
                 <p className={classes.accountExist}>Есть учётная запись? <Link
                     className={classes.loginLink} to={AppPaths.auth}>Войти</Link>
                 </p>
-            </div>
-        </div>
+            </div>)}
+            {isLoading && <Loader/>}
+        </>
     );
 };

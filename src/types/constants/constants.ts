@@ -2,8 +2,8 @@ export enum AppPaths {
     main = '/',
     books = '/books',
     booksAll = '/books/all',
-    booksCategory = '/books/=category',
-    book = '/books/=category/=bookId',
+    booksCategory = '/books/:category',
+    book = '/books/:category/:bookId',
     terms = '/terms',
     contract = '/contract',
     registration = '/registration',
@@ -13,7 +13,15 @@ export enum AppPaths {
 
 export enum ApiPaths {
     books = '/books',
-    categories = '/categories'
+    categories = '/categories',
+
+    createUser = '/auth/local/register',
+
+    loginUser = '/auth/local',
+
+    forgotPassword = '/auth/forgot-password',
+
+    resetPassword = '/auth/reset-password'
 }
 
 export enum DataTestId {
@@ -37,4 +45,6 @@ export enum RegistrationErrorMessages {
     atLeastEightCharacters = 'не менее 8 символов',
     withNumber = 'цифрой',
     withUpperLetter = 'с заглавной буквой',
+    phone = 'В формате +375 (xx) xxx-xx-xx',
+    email = 'Введите корректный e-mail',
 }

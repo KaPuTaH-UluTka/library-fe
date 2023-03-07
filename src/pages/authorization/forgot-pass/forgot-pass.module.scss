@@ -1,0 +1,17 @@
+.forgotWrapper{
+    .forgot{
+        width: 528px;
+        margin-top: 46px;
+        background: var(--white-color);
+        border-radius: 16px;
+        padding: 48px 56px;
+        .registrationLink {
+            margin-top: 16px;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 24px;
+            letter-spacing: 0.1px;
+            color: var(--gray-color);
+        }
+    }
+}

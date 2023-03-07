@@ -1,5 +1,10 @@
 .loginWrapper {
     .login {
+        width: 528px;
+        margin-top: 46px;
+        background: var(--white-color);
+        border-radius: 16px;
+        padding: 48px 56px;
         &Title {
             font-weight: 700;
             font-size: 24px;

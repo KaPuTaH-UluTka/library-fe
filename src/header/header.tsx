@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
+import classNames from 'classnames';
 
 import userAvatar from '../assets/avatar.jpg';
 import logoClevertec from '../assets/logoCleverland.svg';
+import {useAppDispatch} from '../hooks/redux';
 import { Menu } from '../pages/main/menu/menu';
+import {logout} from '../store/reducers/user-reducer';
+import {AppPaths, DataTestId} from '../types/constants/constants';
 
 import classes from './header.module.scss';
 
 export const Header = () => {
+    const dispatch = useAppDispatch();
+
     const user = { name: 'Иван', avatar: userAvatar };
 
     const testId = {
@@ -21,6 +27,10 @@ export const Header = () => {
     };
 
     const [isMenuOpen, menuToggle] = useState(false);
+
+    const handleLogout = () => {
+        dispatch(logout());
+    }
 
     return (
         <header className={classes.header}>
@@ -40,6 +50,12 @@ export const Header = () => {
                 <div className={classes['welcome-wrapper']}>
                     <h3 className={classes['welcome-title']}>{`Привет, ${user.name}!`}</h3>
                     <img className={classes['user-avatar']} src={user.avatar} alt="avatar" />
+                    <NavLink
+                        className={classNames(classes['general-link'], classes['general-link-profile'])}
+                        to="">Профиль</NavLink>
+                    <NavLink data-test-id={DataTestId.ExitButton}
+                             className={classNames(classes['general-link'], classes['general-link-exit'])}
+                             to={AppPaths.auth} onClick={handleLogout}>Выход</NavLink>
                 </div>
             </div>
         </header>);
