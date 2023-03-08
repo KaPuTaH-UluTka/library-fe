@@ -25,6 +25,7 @@ export enum ApiPaths {
 }
 
 export enum DataTestId {
+    ButtonBurger = 'button-burger',
     Auth = 'auth',
     AuthForm = 'auth-form',
     RegisterForm = 'register-form',
@@ -47,4 +48,14 @@ export enum RegistrationErrorMessages {
     withUpperLetter = 'с заглавной буквой',
     phone = 'В формате +375 (xx) xxx-xx-xx',
     email = 'Введите корректный e-mail',
+}
+
+export enum RegistrationResponseErrors {
+    userExist = 'Такой логин или e-mail уже записан в системе. Попробуйте зарегистрироваться по другому логину или e-mail.',
+    smthWrong = 'Что-то пошло не так и ваша регистрация не завершилась. Попробуйте ещё раз',
+}
+
+export enum LoginResponseErrors {
+    incorrectLoginOrPassword = 'Неверный логин или пароль!',
+    smthWrong = 'Что-то пошло не так. Попробуйте ещё раз',
 }

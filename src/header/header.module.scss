@@ -3,7 +3,7 @@
     width: 100%;
     justify-content: center;
 
-    &-bar {
+    &Bar {
         max-width: 1110px;
         margin-top: 40px;
         width: 100%;
@@ -13,18 +13,14 @@
         flex-direction: row;
         justify-content: space-between;
 
-        .logo {
-
-        }
-
-        .burger-menu {
+        .burgerMenu{
             display: none;
 
-            .menu-toggle {
+            .menuToggle {
                 opacity: 0;
             }
 
-            .menu-btn {
+            .menuBtn {
                 display: flex;
                 align-items: center;
                 position: absolute;
@@ -37,9 +33,9 @@
                 margin-top: 26px;
             }
 
-            .menu-btn > span,
-            .menu-btn > span::before,
-            .menu-btn > span::after {
+            .menuBtn > span,
+            .menuBtn > span::before,
+            .menuBtn > span::after {
                 display: block;
                 position: absolute;
                 width: 100%;
@@ -47,60 +43,60 @@
                 background-color: #616161;
             }
 
-            .menu-btn > span::before {
+            .menuBtn > span::before {
                 content: '';
                 top: -8px;
             }
 
-            .menu-btn > span::after {
+            .menuBtn > span::after {
                 content: '';
                 top: 8px;
             }
 
-            .menu-toggle:checked ~ .menu-btn > span {
+            .menuToggle:checked ~ .menuBtn > span {
                 transform: rotate(45deg);
                 background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
             }
 
-            .menu-toggle:checked ~ .menu-btn > span::before {
+            .menuToggle:checked ~ .menuBtn > span::before {
                 top: 0;
                 transform: rotate(0);
                 background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
             }
 
-            .menu-toggle:checked ~ .menu-btn > span::after {
+            .menuToggle:checked ~ .menuBtn > span::after {
                 top: 0;
                 transform: rotate(90deg);
                 background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
             }
 
-            .menu-toggle:checked ~ .menu-btn {
+            .menuToggle:checked ~ .menuBtn {
                 visibility: visible;
                 left: 0;
             }
 
-            .menu-toggle:checked ~ .menu-btn > span {
+            .menuToggle:checked ~ .menuBtn > span {
                 transform: rotate(45deg);
             }
 
-            .menu-toggle:checked ~ .menu-btn > span::before {
+            .menuToggle:checked ~ .menuBtn > span::before {
                 top: 0;
                 transform: rotate(0);
             }
 
-            .menu-toggle:checked ~ .menu-btn > span::after {
+            .menuToggle:checked ~ .menuBtn > span::after {
                 top: 0;
                 transform: rotate(90deg);
             }
 
-            .menu-toggle:checked ~ .menu-box {
+            .menuToggle:checked ~ .menu-box {
                 visibility: visible;
                 left: 0;
             }
 
-            .menu-btn > span,
-            .menu-btn > span::before,
-            .menu-btn > span::after {
+            .menuBtn > span,
+            .menuBtn > span::before,
+            .menuBtn > span::after {
                 transition-duration: .25s;
             }
 
@@ -113,7 +109,7 @@
             }
         }
 
-        .header-title {
+        .headerTitle {
             font-weight: 700;
             font-size: 32px;
             line-height: 40px;
@@ -121,12 +117,13 @@
             color: var(--black-color);
         }
 
-        .welcome-wrapper {
+        .welcomeWrapper {
             display: flex;
             flex-direction: row;
             align-items: center;
+            cursor: pointer;
 
-            .welcome-title {
+            .welcomeTitle {
                 font-weight: 600;
                 font-size: 14px;
                 line-height: 18px;
@@ -136,18 +133,59 @@
                 color: var(--black-color);
             }
 
-            .user-avatar {
+            .userAvatar {
                 margin-left: 8px;
                 width: 68px;
                 height: 68px;
             }
         }
     }
+    .contextMenu {
+        position: absolute;
+        width: 270px;
+        height: 0;
+        visibility: hidden;
+        box-shadow: 4px 4px 4px rgba(54, 54, 54, 0.05), -4px 4px 4px rgba(54, 54, 54, 0.05);
+        border-radius: 0px 0px 10px 10px;
+        background: var(--white-color);
+        margin-top: 98px;
+        z-index: 11;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        padding: 32px 24px;
+        row-gap: 32px;
+        margin-left: 837px;
+        .contextLink{
+            font-weight: 700;
+            font-size: 0px;
+            line-height: 28px;
+            color: var(--black-color);
+            transition: 0.3s;
+
+        }
+        .contextLink:hover {
+            color: #FF5253;
+            transition: 0.3s;
+        }
+        .activeLink {
+            font-size: 18px;
+        }
+    }
+    .activeContext {
+        visibility: visible;
+        transition: 0.3s;
+        height: 152px;
+    }
+}
+
+.activeHeader {
+    box-shadow: 4px 4px 4px rgba(54, 54, 54, 0.05), -4px 4px 4px rgba(54, 54, 54, 0.05);
 }
 
 @media (max-width: 899px) {
     .header {
-        &-bar {
+        &Bar {
             justify-content: normal;
             margin-top: 32px;
 
@@ -155,16 +193,19 @@
                 display: none;
             }
 
-            .burger-menu {
+            .burgerMenu {
                 display: block;
             }
 
-            .header-title {
+            .headerTitle {
                 margin-top: 10px;
                 margin-left: 100px;
             }
 
-            .welcome-wrapper {
+            .welcomeWrapper {
+                display: none;
+            }
+            .contextMenu {
                 display: none;
             }
         }
@@ -173,7 +214,7 @@
 
 @media (max-width: 320px) {
     .header {
-        &-bar {
+        &Bar {
             margin-top: 24px;
             justify-content: normal;
 
@@ -181,13 +222,13 @@
                 display: none;
             }
 
-            .burger-menu {
+            .burgerMenu {
 
-                .menu-toggle {
+                .menuToggle {
                     opacity: 0;
                 }
 
-                .menu-btn {
+                .menuBtn {
                     top: 13px;
                     width: 20px;
                     height: 20px;
@@ -195,24 +236,24 @@
                     margin-top: 24px;
                 }
 
-                .menu-btn > span::before {
+                .menuBtn > span::before {
                     content: '';
                     top: -6px;
                 }
 
-                .menu-btn > span::after {
+                .menuBtn > span::after {
                     content: '';
                     top: 6px;
                 }
             }
 
-            .header-title {
+            .headerTitle {
                 font-size: 18px;
                 line-height: 28px;
                 margin-left: 44px;
             }
 
-            .welcome-wrapper {
+            .welcomeWrapper {
                 display: none;
             }
         }

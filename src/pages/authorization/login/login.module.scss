@@ -5,6 +5,7 @@
         background: var(--white-color);
         border-radius: 16px;
         padding: 48px 56px;
+
         &Title {
             font-weight: 700;
             font-size: 24px;
@@ -19,12 +20,29 @@
             margin-top: 16px;
 
             .forgotLink {
-                margin-top: 16px;
+                margin-left: 12px;
                 font-weight: 400;
                 font-size: 12px;
                 line-height: 24px;
                 letter-spacing: 0.1px;
                 color: var(--gray-color);
+                &.error {
+                    color: var(--form-error-color);
+                }
+            }
+
+            .errorMessage {
+                color: var(--form-error-color);
+                font-size: 12px;
+                margin-top: 16px;
+                line-height: 16px;
+                font-weight: 500;
+                margin-left: 12px;
+                visibility: hidden;
+
+                &.visibleError {
+                    visibility: visible;
+                }
             }
 
             .submitBtn {
@@ -44,6 +62,7 @@
                 cursor: pointer;
                 color: var(--white-color);
             }
+
             .submitBtn:disabled {
                 background: #F9F9FA;
                 border: 1px solid #BFC4C9;
@@ -59,6 +78,7 @@
             line-height: 24px;
             letter-spacing: 0.1px;
             color: var(--gray-color);
+
             .registrationLink {
                 font-weight: 600;
                 font-size: 12px;
@@ -69,4 +89,46 @@
             }
         }
     }
+}
+
+.modalTitle {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    color: var(--black-color);
+}
+
+.modalMessage {
+    margin-top: 32px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+    color: var(--black-color);
+    text-align: center;
+}
+
+.submitBtn {
+    width: 416px;
+    height: 52px;
+    margin-top: 32px;
+    background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+    border-radius: 20px;
+    border: none;
+    font-family: 'Montserrat', serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--white-color);
+}
+
+.submitBtn:disabled {
+    background: #F9F9FA;
+    border: 1px solid #BFC4C9;
+    color: var(--gray-color);
+    cursor: auto;
 }

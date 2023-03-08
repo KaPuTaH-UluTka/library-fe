@@ -11,7 +11,7 @@ interface UserState {
 let parsedUser: RegisteredUser | null = null;
 const storageUser: string | null = localStorage.getItem('user');
 
-if (storageUser === 'string') {
+if (storageUser) {
     parsedUser = JSON.parse(storageUser);
 }
 

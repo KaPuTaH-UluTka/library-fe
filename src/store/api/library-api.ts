@@ -14,21 +14,23 @@ import {
 
 import {API_URL} from './api-url';
 
+const token = localStorage.getItem('token');
+
 export const libraryApi = createApi({
     reducerPath: 'libraryApi',
     baseQuery: fetchBaseQuery({ baseUrl: `${API_URL}/api`
             }),
     endpoints: (builder) => ({
         getBookCategories: builder.query<BookCategoryInterface[], void>({
-            query: () => ({url: ApiPaths.categories, headers:{'authorization': `Bearer ${localStorage.getItem('token')}`}}),
+            query: () => ({url: ApiPaths.categories, headers:{'authorization': `Bearer ${token}`}}),
         }),
         getAllBooks: builder.query<BookCardInterface[], void>({
             keepUnusedDataFor: 0,
-            query: () => ({url: ApiPaths.books, headers:{'authorization': `Bearer ${localStorage.getItem('token')}`}}),
+            query: () => ({url: ApiPaths.books, headers:{'authorization': `Bearer ${token}`}}),
         }),
         getBookById: builder.query<BookInterface, string | null>({
             keepUnusedDataFor: 0,
-            query: (id) => ({url: `${ApiPaths.books}/${id}`, headers:{'authorization': `Bearer ${localStorage.getItem('token')}`}}),
+            query: (id) => ({url: `${ApiPaths.books}/${id}`, headers:{'authorization': `Bearer ${token}`}}),
         }),
         createUser: builder.mutation<RegisteredUser,User>({
             query:(user) => ({

@@ -9,7 +9,7 @@ import {ModalAuthLayout} from '../../../components/modal-auth-layout/modal-auth-
 import {useRegistrationErrors} from '../../../hooks/use-registration-errors';
 import {isFetchBaseQueryError} from '../../../store/api/api-helpers';
 import {libraryApi} from '../../../store/api/library-api';
-import {AppPaths, DataTestId} from '../../../types/constants/constants';
+import {AppPaths, DataTestId, RegistrationResponseErrors} from '../../../types/constants/constants';
 import {User} from '../../../types/user';
 import {selectRegistrationSchema} from '../../../utils/authorization';
 
@@ -19,7 +19,7 @@ import classes from './registration.module.scss';
 
 export const Registration = () => {
     const [registrationStage, setRegistrationStage] = useState(1);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [createUser, {isSuccess, isError, isLoading, error, reset: apiReset}] = libraryApi.useCreateUserMutation()
 
     const {register, formState: {errors}, handleSubmit, watch, clearErrors, reset} = useForm<User>({
@@ -70,7 +70,7 @@ export const Registration = () => {
                 <ModalAuthLayout>
                     <h2 className={classes.modalTitle}>Данные не сохранились</h2>
                     <p className={classes.modalMessage}>
-                        {isFetchBaseQueryError(error) && error.status === 400 ? 'Такой логин или e-mail уже записан в системе. Попробуйте зарегистрироваться по другому логину или e-mail.' : 'Что-то пошло не так и ваша регистрация не завершилась. Попробуйте ещё раз'}
+                        {isFetchBaseQueryError(error) && error.status === 400 ? RegistrationResponseErrors.userExist : RegistrationResponseErrors.smthWrong}
                     </p>
                     <form onSubmit={handleSubmit(submitHandler)}>
                         <button type="submit"
