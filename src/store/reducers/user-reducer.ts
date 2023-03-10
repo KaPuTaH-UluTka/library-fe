@@ -12,7 +12,7 @@ let parsedUser: RegisteredUser | null = null;
 const storageUser: string | null = localStorage.getItem('user');
 
 if (storageUser) {
-    parsedUser = JSON.parse(storageUser);
+    parsedUser = JSON.parse(storageUser).user;
 }
 
 const initialState: UserState = {
@@ -26,14 +26,17 @@ export const UserReducer = createSlice({
         reducers: {
             setToken: (state, token) => {
                 state.token = token.payload;
+                localStorage.setItem('token', token.payload);
             },
             setUser: (state, user) => {
                 state.user = user.payload;
+                localStorage.setItem('user', JSON.stringify(user.payload));
             },
             logout: state => {
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
                 state.user = null;
+                state.token = null;
             },
         }
     }

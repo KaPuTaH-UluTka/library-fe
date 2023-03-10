@@ -8,9 +8,6 @@ export interface User {
 }
 
 export interface RegisteredUser {
-    jwt: string,
-
-    user: {
         id: number
         username: string
         email: string
@@ -22,7 +19,12 @@ export interface RegisteredUser {
         firstName: string
         lastName: string
         phone: string
-    }
+
+}
+
+export interface AuthResponse {
+    jwt: string,
+    user: RegisteredUser
 }
 
 export interface LoginUser {
@@ -40,3 +42,8 @@ export interface ResetPassword {
     code: string
 }
 
+export interface ForgotPasswordFields {
+    password: string,
+    passwordConfirmation: string,
+    email: string
+}

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {FormEvent, useState} from 'react';
 import {FieldError, UseFormClearErrors, UseFormRegisterReturn} from 'react-hook-form';
 import InputMask from 'react-input-mask';
 import classNames from 'classnames';
@@ -28,7 +28,8 @@ type CustomInputProps = {
     clearErrors?: UseFormClearErrors<any>
 }
 
-export const CustomInput = ({label,
+export const CustomInput = ({
+                                label,
                                 register,
                                 placeholder,
                                 watchName,
@@ -40,7 +41,8 @@ export const CustomInput = ({label,
                                 maskPlaceholder,
                                 errors,
                                 isFullColorError,
-                                clearErrors,}: CustomInputProps) => {
+                                clearErrors,
+                            }: CustomInputProps) => {
     const [isOpenEye, setIsOpenEye] = useState(false);
     const [isOnFocus, setIsOnFocus] = useState(false);
 
@@ -61,36 +63,37 @@ export const CustomInput = ({label,
         watchName && (label === 'password' || label === 'passwordConfirmation');
 
     const focusHandler = () => {
-        if(clearErrors) clearErrors();
-        setIsOnFocus(true)
+        if (clearErrors) clearErrors();
+        setIsOnFocus(true);
     }
 
-    const blurHandler = () => {
+    const blurHandler = (e: React.FocusEvent<HTMLInputElement> ) => {
         setIsOnFocus(false);
+        register.onBlur(e);
     }
 
     return (<div className={classNames(classes.inputWrapper)}> {mask ? (
         <InputMask
-            className={classNames(classes.input, { [classes.inputError]: error?.message })}
+            className={classNames(classes.input, {[classes.inputError]: error?.message})}
             type={isOpenEye ? 'text' : type}
             maskChar={maskPlaceholder}
             mask={mask}
             {...register}
             alwaysShowMask={!error?.message && !watchName && label !== 'phone'}
             onFocus={focusHandler}
-            onBlur={blurHandler}
+            onBlur={(e) => blurHandler(e)}
         />
     ) : (
         <input
-            className={classNames(classes.input, { [classes.inputError]: error?.message })}
+            className={classNames(classes.input, {[classes.inputError]: error?.message})}
             {...register}
             type={isOpenEye ? 'text' : type}
             onFocus={focusHandler}
-            onBlur={blurHandler}
+            onBlur={(e) => blurHandler(e)}
         />
     )}
         <label
-               className={classNames(classes.placeholder, { [classes.focus]: isOnFocus || watchName })}>{placeholder}</label>
+            className={classNames(classes.placeholder, {[classes.focus]: isOnFocus || watchName})}>{placeholder}</label>
         {errors && error?.type !== 'required' && (
             <HintHighlight
                 errors={errors}

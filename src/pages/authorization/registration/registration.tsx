@@ -3,6 +3,7 @@ import {useForm} from 'react-hook-form';
 import {Link, useNavigate} from 'react-router-dom';
 import {yupResolver} from '@hookform/resolvers/yup';
 
+import RightArrow from '../../../assets/auth-icons/arrowRight.svg'
 import {CustomInput} from '../../../components/custom-elements/input/custom-input';
 import {Loader} from '../../../components/loader/loader';
 import {ModalAuthLayout} from '../../../components/modal-auth-layout/modal-auth-layout';
@@ -12,7 +13,6 @@ import {libraryApi} from '../../../store/api/library-api';
 import {AppPaths, DataTestId, RegistrationResponseErrors} from '../../../types/constants/constants';
 import {User} from '../../../types/user';
 import {selectRegistrationSchema} from '../../../utils/authorization';
-
 import {passwordSchema, usernameSchema} from '../validation';
 
 import classes from './registration.module.scss';
@@ -20,20 +20,27 @@ import classes from './registration.module.scss';
 export const Registration = () => {
     const [registrationStage, setRegistrationStage] = useState(1);
     const navigate = useNavigate();
-    const [createUser, {isSuccess, isError, isLoading, error, reset: apiReset}] = libraryApi.useCreateUserMutation()
+    const [createUser, {
+        isSuccess,
+        isError,
+        isLoading,
+        error,
+        reset: apiReset
+    }] = libraryApi.useCreateUserMutation()
 
     const {register, formState: {errors}, handleSubmit, watch, clearErrors, reset} = useForm<User>({
         mode: 'onBlur',
+        reValidateMode: 'onBlur',
         shouldFocusError: false,
         resolver: yupResolver(selectRegistrationSchema(registrationStage))
     });
 
     const submitHandler = (data: User) => {
-        if(registrationStage < 3){
+        if (registrationStage < 3) {
             setRegistrationStage(registrationStage + 1);
         }
         if (registrationStage === 3 && !isError && !isSuccess) {
-            createUser(data);
+            createUser(data).catch(err => err);
         }
         if (isSuccess) {
             navigate(AppPaths.auth)
@@ -48,8 +55,6 @@ export const Registration = () => {
     const {errorsArr: errorsUsername} = useRegistrationErrors(usernameSchema, watch('username'), 'username');
     const {errorsArr: errorsPassword} = useRegistrationErrors(passwordSchema, watch('password'), 'password');
 
-    console.log(errors, !!errors.username);
-
     return (<>
             {isSuccess && (
                 <ModalAuthLayout>
@@ -58,7 +63,8 @@ export const Registration = () => {
                         Регистрация прошла успешно. Зайдите в личный кабинет, используя свои логин и
                         пароль
                     </p>
-                    <form onSubmit={handleSubmit(submitHandler)}>
+                    <form className={classes.registrationForm}
+                          onSubmit={handleSubmit(submitHandler)}>
                         <button type="submit"
                                 className={classes.submitBtn}>
                             Вход
@@ -72,7 +78,8 @@ export const Registration = () => {
                     <p className={classes.modalMessage}>
                         {isFetchBaseQueryError(error) && error.status === 400 ? RegistrationResponseErrors.userExist : RegistrationResponseErrors.smthWrong}
                     </p>
-                    <form onSubmit={handleSubmit(submitHandler)}>
+                    <form className={classes.registrationForm}
+                          onSubmit={handleSubmit(submitHandler)}>
                         <button type="submit"
                                 className={classes.submitBtn}>
                             {isFetchBaseQueryError(error) && error.status === 400 ? 'Назад к регистрации' : 'Повторить'}
@@ -152,14 +159,21 @@ export const Registration = () => {
                             clearErrors={clearErrors}
                         /></>}
                     <button type="submit"
-                            className={classes.submitBtn}>
+                            className={classes.submitBtn} disabled={
+                        !!errors.username ||
+                        !!errors.password ||
+                        !!errors.firstName ||
+                        !!errors.lastName ||
+                        !!errors.phone ||
+                        !!errors.email}>
                         {registrationStage === 1 && 'Следующий шаг'}
                         {registrationStage === 2 && 'Последний шаг'}
                         {registrationStage === 3 && 'Зарегистрироваться'}
                     </button>
                 </form>
-                <p className={classes.accountExist}>Есть учётная запись? <Link
-                    className={classes.loginLink} to={AppPaths.auth}>Войти</Link>
+                <p className={classes.accountExist}>Есть учётная запись?<Link
+                    className={classes.loginLink} to={AppPaths.auth}>Войти<img src={RightArrow}
+                                                                               alt='rightArrow'/></Link>
                 </p>
             </div>)}
             {isLoading && <Loader/>}

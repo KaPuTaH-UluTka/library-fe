@@ -8,3 +8,11 @@
     align-items: center;
     flex-direction: column;
 }
+
+@media (max-width: 600px) {
+    .ModalWrapper {
+        width: 288px;
+        margin-top: 101px;
+        padding: 32px 16px;
+    }
+}

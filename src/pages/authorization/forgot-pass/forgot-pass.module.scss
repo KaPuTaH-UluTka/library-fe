@@ -5,13 +5,186 @@
         background: var(--white-color);
         border-radius: 16px;
         padding: 48px 56px;
-        .registrationLink {
+        &Title {
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 30px;
+            color: var(--black-color);
+        }
+        .activeNav {
+            margin-top: 32px;
+        }
+        .loginNav {
+            display: flex;
+            position: absolute;
+            color: var(--dark-gray-color);
+            background: var(--milk-color);
+            align-items: center;
+            width: 528px;
+            height: 64px;
+            border-radius: 16px 16px 0 0;
+            padding: 20px 16px;
+            margin-top: -48px;
+            margin-left: -56px;
+            .loginLink {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                column-gap: 16px;
+                font-weight: 600;
+                font-size: 12px;
+                line-height: 18px;
+                letter-spacing: 0.2px;
+                text-transform: uppercase;
+            }
+        }
+
+        .hint {
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+            margin-left: 12px;
+            margin-top: 4px;
+            color: var(--gray-color);
+        }
+        .hintError {
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+            margin-left: 12px;
+            margin-top: 4px;
+            color: var(--form-error-color);
+        }
+
+        .info {
             margin-top: 16px;
             font-weight: 400;
-            font-size: 12px;
+            font-size: 16px;
             line-height: 24px;
             letter-spacing: 0.1px;
             color: var(--gray-color);
         }
+
+        .accountNotExist {
+            margin-top: 16px;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 0.1px;
+            color: var(--gray-color);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            column-gap: 10px;
+
+            .registrationLink {
+                font-weight: 600;
+                font-size: 12px;
+                line-height: 18px;
+                letter-spacing: 0.2px;
+                text-transform: uppercase;
+                color: var(--black-color);
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                column-gap: 10px;
+            }
+        }
     }
+}
+
+.modalTitle {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    color: var(--black-color);
+    text-align: center;
+}
+
+.modalMessage {
+    margin-top: 24px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+    color: var(--black-color);
+    text-align: center;
+}
+
+.submitBtn {
+    width: 100%;
+    height: 52px;
+    margin-top: 17px;
+    background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+    border-radius: 20px;
+    border: none;
+    font-family: 'Montserrat', serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--white-color);
+}
+
+.submitBtn:disabled {
+    background: #F9F9FA;
+    border: 1px solid #BFC4C9;
+    color: var(--gray-color);
+    cursor: auto;
+}
+
+.forgotForm {
+    width: 100%;
+}
+
+@media (max-width: 600px) {
+        .forgotWrapper {
+            .forgot {
+                margin-top: 4px;
+                width: 288px;
+                padding: 24px 16px;
+                .activeNav {
+                    margin-top: 64px;
+                }
+                .loginNav {
+                    width: 288px;
+                    padding: 20px 16px;
+                    margin-top: -24px;
+                    margin-left: -16px;
+                    .loginLink {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        column-gap: 16px;
+                        font-weight: 600;
+                        font-size: 12px;
+                        line-height: 18px;
+                        letter-spacing: 0.2px;
+                        text-transform: uppercase;
+                    }
+                }
+                .accountNotExist {
+                    flex-direction: column;
+                    align-items: unset;
+                }
+                .info {
+                    font-size: 15px;
+                    line-height: 20px;
+                }
+            }
+        }
+    .modalTitle {
+        font-size: 18px;
+        line-height: 28px;
+    }
+
+    .modalMessage {
+        font-size: 15px;
+        line-height: 20px;
+    }
+
+
 }

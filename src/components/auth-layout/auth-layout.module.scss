@@ -13,3 +13,12 @@
         color: var(--white-color);
     }
 }
+
+@media (max-width: 600px) {
+    .authWrapper {
+       justify-content: flex-start;
+        .authTitle {
+            margin-top: 16px;
+        }
+    }
+}

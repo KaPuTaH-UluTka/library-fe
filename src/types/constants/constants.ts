@@ -26,6 +26,7 @@ export enum ApiPaths {
 
 export enum DataTestId {
     ButtonBurger = 'button-burger',
+    Loader = 'loader',
     Auth = 'auth',
     AuthForm = 'auth-form',
     RegisterForm = 'register-form',
@@ -58,4 +59,11 @@ export enum RegistrationResponseErrors {
 export enum LoginResponseErrors {
     incorrectLoginOrPassword = 'Неверный логин или пароль!',
     smthWrong = 'Что-то пошло не так. Попробуйте ещё раз',
+
 }
+
+export enum ForgotErrorMessages {
+    comparePasswords = 'Пароли не совпадают',
+    smthWrong = 'Что-то пошло не так. Попробуйте ещё раз',
+}
+

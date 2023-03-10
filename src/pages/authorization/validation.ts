@@ -1,4 +1,4 @@
-import {object, string} from 'yup';
+import {lazy, object, ref, string} from 'yup';
 
 import {RegistrationErrorMessages} from '../../types/constants/constants';
 
@@ -64,4 +64,19 @@ export const forgotPasswordSchema = object({
     email: string()
         .required(RegistrationErrorMessages.required)
         .matches(Regex.email, RegistrationErrorMessages.email),
+})
+
+export const resetPasswordSchema = object({
+    password: string()
+        .required(RegistrationErrorMessages.required)
+        .min(8, RegistrationErrorMessages.atLeastEightCharacters)
+        .matches(Regex.passwordUpperLetter, { message: RegistrationErrorMessages.withUpperLetter })
+        .matches(Regex.passwordOneNum, { message: RegistrationErrorMessages.withNumber }),
+    passwordConfirmation: lazy(value =>
+        string().when('passwordConfirmation', (_, schema) =>
+            value === ''
+                ? schema.required(RegistrationErrorMessages.required)
+                : schema.oneOf([ref('password')], 'Пароли не совпадают')
+        )
+    ),
 })

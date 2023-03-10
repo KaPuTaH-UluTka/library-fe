@@ -31,7 +31,6 @@ export const Header = () => {
 
     const logoutHandler = () => dispatch(logout());
 
-
     const contextMenuHandler = () => setIsContextMenu(!isContextMenu);
 
     return (
@@ -51,17 +50,17 @@ export const Header = () => {
                 </div>
                 <h3 className={classes.headerTitle}>Библиотека</h3>
                 <div className={classes.welcomeWrapper} onClick={contextMenuHandler}>
-                    <h3 className={classes.welcomeTitle}>{`Привет, ${user?.user.firstName}!`}</h3>
+                    <h3 className={classes.welcomeTitle}>{`Привет, ${user?.firstName}!`}</h3>
                     <img className={classes.userAvatar} src={userAvatar} alt="avatar"/>
                 </div>
             </div>
-            <div className={classNames(classes.contextMenu, {[classes.activeContext]: isContextMenu })}>
+            {isContextMenu && <div className={classNames(classes.contextMenu, {[classes.activeContext]: isContextMenu })}>
                 <NavLink
                     className={classNames(classes.contextLink, {[classes.activeLink]: isContextMenu })}
                     to="">Профиль</NavLink>
                 <NavLink data-test-id={DataTestId.ExitButton}
                          className={classNames(classes.contextLink, {[classes.activeLink]: isContextMenu })}
                          to={AppPaths.auth} onClick={logoutHandler}>Выход</NavLink>
-            </div>
+            </div>}
         </header>);
 };

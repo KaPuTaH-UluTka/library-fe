@@ -16,7 +16,6 @@ export const MainPage = () => {
         contractId: 'navigation-contract'
     };
 
-
     const [size, setSize] = useState<{clientHeight: null | number, clientWidth: null | number}>({clientHeight: null, clientWidth: null});
 
     const ref = useRef<HTMLElement>(null);

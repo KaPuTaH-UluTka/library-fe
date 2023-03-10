@@ -14,6 +14,7 @@ import {setToken, setUser} from '../../../store/reducers/user-reducer';
 import {AppPaths, DataTestId, LoginResponseErrors} from '../../../types/constants/constants';
 import {LoginUser} from '../../../types/user';
 import {loginSchema} from '../validation';
+import RightArrow from '../../../assets/auth-icons/arrowRight.svg'
 
 import classes from './login.module.scss';
 
@@ -25,7 +26,6 @@ export const Login = () => {
         isLoading,
         isError,
         error,
-        reset: apiReset
     }] = libraryApi.useLoginUserMutation();
 
     const {
@@ -39,19 +39,14 @@ export const Login = () => {
     })
 
     const submitHandler: SubmitHandler<LoginUser> = data => {
-        if (isError) {
-            apiReset();
-        } else {
             const user = loginUser(data).unwrap();
 
-            user.then(userData => {
-                localStorage.setItem('user', JSON.stringify(userData));
-                localStorage.setItem('token', userData.jwt);
-                dispatch(setUser(userData));
-                dispatch(setToken(userData.jwt));
-            });
-            navigate(AppPaths.booksAll);
-        }
+                user.then(userData => {
+                    dispatch(setUser(userData.user));
+                    dispatch(setToken(userData.jwt));
+                    navigate(AppPaths.booksAll);
+                }).catch(err => err);
+
     }
 
     return (<>
@@ -90,11 +85,13 @@ export const Login = () => {
                             <Link className={classes.forgotLink} to={AppPaths.forgotPass}>
                                 {isFetchBaseQueryError(error) && error.status === 400 ? 'Восстановить?' :
                                     'Забыли логин или пароль?'}</Link>
-                            <button type="submit" className={classes.submitBtn}>Войти</button>
+                            <button type="submit" className={classes.submitBtn}>Вход</button>
                         </form>
                         <p className={classes.accountNotExist}>Нет учётной записи? <Link
                             className={classes.registrationLink}
-                            to={AppPaths.registration}>Регистрация</Link></p>
+                            to={AppPaths.registration}>Регистрация <img src={RightArrow}
+                                                                        alt='rightArrow'/></Link>
+                        </p>
                     </div>
                 </div>}
             {isError && isFetchBaseQueryError(error) && error.status !== 400 && (
@@ -103,7 +100,7 @@ export const Login = () => {
                     <p className={classes.modalMessage}>
                         {LoginResponseErrors.smthWrong}
                     </p>
-                    <form onSubmit={handleSubmit(submitHandler)}>
+                    <form className={classes.loginForm} onSubmit={handleSubmit(submitHandler)}>
                         <button type="submit"
                                 className={classes.submitBtn}>
                             Повторить
