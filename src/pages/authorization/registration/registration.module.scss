@@ -1,0 +1,119 @@
+.registration {
+    width: 528px;
+    margin-top: 46px;
+    background: var(--white-color);
+    border-radius: 16px;
+    padding: 48px 56px;
+
+    &Title {
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 30px;
+        color: var(--black-color);
+    }
+
+    &Counter {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 18px;
+        color: var(--black-color);
+    }
+
+    .accountExist {
+        margin-top: 16px;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.1px;
+        color: var(--gray-color);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        column-gap: 10px;
+    }
+
+    .loginLink {
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 18px;
+        letter-spacing: 0.2px;
+        text-transform: uppercase;
+        color: var(--black-color);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        column-gap: 10px;
+    }
+}
+
+.registrationForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 16px;
+    width: 100%;
+}
+
+.modalTitle {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    color: var(--black-color);
+}
+
+.modalMessage {
+    margin-top: 32px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+    color: var(--black-color);
+    text-align: center;
+}
+
+.submitBtn {
+    width: 100%;
+    height: 52px;
+    margin-top: 32px;
+    background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+    border-radius: 20px;
+    border: none;
+    font-family: 'Montserrat', serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--white-color);
+}
+
+.submitBtn:disabled {
+    background: #F9F9FA;
+    border: 1px solid #BFC4C9;
+    color: var(--gray-color);
+    cursor: auto;
+}
+
+
+@media (max-width: 600px) {
+    .registration {
+        margin-top: 4px;
+        width: 288px;
+        padding: 24px 16px;
+
+        &Form {
+
+            .forgotLink {
+                margin-left: 0;
+            }
+        }
+
+        .accountExist {
+            flex-direction: column;
+            align-items: unset;
+        }
+
+    }
+}

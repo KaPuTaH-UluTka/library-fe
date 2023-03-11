@@ -1,11 +1,12 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 
-import {bookApi} from './api/book-api';
+import {libraryApi} from './api/library-api';
 import bookReducer from './reducers/book-reducer';
 import categoryReducer from './reducers/category-reducer';
 import errorReducer from './reducers/error-reducer';
 import listViewReducer from './reducers/list-view-reducer';
 import sortOrderReducer from './reducers/sort-order-reducer';
+import userReducer from './reducers/user-reducer';
 
 const rootReducer = combineReducers({
     listViewReducer,
@@ -13,13 +14,14 @@ const rootReducer = combineReducers({
     categoryReducer,
     sortOrderReducer,
     bookReducer,
-    [bookApi.reducerPath]: bookApi.reducer
+    userReducer,
+    [libraryApi.reducerPath]: libraryApi.reducer
 });
 
 export const store = () => configureStore({
         reducer: rootReducer,
         middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware().concat(bookApi.middleware),
+            getDefaultMiddleware().concat(libraryApi.middleware),
     })
 
 export type RootState = ReturnType<typeof rootReducer>

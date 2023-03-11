@@ -1,0 +1,18 @@
+.ModalWrapper{
+    width: 528px;
+    margin-top: 135px;
+    background: var(--white-color);
+    border-radius: 16px;
+    padding: 48px 56px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+@media (max-width: 600px) {
+    .ModalWrapper {
+        width: 288px;
+        margin-top: 101px;
+        padding: 32px 16px;
+    }
+}

@@ -1,8 +1,8 @@
 import React from 'react';
 
 import reviewAvatar from '../../assets/review_avatar.svg';
+import {API_URL} from '../../store/api/api-url';
 import {CommentInterface} from '../../types/book';
-import {API_URL} from '../../utils/constants';
 import {BookRating} from '../book-rating/book-rating';
 
 import classes from './review-item.module.scss';

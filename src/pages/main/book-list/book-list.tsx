@@ -1,21 +1,22 @@
 import React, {useEffect, useState} from 'react';
 
-import {ErrorView} from '../../../components/error-view/error-view';
+import {BookNotExist} from '../../../components/book-not-exist/book-not-exist';
 import {Loader} from '../../../components/loader/loader';
+import {Toast} from '../../../components/toast/toast';
 import {useAppDispatch, useAppSelector} from '../../../hooks/redux';
-import {bookApi} from '../../../store/api/book-api';
+import {libraryApi} from '../../../store/api/library-api';
 import {setBooks} from '../../../store/reducers/book-reducer';
 import {setErrorTrue} from '../../../store/reducers/error-reducer';
+import {DataTestId, ToastMessages} from '../../../types/constants/constants';
 
 import {BookCard} from './book-card/book-card';
 import {ListSettings} from './list-settings/list-settings';
 
 import classes from './book-list.module.scss';
-import {BookNotExist} from '../../../components/book-not-exist/book-not-exist';
 
 export const BookList = () => {
     const dispatch = useAppDispatch();
-    const {data: books, isLoading, isError} = bookApi.useGetAllBooksQuery();
+    const {data: books, isLoading, isError} = libraryApi.useGetAllBooksQuery();
 
     const {responseError} = useAppSelector(state => state.errorReducer);
 
@@ -79,7 +80,7 @@ export const BookList = () => {
                 {correctBooks && correctBooks.length === 0 && searchValue && <BookNotExist templateToShow={false}/>}
                 {correctBooks && correctBooks.length === 0 && !searchValue && <BookNotExist templateToShow={true}/>}
             </div>
-            {responseError && <ErrorView/>}
+            {responseError && <Toast testId={DataTestId.Error} error={true} message={ToastMessages.responseError}/>}
         </React.Fragment>
     );
 };

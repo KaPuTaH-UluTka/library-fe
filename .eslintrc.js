@@ -27,7 +27,8 @@ module.exports = {
         'react/no-array-index-key': 'off',
         'jsx-a11y/click-events-have-key-events': 'off',
         'jsx-a11y/no-static-element-interactions': 'off',
-        'no-param-reassign': 'off'
+        'no-param-reassign': 'off',
+        'react/jsx-fragments': 'off'
     },
     ignorePatterns: ['coverage', 'cypress.config.ts'],
 };
