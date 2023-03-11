@@ -15,7 +15,7 @@ export const Header = () => {
     const [isContextMenu, setIsContextMenu] = useState(false);
     const dispatch = useAppDispatch();
 
-    const {user} = useAppSelector(state => state.userReducer);
+    const user = JSON.parse(localStorage.getItem('user') || '');
 
     const testId = {
         burgerNav: 'burger-navigation',

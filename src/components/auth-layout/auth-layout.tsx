@@ -9,7 +9,7 @@ import classes from './auth-layout.module.scss';
 
 export const AuthLayout = ({ children }: { children: JSX.Element }) => {
 
-    const {token} = useAppSelector(state => state.userReducer);
+    const token = localStorage.getItem('token');
 
     if (token) {
         return <Navigate to={AppPaths.booksAll} />;
