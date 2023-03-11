@@ -80,7 +80,7 @@ export const BookList = () => {
                 {correctBooks && correctBooks.length === 0 && searchValue && <BookNotExist templateToShow={false}/>}
                 {correctBooks && correctBooks.length === 0 && !searchValue && <BookNotExist templateToShow={true}/>}
             </div>
-            {true && <Toast testId={DataTestId.Error} error={true} message={ToastMessages.responseError}/>}
+            {responseError && <Toast testId={DataTestId.Error} error={true} message={ToastMessages.responseError}/>}
         </React.Fragment>
     );
 };
