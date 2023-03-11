@@ -4,6 +4,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import {yupResolver} from '@hookform/resolvers/yup';
 import classNames from 'classnames';
 
+import RightArrow from '../../../assets/auth-icons/arrowRight.svg'
 import {CustomInput} from '../../../components/custom-elements/input/custom-input';
 import {Loader} from '../../../components/loader/loader';
 import {ModalAuthLayout} from '../../../components/modal-auth-layout/modal-auth-layout';
@@ -14,7 +15,6 @@ import {setToken, setUser} from '../../../store/reducers/user-reducer';
 import {AppPaths, DataTestId, LoginResponseErrors} from '../../../types/constants/constants';
 import {LoginUser} from '../../../types/user';
 import {loginSchema} from '../validation';
-import RightArrow from '../../../assets/auth-icons/arrowRight.svg'
 
 import classes from './login.module.scss';
 

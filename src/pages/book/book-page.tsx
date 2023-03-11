@@ -6,17 +6,18 @@ import noImageBook from '../../assets/defaultBook.png';
 import {BookDetails} from '../../components/book-details/book-details';
 import {BookLink} from '../../components/book-link/book-link';
 import {BookRating} from '../../components/book-rating/book-rating';
-import {ErrorView} from '../../components/error-view/error-view';
 import {Loader} from '../../components/loader/loader';
 import {ReviewItem} from '../../components/review-item/review-item';
+import {Toast} from '../../components/toast/toast';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
+import {API_URL} from '../../store/api/api-url';
 import {libraryApi} from '../../store/api/library-api';
 import {setErrorTrue} from '../../store/reducers/error-reducer';
+import {DataTestId, ToastMessages} from '../../types/constants/constants';
 
 import {Slider} from './slider/slider';
 
 import classes from './book-page.module.scss';
-import {API_URL} from "../../store/api/api-url";
 
 export const BookPage = () => {
 
@@ -98,7 +99,7 @@ export const BookPage = () => {
                 </div>
             </div>}
             {isLoading && <Loader/>}
-            {responseError && <ErrorView/>}
+            {responseError && <Toast testId={DataTestId.Error} error={true} message={ToastMessages.responseError}/>}
         </div>
     </section>
 };

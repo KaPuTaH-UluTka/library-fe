@@ -1,17 +1,18 @@
 import React, {useEffect, useState} from 'react';
 
-import {ErrorView} from '../../../components/error-view/error-view';
+import {BookNotExist} from '../../../components/book-not-exist/book-not-exist';
 import {Loader} from '../../../components/loader/loader';
+import {Toast} from '../../../components/toast/toast';
 import {useAppDispatch, useAppSelector} from '../../../hooks/redux';
 import {libraryApi} from '../../../store/api/library-api';
 import {setBooks} from '../../../store/reducers/book-reducer';
 import {setErrorTrue} from '../../../store/reducers/error-reducer';
+import {DataTestId, ToastMessages} from '../../../types/constants/constants';
 
 import {BookCard} from './book-card/book-card';
 import {ListSettings} from './list-settings/list-settings';
 
 import classes from './book-list.module.scss';
-import {BookNotExist} from '../../../components/book-not-exist/book-not-exist';
 
 export const BookList = () => {
     const dispatch = useAppDispatch();
@@ -79,7 +80,7 @@ export const BookList = () => {
                 {correctBooks && correctBooks.length === 0 && searchValue && <BookNotExist templateToShow={false}/>}
                 {correctBooks && correctBooks.length === 0 && !searchValue && <BookNotExist templateToShow={true}/>}
             </div>
-            {responseError && <ErrorView/>}
+            {true && <Toast testId={DataTestId.Error} error={true} message={ToastMessages.responseError}/>}
         </React.Fragment>
     );
 };

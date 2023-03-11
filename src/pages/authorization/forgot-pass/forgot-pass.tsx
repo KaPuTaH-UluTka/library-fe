@@ -10,7 +10,6 @@ import {CustomInput} from '../../../components/custom-elements/input/custom-inpu
 import {Loader} from '../../../components/loader/loader';
 import {ModalAuthLayout} from '../../../components/modal-auth-layout/modal-auth-layout';
 import {useRegistrationErrors} from '../../../hooks/use-registration-errors';
-import {isErrorWithMessage} from '../../../store/api/api-helpers';
 import {libraryApi} from '../../../store/api/library-api';
 import {
     AppPaths,
@@ -26,17 +25,18 @@ export const ForgotPass = () => {
     const navigate = useNavigate();
     const {search} = useLocation();
     const code = search.split('=')[1];
+
     const [forgotPassRequest, {
         isLoading: isForgotLoading,
         isSuccess: isForgotSuccess,
         error: forgotError
     }] = libraryApi.useForgotPasswordMutation();
+
     const [resetPassRequest, {
         isLoading: isResetLoading,
         isError: isResetError,
         isSuccess: isResetSuccess,
     }] = libraryApi.useResetPasswordMutation();
-
 
     const {
         register,

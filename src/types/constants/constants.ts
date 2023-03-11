@@ -27,6 +27,7 @@ export enum ApiPaths {
 export enum DataTestId {
     ButtonBurger = 'button-burger',
     Loader = 'loader',
+    Error = 'error',
     Auth = 'auth',
     AuthForm = 'auth-form',
     RegisterForm = 'register-form',
@@ -67,3 +68,8 @@ export enum ForgotErrorMessages {
     smthWrong = 'Что-то пошло не так. Попробуйте ещё раз',
 }
 
+export enum ToastMessages {
+    rateOk = 'Спасибо, что нашли время оценить книгу!',
+    rateError = 'Спасибо, что нашли время оценить книгу!',
+    responseError = 'Что-то пошло не так. Обновите страницу через некоторое время.',
+}
