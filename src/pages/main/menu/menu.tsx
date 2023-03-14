@@ -5,13 +5,13 @@ import classNames from 'classnames';
 import {useAppDispatch, useAppSelector} from '../../../hooks/redux';
 import {libraryApi} from '../../../store/api/library-api';
 import {setCategories, setCategory} from '../../../store/reducers/category-reducer';
+import {logout} from '../../../store/reducers/user-reducer';
 import {BookCategoryInterface} from '../../../types/book-category';
+import {AppPaths, DataTestId} from '../../../types/constants/constants';
 import {MenuTestId} from '../../../types/test-id';
 import {countCategories} from '../../../utils/categories-counter';
 
 import classes from './menu.module.scss';
-import {AppPaths, DataTestId} from "../../../types/constants/constants";
-import {logout} from "../../../store/reducers/user-reducer";
 
 export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: (arg: boolean) => void, isMenuOpen: boolean }) => {
 
@@ -35,6 +35,8 @@ export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: 
 
     if (props.burger && props.isMenuOpen) {
         body.classList.add('no-scroll');
+    } else {
+        body.classList.remove('no-scroll');
     }
 
     const defaultCategory = {name: 'Все книги', path: 'all', id: 0}
@@ -158,14 +160,14 @@ export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: 
                          className={contractStatus ? classNames(classes['general-link'], classes.active) : classes['general-link']}
                          onClick={contractHandler} to={AppPaths.contract}>Договор
                     оферты</NavLink>
-                {props.burger && <React.Fragment>
+                {props.burger && <>
                     <div className={classes.separator}/>
                     <NavLink
                         className={classNames(classes['general-link'], classes['general-link-profile'])}
-                        to="">Профиль</NavLink>
+                        to={AppPaths.userProfile}>Профиль</NavLink>
                     <NavLink data-test-id={DataTestId.ExitButton}
                         className={classNames(classes['general-link'], classes['general-link-exit'])}
-                        to={AppPaths.auth} onClick={handleLogout}>Выход</NavLink></React.Fragment>}
+                        to={AppPaths.auth} onClick={handleLogout}>Выход</NavLink></>}
             </div>
         </div>
     );

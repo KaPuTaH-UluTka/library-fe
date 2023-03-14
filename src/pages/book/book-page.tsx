@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
+import classNames from 'classnames';
 
 import BlackChevron from '../../assets/black-chevron.svg';
 import noImageBook from '../../assets/defaultBook.png';
@@ -18,6 +19,8 @@ import {DataTestId, ToastMessages} from '../../types/constants/constants';
 import {Slider} from './slider/slider';
 
 import classes from './book-page.module.scss';
+import {ReviewModal} from "../../components/review-modal/review-modal";
+import {BookingModal} from "../../components/booking-modal/booking-modal";
 
 export const BookPage = () => {
 
@@ -31,75 +34,83 @@ export const BookPage = () => {
 
     const [isReviewsOpen, setReviewsState] = useState(false);
 
+    const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+    const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+
+    const body = document.querySelector('body') as HTMLElement;
+
     useEffect(() => {
         if (isError) {
             dispatch(setErrorTrue());
         }
-    },[dispatch, isError])
+        if (isReviewModalOpen || isBookingModalOpen) {
+            body.classList.add('no-scroll');
+        } else {
+            body.classList.remove('no-scroll');
+        }
+    },[body.classList, dispatch, isBookingModalOpen, isError, isReviewModalOpen])
 
-    const booking = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        event.stopPropagation();
-    };
-
-    return <section className={classes['book-page']}>
-        <div className={classes['book-page-wrapper']}>
+    return <section className={classes.bookPage}>
+        <div className={classes.bookPageWrapper}>
             <BookLink bookTitle={book?.title}/>
-            {book && <div className={classes['book-page-info']}>
+            {book && <div className={classes.info}>
                 <div className={classes.book}>
                     {book.images && book.images.length > 1 ? <Slider images={book.images}/> :
-                        <img className={classes['book-img']}
+                        <img className={classes.bookImg}
                              src={book.images ? API_URL + book.images[0].url : noImageBook}
                              alt={book.title}/>}
-                    <div className={classes['book-info']}>
-                        <h2 className={classes['book-info-title']} data-test-id='book-title'>{book.title}</h2>
+                    <div className={classes.about}>
+                        <h2 className={classes.title} data-test-id={DataTestId.BookTitle}>{book.title}</h2>
                         <div
-                            className={classes['book-info-author']}>{`
+                            className={classes.author}>{`
                             ${book.authors.map(el => el)}
                             ${book.issueYear}`}</div>
-                        <button className={classes['book-info-btn-booking']} type="button"
+                        <button className={classes.bookingBtn} type="button"
                                 disabled={book.delivery && book.delivery.handed ? book.delivery.handed : false}
-                                onClick={(e) => booking(e)}>
+                                onClick={() => setIsBookingModalOpen(!isBookingModalOpen)}>
                             {book.delivery && book.delivery.handed && book.delivery.dateHandedTo ? `Занята до ${book.delivery.dateHandedTo.slice(0, -5)}` : 'Забронировать'}
                         </button>
-                        <h5 className={classes['book-info-about-title']}>О книге</h5>
-                        <p className={classes['book-info-about-info']}>{book.description}</p>
+                        <h5 className={classes.aboutBookTitle}>О книге</h5>
+                        <p className={classes.aboutBookDescription}>{book.description}</p>
                     </div>
                 </div>
                 <div className={classes.rating}>
-                    <h5 className={classes['rating-title']}>Рейтинг</h5>
-                    <div className={classes['rating-info']}>
+                    <h5 className={classes.ratingTitle}>Рейтинг</h5>
+                    <div className={classes.ratingInfo}>
                         {book.rating ?
                             <BookRating rating={book.rating}/> :
-                            <React.Fragment><BookRating rating={0}/>
+                            <><BookRating rating={0}/>
                                 <span
-                                    className={classes['rating-info-not-reviews']}>еще нет оценок</span>
-                            </React.Fragment>}
+                                    className={classes.emptyReviews}>еще нет оценок</span>
+                            </>}
                         {book.rating &&
-                            <p className={classes['rating-info-number']}>{book.rating}</p>}
+                            <p className={classes.ratingNumber}>{book.rating}</p>}
                     </div>
                 </div>
                 <BookDetails book={book} />
                 <div className={classes.reviews}>
-                    <h5 className={classes['reviews-title']}>Отзывы<span>{book.comments ? book.comments.length : 0}</span>
+                    <h5 className={classes.reviewsTitle}>Отзывы<span>{book.comments ? book.comments.length : 0}</span>
                     </h5>
                     <button
-                        className={isReviewsOpen ? classes['reviews-toggle-active'] : classes['reviews-toggle']}
+                        className={isReviewsOpen ? classes.reviewsToggleActive : classes.reviewsToggle}
                         onClick={() => isReviewsOpen ? setReviewsState(false) : setReviewsState(true)}
-                        data-test-id="button-hide-reviews"
+                        data-test-id={DataTestId.ButtonHideReviews}
                         type="button"><img src={BlackChevron} alt="black-chevron"/></button>
 
-                    <div className={isReviewsOpen ? classes['reviews-list'] : classes.hide}>
+                    <div className={classNames(classes.reviewsList, {[classes.reviewsListHide] : isReviewsOpen})}>
                         {book.comments && book.comments.map((el) => <ReviewItem comment={el}
                                                                                 key={el.id}/>)}
                     </div>
-                    <button className={classes['reviews-btn']} type="button"
-                            data-test-id='button-rating'>
+                    <button className={classes.reviewsBtn} type="button"
+                            data-test-id={DataTestId.ButtonRating} onClick={() => setIsReviewModalOpen(!isReviewModalOpen)}>
                         Оценить книгу
                     </button>
                 </div>
             </div>}
             {isLoading && <Loader/>}
             {responseError && <Toast testId={DataTestId.Error} error={true} message={ToastMessages.responseError}/>}
+            {isReviewModalOpen && <ReviewModal isModalOpen={isReviewModalOpen} setIsModalOpen={setIsReviewModalOpen}/>}
+            {isBookingModalOpen && <BookingModal isModalOpen={isBookingModalOpen} setIsModalOpen={setIsBookingModalOpen}/>}
         </div>
     </section>
 };

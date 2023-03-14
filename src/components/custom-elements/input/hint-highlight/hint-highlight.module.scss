@@ -4,15 +4,15 @@
     line-height: 16px;
     margin-left: 12px;
     margin-top: 4px;
-    color: var(--gray-color);
+    color: var(--black43);
 
     &.fullColor {
-        color: var(--form-error-color);
+        color: var(--negative);
     }
 
     .highlight {
         &.active {
-            color: var(--form-error-color);
+            color: var(--negative);
         }
     }
 }

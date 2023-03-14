@@ -24,7 +24,7 @@
                 font-weight: 400;
                 font-size: 14px;
                 line-height: 18px;
-                color: var(--gray-color);
+                color: var(--black43);
                 caret-color: var(--orange-color);
                 border-radius: 30px;
                 box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 201, 0.18), 0px 1px 5px rgba(191, 196, 201, 0.24);
@@ -63,7 +63,7 @@
                 font-weight: 400;
                 font-size: 14px;
                 line-height: 18px;
-                color: var(--gray-color);
+                color: var(--black43);
             }
 
             .search:focus::placeholder {
@@ -90,7 +90,7 @@
             height: 32px;
             border-radius: 50%;
             border: none;
-            background-color: var(--white-color);
+            background-color: var(--whiteMain);
             box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 201, 0.18), 0px 1px 5px rgba(191, 196, 201, 0.24);
         }
 
@@ -103,7 +103,7 @@
             font-size: 14px;
             line-height: 18px;
             border-radius: 30px;
-            color: var(--gray-color);
+            color: var(--black43);
             display: flex;
             align-items: center;
             justify-content: space-around;
@@ -146,7 +146,7 @@
             width: 38px;
             height: 38px;
             border-radius: 50%;
-            background: var(--white-color);
+            background: var(--whiteMain);
             transition: 0.3s;
             box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2),0px 3px 4px rgba(191, 196, 201, 0.18), 0px 1px 5px rgba(191, 196, 201, 0.24);
         }

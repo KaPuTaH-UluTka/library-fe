@@ -2,7 +2,7 @@
     .login {
         width: 528px;
         margin-top: 46px;
-        background: var(--white-color);
+        background: var(--whiteMain);
         border-radius: 16px;
         padding: 48px 56px;
 
@@ -10,7 +10,7 @@
             font-weight: 700;
             font-size: 24px;
             line-height: 30px;
-            color: var(--black-color);
+            color: var(--black100);
         }
 
 
@@ -20,15 +20,15 @@
             font-size: 12px;
             line-height: 24px;
             letter-spacing: 0.1px;
-            color: var(--gray-color);
+            color: var(--black43);
 
             &.error {
-                color: var(--form-error-color);
+                color: var(--negative);
             }
         }
 
         .errorMessage {
-            color: var(--form-error-color);
+            color: var(--negative);
             font-size: 12px;
             margin-top: 16px;
             line-height: 16px;
@@ -48,7 +48,7 @@
             font-size: 16px;
             line-height: 24px;
             letter-spacing: 0.1px;
-            color: var(--gray-color);
+            color: var(--black43);
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -60,7 +60,7 @@
                 line-height: 18px;
                 letter-spacing: 0.2px;
                 text-transform: uppercase;
-                color: var(--black-color);
+                color: var(--black100);
                 display: flex;
                 flex-direction: row;
                 align-items: center;
@@ -79,7 +79,7 @@
     font-weight: 700;
     font-size: 24px;
     line-height: 30px;
-    color: var(--black-color);
+    color: var(--black100);
 }
 
 .modalMessage {
@@ -88,7 +88,7 @@
     font-size: 16px;
     line-height: 24px;
     letter-spacing: 0.1px;
-    color: var(--black-color);
+    color: var(--black100);
     text-align: center;
 }
 
@@ -107,13 +107,13 @@
     letter-spacing: 0.2px;
     text-transform: uppercase;
     cursor: pointer;
-    color: var(--white-color);
+    color: var(--whiteMain);
 }
 
 .submitBtn:disabled {
     background: #F9F9FA;
     border: 1px solid #BFC4C9;
-    color: var(--gray-color);
+    color: var(--black43);
     cursor: auto;
 }
 

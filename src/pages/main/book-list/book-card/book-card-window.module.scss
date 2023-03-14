@@ -6,7 +6,7 @@
     flex-direction: column;
     box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 201, 0.18), 0px 1px 5px rgba(191, 196, 201, 0.24);
     border-radius: 10px;
-    background: var(--white-color);
+    background: var(--whiteMain);
     justify-content: space-between;
     cursor: pointer;
 
@@ -22,7 +22,7 @@
         font-size: 14px;
         line-height: 18px;
         margin-top: 18px;
-        color: var(--dark-gray-color);
+        color: var(--black40);
     }
 
     &-title {
@@ -31,7 +31,7 @@
         line-height: 18px;
         letter-spacing: 0.1px;
         margin-top: 16px;
-        color: var(--black-color);
+        color: var(--black100);
         word-break: break-word;
         hyphens: auto;
     }
@@ -41,7 +41,7 @@
         font-size: 14px;
         line-height: 18px;
         margin-top: 8px;
-        color: var(--gray-color);
+        color: var(--black43);
     }
 
     &-btn {
@@ -57,13 +57,13 @@
         letter-spacing: 0.2px;
         text-transform: uppercase;
         cursor: pointer;
-        color: var(--white-color);
+        color: var(--whiteMain);
     }
 
     &-btn:disabled {
         background: #F9F9FA;
         border: 1px solid #BFC4C9;
-        color: var(--gray-color);
+        color: var(--black43);
         cursor: auto;
     }
 

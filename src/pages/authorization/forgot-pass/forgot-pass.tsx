@@ -8,7 +8,7 @@ import LeftArrow from '../../../assets/auth-icons/arrowLeft.svg';
 import RightArrow from '../../../assets/auth-icons/arrowRight.svg';
 import {CustomInput} from '../../../components/custom-elements/input/custom-input';
 import {Loader} from '../../../components/loader/loader';
-import {ModalAuthLayout} from '../../../components/modal-auth-layout/modal-auth-layout';
+import {AuthModalLayout} from '../../../components/auth-modal-layout/auth-modal-layout';
 import {useRegistrationErrors} from '../../../hooks/use-registration-errors';
 import {libraryApi} from '../../../store/api/library-api';
 import {
@@ -145,16 +145,16 @@ export const ForgotPass = () => {
                     </p></div>
             </div>}
             {isForgotSuccess && (
-                <ModalAuthLayout>
+                <AuthModalLayout>
                     <h2 className={classes.modalTitle}>Письмо выслано</h2>
                     <p className={classes.modalMessage}>
                         Перейдите в вашу почту, чтобы воспользоваться подсказками по восстановлению
                         пароля
                     </p>
-                </ModalAuthLayout>
+                </AuthModalLayout>
             )}
             {isResetSuccess && (
-                <ModalAuthLayout>
+                <AuthModalLayout>
                     <h2 className={classes.modalTitle}>Новые данные
                         сохранены</h2>
                     <p className={classes.modalMessage}>
@@ -163,10 +163,10 @@ export const ForgotPass = () => {
                     <button type="button" className={classes.submitBtn}
                             onClick={() => navigate(AppPaths.auth)}>Вход
                     </button>
-                </ModalAuthLayout>
+                </AuthModalLayout>
             )}
             {isResetError && (
-                <ModalAuthLayout>
+                <AuthModalLayout>
                     <h2 className={classes.modalTitle}>Данные не
                         сохранились</h2>
                     <p className={classes.modalMessage}>
@@ -176,7 +176,7 @@ export const ForgotPass = () => {
                         <button type="submit" className={classes.submitBtn}>Повторить
                         </button>
                     </form>
-                </ModalAuthLayout>
+                </AuthModalLayout>
             )}
             {(isForgotLoading || isResetLoading) && <Loader/>}
         </>

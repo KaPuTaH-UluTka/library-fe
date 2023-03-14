@@ -13,6 +13,7 @@ import {Contract} from './pages/contract/contract';
 import {BookList} from './pages/main/book-list/book-list';
 import {MainPage} from './pages/main/main-page';
 import {Terms} from './pages/terms/terms';
+import {UserProfile} from './pages/user-profile/user-profile';
 import {store} from './store/store';
 import {AppPaths} from './types/constants/constants';
 
@@ -37,6 +38,7 @@ root.render(
                                    <BookPage/>
                                </MainLayout>
                            }/>
+                    <Route path={AppPaths.userProfile} element={<MainLayout><UserProfile/></MainLayout>}/>
                     <Route path={AppPaths.registration} element={<AuthLayout><Registration/></AuthLayout>}/>
                     <Route path={AppPaths.auth} element={<AuthLayout><Login/></AuthLayout>}/>
                     <Route path={AppPaths.forgotPass}  element={<AuthLayout><ForgotPass/></AuthLayout>}/>

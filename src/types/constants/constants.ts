@@ -8,7 +8,9 @@ export enum AppPaths {
     contract = '/contract',
     registration = '/registration',
     auth = '/auth',
-    forgotPass = '/forgot-pass'
+    forgotPass = '/forgot-pass',
+
+    userProfile = '/profile'
 }
 
 export enum ApiPaths {
@@ -25,6 +27,11 @@ export enum ApiPaths {
 }
 
 export enum DataTestId {
+    ButtonRating = 'button-rating',
+    ButtonHideReviews = 'button-hide-reviews',
+    BookTitle = 'book-title',
+    BreadcrumbsLink = 'breadcrumbs-link',
+    BookName = 'book-name',
     ButtonBurger = 'button-burger',
     Loader = 'loader',
     Error = 'error',

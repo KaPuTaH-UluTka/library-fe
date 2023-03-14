@@ -70,10 +70,10 @@ export const BookList = () => {
     const correctBooks = filterBooks();
 
     return (
-        <React.Fragment>
-            <div className={classes['book-list-wrapper']}>
+        <>
+            <div className={classes.bookListWrapper}>
                 <ListSettings sortOrder={sortOrder} searchValue={searchValue} setSearchValue={setSearchValue}/>
-                <div className={listView ? classes['window-style'] : classes['list-style']}>
+                <div className={listView ? classes.windowStyle : classes.listStyle}>
                     {correctBooks && correctBooks.map(el => <BookCard book={el} key={el.id} searchValue={searchValue}/>)}
                 </div>
                 {isLoading && <Loader/>}
@@ -81,6 +81,6 @@ export const BookList = () => {
                 {correctBooks && correctBooks.length === 0 && !searchValue && <BookNotExist templateToShow={true}/>}
             </div>
             {responseError && <Toast testId={DataTestId.Error} error={true} message={ToastMessages.responseError}/>}
-        </React.Fragment>
+        </>
     );
 };

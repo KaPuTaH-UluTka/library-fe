@@ -2,14 +2,18 @@
 @import "src/pages/book/slider/slider-styles";
 
 :root {
-    --gray-color: #A7A7A7;
-    --dark-gray-color: #727272;
-    --white-color: #FFFFFF;
-    --milk-color: #F9F9FA;
-    --black-color: #363636;
+    --black43: #A7A7A7;
+    --black40: #727272;
+    --whiteMain: #FFFFFF;
+    --black5: #F9F9FA;
+    --black100: #363636;
     --orange-color: #F83600;
-    --red-color: #FF5253;
-    --form-error-color:#F42C4F;
+    --accentMain: #FF5253;
+    --negative: #F42C4F;
+    --negtiveBg: #FEEBEA;
+    --positive: #00CA71;
+    --positiveBg: #EBF9F1;
+    --warning: #FFBC1F;
 }
 
 body {
@@ -86,7 +90,8 @@ select {
 }
 
 .no-scroll {
-    height: 100%; overflow: hidden
+    height: 100%;
+    overflow: hidden;
 }
 
 
