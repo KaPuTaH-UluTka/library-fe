@@ -1,4 +1,4 @@
-.book-rating {
+.bookRating {
     display: flex;
     flex-direction: row;
     gap: 6px;
@@ -8,16 +8,8 @@
     }
 }
 
-@media (max-width: 768px) {
-    .book-rating {
-        img {
-
-        }
-    }
-}
-
-@media (max-width: 320px) {
-    .book-rating {
+@media (max-width: 600px) {
+    .bookRating {
         gap: 12px;
 
         img {

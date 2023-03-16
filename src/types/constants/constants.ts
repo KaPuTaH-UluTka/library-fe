@@ -23,11 +23,14 @@ export enum ApiPaths {
 
     forgotPassword = '/auth/forgot-password',
 
-    resetPassword = '/auth/reset-password'
+    resetPassword = '/auth/reset-password',
+
+    booking = '/bookings',
+
+    comment = '/comments'
 }
 
 export enum DataTestId {
-    ButtonRating = 'button-rating',
     ButtonHideReviews = 'button-hide-reviews',
     BookTitle = 'book-title',
     BreadcrumbsLink = 'breadcrumbs-link',
@@ -35,6 +38,7 @@ export enum DataTestId {
     ButtonBurger = 'button-burger',
     Loader = 'loader',
     Error = 'error',
+    AlertClose = 'alert-close',
     Auth = 'auth',
     AuthForm = 'auth-form',
     RegisterForm = 'register-form',
@@ -46,6 +50,30 @@ export enum DataTestId {
     CheckMark = 'checkmark',
     ExitButton = 'exit-button',
     StatusBlock = 'status-block',
+    Content = 'content',
+    BookingButton = 'booking-button',
+    ModalOuter = 'modal-outer',
+    BookingModal = 'booking-modal',
+    ModalTitle = 'modal-title',
+    ModalRateBook = 'modal-rate-book',
+    ModalCloseButton = 'modal-close-button',
+    ModalSelect = 'month-select',
+    ButtonPrevMonth = 'button-prev-month',
+    ButtonNextMouth = 'button-next-month',
+    Calendar = 'calendar',
+    BookingCancelButton = 'booking-cancel-button',
+    Rating = 'rating',
+    Star = 'star',
+    StarActive = 'star-active',
+    Reviews = 'reviews',
+    Comment = 'comment',
+    CommentWrapper = 'comment-wrapper',
+    CommentAuthor = 'comment-author',
+    CommentDate = 'comment-date',
+    CommentText = 'comment-text',
+    ButtonComment = 'button-comment',
+    ButtonRateBook = 'button-rate-book',
+
 }
 
 export enum RegistrationErrorMessages {
@@ -76,7 +104,9 @@ export enum ForgotErrorMessages {
 }
 
 export enum ToastMessages {
-    rateOk = 'Спасибо, что нашли время оценить книгу!',
-    rateError = 'Спасибо, что нашли время оценить книгу!',
+    commentSuccess = 'Спасибо, что нашли время оценить книгу!',
+    commentError = 'Оценка не была отправлена. Попробуйте позже!',
+    bookingSuccess = 'Книга забронирована. Подробности можно посмотреть на странице Профиль',
+    bookingError = 'Что-то пошло не так, книга не забронирована. Попробуйте позже!',
     responseError = 'Что-то пошло не так. Обновите страницу через некоторое время.',
 }

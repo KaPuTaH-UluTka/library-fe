@@ -1,25 +1,24 @@
 import React from 'react';
 
-
-
-import classes from './booking-modal.module.scss';
+import {DataTestId} from '../../types/constants/constants';
 import {BookModalLayout} from '../book-modal-layout/book-modal-layout';
 
+import classes from './booking-modal.module.scss';
+
 interface ReviewProps {
-    isModalOpen: boolean;
     setIsModalOpen: (isModalOpen: boolean) => void;
 }
 
 
-export const BookingModal = ({isModalOpen, setIsModalOpen}:ReviewProps) => {
+export const BookingModal = ({setIsModalOpen}:ReviewProps) => {
 
     const closeHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
-        setIsModalOpen(!isModalOpen);
+        setIsModalOpen(false);
     }
 
     return (
-        <BookModalLayout clickEvent={(e) => closeHandler(e)}>
+        <BookModalLayout clickEvent={(e) => closeHandler(e)} wrapperTestId={DataTestId.BookingModal}>
         <div className={classes.bookingModal} onClick={(e)=> e.stopPropagation()}>
             booking
         </div></BookModalLayout>)

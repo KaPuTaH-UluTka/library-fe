@@ -1,20 +1,20 @@
-.review-item-wrapper {
+.reviewItemWrapper {
     overflow: hidden;
-    .review-item {
-        &-header {
+    .reviewItem {
+        .reviewItemHeader {
             display: flex;
             flex-direction: row;
             align-items: center;
             gap: 24px;
             padding-bottom: 16px;
 
-            .review-item-avatar {
+            .reviewItemAvatar {
                 width: 32px;
                 height: 32px;
                 border-radius: 50%;
             }
 
-            .review-item-info {
+            .reviewItemInfo {
                 font-weight: 400;
                 font-size: 16px;
                 line-height: 24px;
@@ -28,11 +28,11 @@
             }
         }
 
-        .book-rating {
+        .bookRating {
             gap: 12px;
         }
 
-        &-feedback {
+        .reviewItemFeedback {
             margin-top: 16px;
             font-weight: 400;
             font-size: 16px;
@@ -43,24 +43,22 @@
     }
 }
 
-@media (max-width: 768px) {}
-
 @media (max-width: 320px) {
-    .review-item-wrapper {
-        .review-item {
-            &-header {
+    .reviewItemWrapper {
+        .reviewItem {
+            .reviewItemHeader {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 gap: 18px;
                 padding-bottom: 12px;
 
-                .review-item-avatar {
+                .reviewItemAvatar {
                     width: 32px;
                     height: 32px;
                 }
 
-                .review-item-info {
+                .reviewItemInfo {
                     font-size: 15px;
                     line-height: 20px;
                     align-items: center;
@@ -73,7 +71,7 @@
                 }
             }
 
-            &-feedback {
+            .reviewItemFeedback {
                 width: 288px;
                 margin-top: 6px;
                 font-size: 15px;

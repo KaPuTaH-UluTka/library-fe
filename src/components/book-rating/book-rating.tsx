@@ -5,14 +5,32 @@ import filledStarIcon from '../../assets/rating-icons/Icon_star_filled.svg';
 
 import classes from './book-rating.module.scss';
 
-export const BookRating = (props: { rating: number }) => {
+interface BookRatingProps {
+    rating: number,
+    wrapperTestId: string,
+
+    filledStarTestId: string,
+
+    emptyStarTestId: string,
+}
+
+export const BookRating = ({
+                               rating,
+                               wrapperTestId,
+                               emptyStarTestId,
+                               filledStarTestId
+                           }: BookRatingProps) => {
     const stars = [1, 2, 3, 4, 5];
 
     return (
-        <div className={classes['book-rating']}>
-            {stars.map(star => props.rating < star ?
-                <img src={starIcon} alt='rating-empty' key={star}/>
-                :
-                <img src={filledStarIcon} alt='rating' key={star}/>)}
+        <div className={classes.bookRating} data-test-id={wrapperTestId}>
+            {stars.map(value =>
+                <label key={value} data-test-id={emptyStarTestId}>{
+                    rating < value ?
+                        <img src={starIcon} alt='empty-star'/>
+                        :
+                        <img src={filledStarIcon} alt='star'
+                             data-test-id={filledStarTestId}/>}
+                </label>)}
         </div>)
 };
