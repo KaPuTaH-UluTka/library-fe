@@ -31,4 +31,7 @@ module.exports = {
         'react/jsx-fragments': 'off'
     },
     ignorePatterns: ['coverage', 'cypress.config.ts'],
+    settings: {
+        'import/core-modules': ['dayjs','dayjs/locale/ru','dayjs/plugin/isSameOrAfter','dayjs/plugin/isSameOrBefore','dayjs/plugin/weekday'],
+    }
 };

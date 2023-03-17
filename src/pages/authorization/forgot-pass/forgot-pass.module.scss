@@ -1,19 +1,22 @@
-.forgotWrapper{
-    .forgot{
+.forgotWrapper {
+    .forgot {
         width: 528px;
         margin-top: 46px;
         background: var(--whiteMain);
         border-radius: 16px;
         padding: 48px 56px;
+
         &Title {
             font-weight: 700;
             font-size: 24px;
             line-height: 30px;
             color: var(--black100);
         }
+
         .activeNav {
             margin-top: 32px;
         }
+
         .loginNav {
             display: flex;
             position: absolute;
@@ -26,6 +29,7 @@
             padding: 20px 16px;
             margin-top: -48px;
             margin-left: -56px;
+
             .loginLink {
                 display: flex;
                 flex-direction: row;
@@ -47,6 +51,7 @@
             margin-top: 4px;
             color: var(--black43);
         }
+
         .hintError {
             font-weight: 500;
             font-size: 12px;
@@ -115,7 +120,7 @@
     width: 100%;
     height: 52px;
     margin-top: 17px;
-    background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+    background: var(--orange-gradient);
     border-radius: 20px;
     border: none;
     font-family: 'Montserrat', serif;
@@ -127,13 +132,27 @@
     text-transform: uppercase;
     cursor: pointer;
     color: var(--whiteMain);
-}
 
-.submitBtn:disabled {
-    background: #F9F9FA;
-    border: 1px solid #BFC4C9;
-    color: var(--black43);
-    cursor: auto;
+    &:disabled {
+        background: var(--black5);
+        border: 1px solid var(--black20);
+        color: var(--black43);
+        cursor: auto;
+    }
+
+    &:disabled:hover {
+        border: 1px solid var(--black43);
+        box-shadow: var(--box-shadow-hover);
+    }
+
+    &:hover {
+        border: 1px solid #FF740F;
+        box-shadow: var(--box-shadow-hover);
+    }
+
+    &:active {
+        box-shadow: var(--box-shadow-active);
+    }
 }
 
 .forgotForm {
@@ -141,41 +160,46 @@
 }
 
 @media (max-width: 600px) {
-        .forgotWrapper {
-            .forgot {
-                margin-top: 4px;
+    .forgotWrapper {
+        .forgot {
+            margin-top: 4px;
+            width: 288px;
+            padding: 24px 16px;
+
+            .activeNav {
+                margin-top: 64px;
+            }
+
+            .loginNav {
                 width: 288px;
-                padding: 24px 16px;
-                .activeNav {
-                    margin-top: 64px;
-                }
-                .loginNav {
-                    width: 288px;
-                    padding: 20px 16px;
-                    margin-top: -24px;
-                    margin-left: -16px;
-                    .loginLink {
-                        display: flex;
-                        flex-direction: row;
-                        align-items: center;
-                        column-gap: 16px;
-                        font-weight: 600;
-                        font-size: 12px;
-                        line-height: 18px;
-                        letter-spacing: 0.2px;
-                        text-transform: uppercase;
-                    }
-                }
-                .accountNotExist {
-                    flex-direction: column;
-                    align-items: unset;
-                }
-                .info {
-                    font-size: 15px;
-                    line-height: 20px;
+                padding: 20px 16px;
+                margin-top: -24px;
+                margin-left: -16px;
+
+                .loginLink {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    column-gap: 16px;
+                    font-weight: 600;
+                    font-size: 12px;
+                    line-height: 18px;
+                    letter-spacing: 0.2px;
+                    text-transform: uppercase;
                 }
             }
+
+            .accountNotExist {
+                flex-direction: column;
+                align-items: unset;
+            }
+
+            .info {
+                font-size: 15px;
+                line-height: 20px;
+            }
         }
+    }
     .modalTitle {
         font-size: 18px;
         line-height: 28px;

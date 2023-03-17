@@ -4,22 +4,19 @@ import {useParams} from 'react-router-dom';
 
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {libraryApi} from '../../store/api/library-api';
+import {
+    setCommentResponseSuccessTrue, setErrorTrue,
+    setLoadingFalse,
+    setLoadingTrue
+} from '../../store/reducers/request-status-reducer';
 import {DataTestId} from '../../types/constants/constants';
 import {ReviewFields} from '../../types/review';
 import {BookModalLayout} from '../book-modal-layout/book-modal-layout';
 import {BookRatingSelect} from '../book-rating-select/book-rating-select';
 
 import classes from './review-modal.module.scss';
-import {
-    setCommentResponseErrorTrue,
-    setCommentResponseSuccessTrue, setErrorTrue,
-    setLoadingFalse,
-    setLoadingTrue
-} from "../../store/reducers/request-status-reducer";
-import {setBooks} from "../../store/reducers/book-reducer";
 
 interface ReviewProps {
-
     setIsModalOpen: (isModalOpen: boolean) => void;
 }
 

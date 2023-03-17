@@ -31,6 +31,7 @@ export enum ApiPaths {
 }
 
 export enum DataTestId {
+    Card = 'card',
     ButtonHideReviews = 'button-hide-reviews',
     BookTitle = 'book-title',
     BreadcrumbsLink = 'breadcrumbs-link',
@@ -57,10 +58,11 @@ export enum DataTestId {
     ModalTitle = 'modal-title',
     ModalRateBook = 'modal-rate-book',
     ModalCloseButton = 'modal-close-button',
-    ModalSelect = 'month-select',
+    MonthSelect = 'month-select',
     ButtonPrevMonth = 'button-prev-month',
-    ButtonNextMouth = 'button-next-month',
+    ButtonNextMonth = 'button-next-month',
     Calendar = 'calendar',
+    DayButton = 'day-button',
     BookingCancelButton = 'booking-cancel-button',
     Rating = 'rating',
     Star = 'star',

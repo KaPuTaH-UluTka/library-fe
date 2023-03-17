@@ -1,46 +1,58 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import noImageBook from '../../../../assets/defaultBook.png'
 import {BookRating} from '../../../../components/book-rating/book-rating';
+import {BookingModal} from '../../../../components/booking-modal/booking-modal';
 import {Highlight} from '../../../../components/search-hightlight/search-highlight';
 import {useAppSelector} from '../../../../hooks/redux';
 import {API_URL} from '../../../../store/api/api-url';
 import {BookCardInterface} from '../../../../types/book-card';
+import {DataTestId} from '../../../../types/constants/constants';
+import {dateParser} from '../../../../utils/date-parser';
 
 import classesList from './book-card-list.module.scss';
 import classesWindow from './book-card-window.module.scss';
-import {dateParser} from "../../../../utils/date-parser";
 
-export const BookCard = (props: { book: BookCardInterface, searchValue: string } ) => {
+interface BookCardProps { book: BookCardInterface, searchValue: string }
+
+
+export const BookCard = ({book, searchValue}: BookCardProps) => {
     const navigate = useNavigate();
 
+    const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+
     const {listView} = useAppSelector(state => state.listViewReducer);
-    const booking = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        event.stopPropagation();
+    const booking = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsBookingModalOpen(!isBookingModalOpen);
     }
     const {currentCategory} = useAppSelector(state => state.categoryReducer);
-    const openBook = () => {
-        navigate(`/books/${currentCategory.path}/${props.book.id}`, {state: props.book.categories[0]});
+    const openBook = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+        navigate(`/books/${currentCategory.path}/${book.id}`, {state: book.categories[0]});
     }
 
-    const light = useCallback((title: string) => props.searchValue ? <Highlight filter={props.searchValue} title={title} /> : title, [props.searchValue]);
+    const light = useCallback((title: string) => searchValue ? <Highlight filter={searchValue} title={title} /> : title, [searchValue]);
 
     const cutTitle = (title:string) => title.length > 54 ? `${title.slice(0, 54)  }...` : title
 
-    return (
-        <div role="button" tabIndex={0} className={listView ? classesWindow.card : classesList.card} onMouseDown={openBook} data-test-id='card'>
-            <img className={listView ? classesWindow['card-img'] : classesList['card-img']} src={props.book.image ? API_URL + props.book.image.url : noImageBook}
-                 alt={props.book.title}/>
-            <div className={listView ? classesWindow['card-rating'] : classesList['card-rating']}>{props.book.rating ?
-                <BookRating rating={props.book.rating} wrapperTestId="" emptyStarTestId='' filledStarTestId=''/> : 'еще нет оценок'}</div>
-            <p className={listView ? classesWindow['card-title'] : classesList['card-title']}>{light(cutTitle(props.book.title))}</p>
-            <span className={listView ? classesWindow['card-author'] : classesList['card-author']}>{`${props.book.authors.map(el => el)}, ${props.book.issueYear}`}</span>
-            <button className={listView ? classesWindow['card-btn'] : classesList['card-btn']} type="button"
-                    disabled={props.book.delivery && props.book.delivery.handed ? props.book.delivery.handed : false}
+    return (<>
+        <div role="button" tabIndex={0} className={listView ? classesWindow.card : classesList.card} onClick={(e)=> openBook(e)} data-test-id={DataTestId.Card}>
+            <img className={listView ? classesWindow.cardImg : classesList.cardImg} src={book.image ? API_URL + book.image.url : noImageBook}
+                 alt={book.title}/>
+            <div className={listView ? classesWindow.cardRating : classesList.cardRating}>{book.rating ?
+                <BookRating rating={book.rating} wrapperTestId="" emptyStarTestId='' filledStarTestId=''/> : 'еще нет оценок'}</div>
+            <p className={listView ? classesWindow.cardTitle : classesList.cardTitle}>{light(cutTitle(book.title))}</p>
+            <span className={listView ? classesWindow.cardAuthor : classesList.cardAuthor}>{`${book.authors.map(el => el)}, ${book.issueYear}`}</span>
+            <button className={listView ? classesWindow.cardBtn : classesList.cardBtn} type="button"
+                    disabled={book.delivery && book.delivery.handed ? book.delivery.handed : false}
                     onClick={(e) => booking(e)}>
-                {props.book.delivery && props.book.delivery.handed && props.book.delivery.dateHandedTo ? `Занята до ${dateParser(props.book.delivery.dateHandedTo)}` : 'Забронировать'}
+                {book.delivery && book.delivery.handed && book.delivery.dateHandedTo ? `Занята до ${dateParser(book.delivery.dateHandedTo)}` : 'Забронировать'}
             </button>
         </div>
+            {isBookingModalOpen && book && <BookingModal setIsModalOpen={setIsBookingModalOpen} selectedBook={book}/>}
+        </>
     );
 };

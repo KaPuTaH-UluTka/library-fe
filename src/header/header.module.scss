@@ -55,19 +55,19 @@
 
             .menuToggle:checked ~ .menuBtn > span {
                 transform: rotate(45deg);
-                background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+                background: var(--orange-gradient);
             }
 
             .menuToggle:checked ~ .menuBtn > span::before {
                 top: 0;
                 transform: rotate(0);
-                background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+                background: var(--orange-gradient);
             }
 
             .menuToggle:checked ~ .menuBtn > span::after {
                 top: 0;
                 transform: rotate(90deg);
-                background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+                background: var(--orange-gradient);
             }
 
             .menuToggle:checked ~ .menuBtn {

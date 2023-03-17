@@ -27,7 +27,7 @@
                 color: var(--black43);
                 caret-color: var(--orange-color);
                 border-radius: 30px;
-                box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 201, 0.18), 0px 1px 5px rgba(191, 196, 201, 0.24);
+                box-shadow: var(--box-shadow);
                 transition: 0.3s;
             }
 
@@ -53,7 +53,7 @@
                 font-size: 35px;
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
-                background-image: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+                background-image: var(--orange-gradient);
                 border: none;
             }
 
@@ -91,7 +91,7 @@
             border-radius: 50%;
             border: none;
             background-color: var(--whiteMain);
-            box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 201, 0.18), 0px 1px 5px rgba(191, 196, 201, 0.24);
+            box-shadow: var(--box-shadow);
         }
 
         .sort {
@@ -112,7 +112,7 @@
             padding: 0 10px;
             transition: 0.3s;
             cursor: pointer;
-            box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 201, 0.18), 0px 1px 5px rgba(191, 196, 201, 0.24);
+            box-shadow: var(--box-shadow);
             .sort-icon {
                 transition: 0.3s;
                 transform: rotate(180deg);
@@ -125,11 +125,11 @@
         }
         .sort:hover {
             transition: 0.3s;
-            box-shadow: 0px 2px 5px rgba(54, 54, 54, 0.1);
+            box-shadow: var(--box-shadow-hover);
         }
         .sort:active {
             transition: 0.3s;
-            box-shadow: 0px 3px 4px rgba(222, 125, 11, 0.2), 0px 1px 10px rgba(249, 89, 8, 0.2);
+            box-shadow: var(--box-shadow-active);
         }
     }
 
@@ -153,14 +153,14 @@
 
         .change-view-btn:hover {
             transition: 0.3s;
-            box-shadow: 0px 2px 5px rgba(54, 54, 54, 0.1);
+            box-shadow: var(--box-shadow-hover);
         }
         .change-view-btn:active {
             transition: 0.3s;
-            box-shadow: 0px 3px 4px rgba(222, 125, 11, 0.2), 0px 1px 10px rgba(249, 89, 8, 0.2);
+            box-shadow: var(--box-shadow-active);
         }
         .gradient {
-            background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+            background: var(--orange-gradient);
         }
     }
 }

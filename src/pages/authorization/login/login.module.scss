@@ -96,7 +96,7 @@
     width: 100%;
     height: 52px;
     margin-top: 17px;
-    background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+    background: var(--orange-gradient);
     border-radius: 20px;
     border: none;
     font-family: 'Montserrat', serif;
@@ -108,13 +108,27 @@
     text-transform: uppercase;
     cursor: pointer;
     color: var(--whiteMain);
-}
 
-.submitBtn:disabled {
-    background: #F9F9FA;
-    border: 1px solid #BFC4C9;
-    color: var(--black43);
-    cursor: auto;
+    &:disabled {
+        background: var(--black5);
+        border: 1px solid var(--black20);
+        color: var(--black43);
+        cursor: auto;
+    }
+
+    &:disabled:hover {
+        border: 1px solid var(--black43);
+        box-shadow: var(--box-shadow-hover);
+    }
+
+    &:hover {
+        border: 1px solid #FF740F;
+        box-shadow: var(--box-shadow-hover);
+    }
+
+    &:active {
+        box-shadow: var(--box-shadow-active);
+    }
 }
 
 @media (max-width: 600px) {

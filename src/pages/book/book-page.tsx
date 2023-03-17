@@ -8,15 +8,13 @@ import {BookDetails} from '../../components/book-details/book-details';
 import {BookLink} from '../../components/book-link/book-link';
 import {BookRating} from '../../components/book-rating/book-rating';
 import {BookingModal} from '../../components/booking-modal/booking-modal';
-import {Loader} from '../../components/loader/loader';
 import {ReviewItem} from '../../components/review-item/review-item';
 import {ReviewModal} from '../../components/review-modal/review-modal';
-import {Toast} from '../../components/toast/toast';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {API_URL} from '../../store/api/api-url';
 import {libraryApi} from '../../store/api/library-api';
 import {setErrorTrue, setLoadingFalse, setLoadingTrue} from '../../store/reducers/request-status-reducer';
-import {DataTestId, ToastMessages} from '../../types/constants/constants';
+import {DataTestId} from '../../types/constants/constants';
 import {commentExistChecker} from '../../utils/comment-exist-checker';
 import {dateParser} from '../../utils/date-parser';
 
@@ -47,12 +45,13 @@ export const BookPage = () => {
         }
         if (isReviewModalOpen || isBookingModalOpen) {
             body.classList.add('no-scroll');
+        } else {
+            body.classList.remove('no-scroll');
         }
         if(isLoading){
             dispatch(setLoadingTrue())
         } else {
             dispatch(setLoadingFalse())
-            body.classList.remove('no-scroll');
         }
     },[body.classList, dispatch, isBookingModalOpen, isError, isLoading, isReviewModalOpen])
 
@@ -113,8 +112,8 @@ export const BookPage = () => {
                     </button>
                 </div>
             </div>}
-            {isReviewModalOpen && <ReviewModal  setIsModalOpen={setIsReviewModalOpen}/>}
-            {isBookingModalOpen && <BookingModal setIsModalOpen={setIsBookingModalOpen}/>}
+            {isReviewModalOpen && <ReviewModal setIsModalOpen={setIsReviewModalOpen}/>}
+            {isBookingModalOpen && book && <BookingModal setIsModalOpen={setIsBookingModalOpen} selectedBook={book}/>}
         </div>
     </section>
 };

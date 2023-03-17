@@ -35,18 +35,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 201, 0.18), 0px 1px 5px rgba(191, 196, 201, 0.24);
+    box-shadow: var(--box-shadow);
     cursor: pointer;
+    &:hover {
+        box-shadow: var(--box-shadow-hover);
+    }
+    &:active {
+        box-shadow: var(--box-shadow-active);
+    }
     img {
         width: 24px;
         height: 24px;
     }
-}
-.closeBtn:hover {
-    box-shadow: 0px 2px 5px rgba(54, 54, 54, 0.1);
-}
-.closeBtn:active {
-    box-shadow: 0px 3px 4px rgba(222, 125, 11, 0.2), 0px 1px 10px rgba(249, 89, 8, 0.2);
 }
 
 @media (max-width: 600px) {
