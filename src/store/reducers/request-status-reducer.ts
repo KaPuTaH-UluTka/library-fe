@@ -4,6 +4,7 @@ import {ToastMessages} from '../../types/constants/constants';
 
 interface RequestStatusState {
     isRequestLoading: boolean;
+    isRequestFetching: boolean;
     isResponseError: boolean;
     isResponseSuccess: boolean;
     responseErrorText: string;
@@ -11,6 +12,7 @@ interface RequestStatusState {
 
 const initialState: RequestStatusState = {
     isRequestLoading: false,
+    isRequestFetching: false,
     isResponseError: false,
     isResponseSuccess: false,
     responseErrorText: '',
@@ -31,6 +33,12 @@ export const RequestStatusReducer = createSlice({
             },
             setLoadingFalse: (state) => {
                 state.isRequestLoading = false;
+            },
+            setFetchingTrue: (state) => {
+                state.isRequestFetching = true;
+            },
+            setFetchingFalse: (state) => {
+                state.isRequestFetching = false;
             },
             setCommentResponseErrorTrue: (state) => {
                 state.isResponseError = false;
@@ -100,6 +108,8 @@ export const {
     setBaseResponseErrorTrue,
     setLoadingTrue,
     setLoadingFalse,
+    setFetchingTrue,
+    setFetchingFalse,
     setCommentResponseErrorTrue,
     setCommentResponseSuccessTrue,
     setBookingCreateResponseErrorTrue,

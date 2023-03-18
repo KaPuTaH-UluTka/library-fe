@@ -5,7 +5,7 @@ import {useAppDispatch, useAppSelector} from '../../../hooks/redux';
 import {libraryApi} from '../../../store/api/library-api';
 import {setBooks} from '../../../store/reducers/book-reducer';
 import {
-    setBaseResponseErrorTrue,
+    setBaseResponseErrorTrue, setFetchingFalse, setFetchingTrue,
     setLoadingFalse,
     setLoadingTrue
 } from '../../../store/reducers/request-status-reducer';
@@ -20,7 +20,7 @@ import classes from './book-list.module.scss';
 export const BookList = () => {
     const dispatch = useAppDispatch();
 
-    const {data: books, isLoading, isError} = libraryApi.useGetAllBooksQuery();
+    const {data: books, isFetching, isError} = libraryApi.useGetAllBooksQuery();
 
     const {currentCategory} = useAppSelector(state => state.categoryReducer);
 
@@ -36,12 +36,14 @@ export const BookList = () => {
         if (isError) {
             dispatch(setBaseResponseErrorTrue());
         }
-        if(isLoading){
+        if (isFetching) {
             dispatch(setLoadingTrue());
+            dispatch(setFetchingTrue());
         } else {
             dispatch(setLoadingFalse());
+            dispatch(setFetchingFalse());
         }
-    }, [books, dispatch, isError, isLoading]);
+    }, [books, dispatch, isError, isFetching]);
 
     const correctBooks = bookFilter(books, currentCategory, sortOrder, searchValue);
 

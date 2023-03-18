@@ -14,7 +14,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {API_URL} from '../../store/api/api-url';
 import {libraryApi} from '../../store/api/library-api';
 import {
-    setBaseResponseErrorTrue,
+    setBaseResponseErrorTrue, setFetchingFalse, setFetchingTrue,
     setLoadingFalse,
     setLoadingTrue
 } from '../../store/reducers/request-status-reducer';
@@ -35,7 +35,7 @@ export const BookPage = () => {
 
     const {user} = useAppSelector(state => state.userReducer);
 
-    const {data: book, isError, isLoading} = libraryApi.useGetBookByIdQuery(bookId || '0');
+    const {data: book, isError, isFetching} = libraryApi.useGetBookByIdQuery(bookId || '0');
 
     const [isReviewsOpen, setReviewsState] = useState(false);
     const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
@@ -60,12 +60,14 @@ export const BookPage = () => {
         } else {
             body.classList.remove('no-scroll');
         }
-        if (isLoading) {
+        if (isFetching) {
             dispatch(setLoadingTrue());
+            dispatch(setFetchingTrue());
         } else {
             dispatch(setLoadingFalse());
+            dispatch(setFetchingFalse());
         }
-    }, [body.classList, dispatch, isBookingModalOpen, isError, isLoading, isReviewModalOpen]);
+    }, [body.classList, dispatch, isBookingModalOpen, isError, isFetching, isReviewModalOpen]);
 
     return <section className={classes.bookPage}>
         <div className={classes.bookPageWrapper}>

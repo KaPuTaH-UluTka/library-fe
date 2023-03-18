@@ -13,6 +13,7 @@ export const MainLayout = ({children}: { children: JSX.Element }) => {
 
     const {
         isRequestLoading,
+        isRequestFetching,
         isResponseError,
         isResponseSuccess,
         responseErrorText,
@@ -26,8 +27,7 @@ export const MainLayout = ({children}: { children: JSX.Element }) => {
         <Header/>
         {children}
         <Footer/>
-        {isRequestLoading && <Loader/>}
-        {isResponseSuccess && <Toast error={isResponseError} message={responseErrorText}/>}
-        {isResponseError && <Toast error={isResponseError} message={responseErrorText}/>}
+        {isRequestLoading && <Loader/> || isRequestFetching && <Loader/>}
+        {(isResponseSuccess || isResponseError) && !isRequestFetching && <Toast error={isResponseError} message={responseErrorText}/>}
     </>
 };

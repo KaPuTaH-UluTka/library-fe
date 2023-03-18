@@ -36,6 +36,7 @@ interface CalendarProps {
 export const BookingModal = ({selectedBook, setIsModalOpen}: CalendarProps) => {
     const dispatch = useAppDispatch();
     const {user} = useAppSelector(state => state.userReducer);
+    const {isRequestFetching} = useAppSelector(state => state.requestStatusReducer);
 
     const [createBooking, {
         isLoading: createIsLoading,
@@ -101,28 +102,27 @@ export const BookingModal = ({selectedBook, setIsModalOpen}: CalendarProps) => {
     }
 
     useEffect(() => {
-        if (createIsSuccess) {
+        if (createIsSuccess && !isRequestFetching) {
             dispatch(setBookingCreateResponseSuccessTrue());
             setIsModalOpen(false);
         }
-        if (createIsError) {
-            console.log(123);
+        if (createIsError && !isRequestFetching) {
             dispatch(setBookingCreateResponseErrorTrue());
             setIsModalOpen(false);
         }
-        if (updateIsSuccess) {
+        if (updateIsSuccess && !isRequestFetching) {
             dispatch(setBookingUpdateResponseSuccessTrue());
             setIsModalOpen(false);
         }
-        if (updateIsError) {
+        if (updateIsError && !isRequestFetching) {
             dispatch(setBookingUpdateResponseErrorTrue());
             setIsModalOpen(false);
         }
-        if (cancelIsSuccess) {
+        if (cancelIsSuccess && !isRequestFetching) {
             dispatch(setBookingCancelResponseSuccessTrue());
             setIsModalOpen(false);
         }
-        if (cancelIsError) {
+        if (cancelIsError && !isRequestFetching) {
             dispatch(setBookingCancelResponseErrorTrue());
             setIsModalOpen(false);
         }
@@ -133,7 +133,8 @@ export const BookingModal = ({selectedBook, setIsModalOpen}: CalendarProps) => {
         }
         setCurrentMonth(getMonthMatrix(monthIndex));
     }, [cancelIsError, cancelIsLoading, cancelIsSuccess, createIsError,
-        createIsLoading, createIsSuccess, dispatch, monthIndex, setIsModalOpen, updateIsError, updateIsLoading, updateIsSuccess])
+        createIsLoading, createIsSuccess, dispatch, isRequestFetching, monthIndex,
+        setIsModalOpen, updateIsError, updateIsLoading, updateIsSuccess])
 
     return (
         <BookModalLayout clickEvent={closeHandler}

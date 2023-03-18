@@ -16,27 +16,34 @@ import {
     ResetPassword,
     User
 } from '../../types/user';
+import {RootState} from '../store';
 
 import {API_URL} from './api-url';
 
 export const libraryApi = createApi({
     reducerPath: 'libraryApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: `${API_URL}/api`
+        baseUrl: `${API_URL}/api`, prepareHeaders: (headers, { getState }) => {
+            const {token} = (getState() as RootState).userReducer
+
+            if (token) {
+                headers.set('authorization', `Bearer ${token}`)
+            }
+
+            return headers
+        },
     }),
     tagTypes: ['Book', 'AllBooks'],
     endpoints: (builder) => ({
         getBookCategories: builder.query<BookCategoryInterface[], void>({
             query: () => ({
                 url: ApiPaths.categories,
-                headers: {'authorization': `Bearer ${localStorage.getItem('token')}`}
             }),
         }),
         getAllBooks: builder.query<BookCardInterface[], void>({
             keepUnusedDataFor: 0,
             query: () => ({
                 url: ApiPaths.books,
-                headers: {'authorization': `Bearer ${localStorage.getItem('token')}`}
             }),
             providesTags: () => ['AllBooks']
         }),
@@ -44,7 +51,6 @@ export const libraryApi = createApi({
             keepUnusedDataFor: 0,
             query: (id) => ({
                 url: `${ApiPaths.books}/${id}`,
-                headers: {'authorization': `Bearer ${localStorage.getItem('token')}`}
             }),
             providesTags: () => ['Book']
         }),
@@ -53,7 +59,6 @@ export const libraryApi = createApi({
                 url: ApiPaths.comment,
                 method: 'POST',
                 body: comment,
-                headers: {'authorization': `Bearer ${localStorage.getItem('token')}`}
             }),
             invalidatesTags: ['Book']
         }),
@@ -62,7 +67,6 @@ export const libraryApi = createApi({
                 url: `${ApiPaths.comment}/${id}`,
                 method: 'PUT',
                 body: data,
-                headers: {'authorization': `Bearer ${localStorage.getItem('token')}`}
             }),
         }),
         createBooking: builder.mutation<BookingResponse, BookingRequest>({
@@ -70,7 +74,6 @@ export const libraryApi = createApi({
                 url: ApiPaths.booking,
                 method: 'POST',
                 body: data,
-                headers: {'authorization': `Bearer ${localStorage.getItem('token')}`}
             }),
             invalidatesTags: ['Book', 'AllBooks']
         }),
@@ -79,7 +82,6 @@ export const libraryApi = createApi({
                 url: `${ApiPaths.booking}/${bookingId}`,
                 method: 'PUT',
                 body: data,
-                headers: {'authorization': `Bearer ${localStorage.getItem('token')}`}
             }),
             invalidatesTags: ['Book', 'AllBooks']
         }),
@@ -87,7 +89,6 @@ export const libraryApi = createApi({
             query: (id) => ({
                 url: `${ApiPaths.booking}/${id}`,
                 method: 'DElETE',
-                headers: {'authorization': `Bearer ${localStorage.getItem('token')}`}
             }),
             invalidatesTags: ['Book', 'AllBooks']
         }),
