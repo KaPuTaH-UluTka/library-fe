@@ -12,9 +12,9 @@ interface BookModalLayoutProps {
 }
 
 export const BookModalLayout = ({children, clickEvent, wrapperTestId}: BookModalLayoutProps) => (
-    <div className={classes.modalShadow} onClick={(e) => clickEvent(e)} data-test-id={DataTestId.ModalOuter}>
+    <div className={classes.modalShadow} onClick={clickEvent} data-test-id={DataTestId.ModalOuter}>
         <div className={classes.modalWrapper} onClick={(e) => e.stopPropagation()} data-test-id={wrapperTestId}>
-            <button type='button' className={classes.closeBtn} onClick={(e) => clickEvent(e)} data-test-id={DataTestId.ModalCloseButton}><img
+            <button type='button' className={classes.closeBtn} onClick={clickEvent} data-test-id={DataTestId.ModalCloseButton}><img
                 src={OrangeCloseImg} alt="close"/>
             </button>
             {children}

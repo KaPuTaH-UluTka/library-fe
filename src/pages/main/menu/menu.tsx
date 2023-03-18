@@ -123,11 +123,11 @@ export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: 
 
     return (
         <div className={props.isMenuOpen ? classes['menu-wrapper'] : classes.hide}
-             data-test-id={props.testId.burgerNav} onClick={(e) => closeMenu(e)}>
+             data-test-id={props.testId.burgerNav} onClick={closeMenu}>
             <div className={classes.menu} onClick={(e) => e.stopPropagation()}>
                 <NavLink data-test-id={props.testId.showcaseId}
                          className={showcaseStatus ? classNames(classes['general-link'], classes.active) : classes['general-link']}
-                         onClick={(e) => booksHandler(e)} to={AppPaths.booksAll}>Витрина книг
+                         onClick={booksHandler} to={AppPaths.booksAll}>Витрина книг
                     {isSuccess && showcaseStatus && <div
                         className={categoryStatus ? classes['general-link-chevron-active'] : classes['general-link-chevron']}
                     />}

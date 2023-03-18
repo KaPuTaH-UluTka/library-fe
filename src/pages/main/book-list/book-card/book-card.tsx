@@ -54,7 +54,7 @@ export const BookCard = ({book, searchValue}: BookCardProps) => {
             <button className={listView ? classNames(classesWindow.cardBtn, {[classesWindow.cardBtnBooked]: isBookedByUser}) : classNames(classesList.cardBtn, {[classesWindow.cardBtnBooked]: isBookedByUser})} type="button"
                     data-test-id={DataTestId.BookingButton}
                     disabled={!!book.delivery?.dateHandedTo || (book.booking !== null && book.booking.customerId !== user?.id)}
-                    onClick={(e) => booking(e)}>
+                    onClick={booking}>
                 {bookingBtnText(book)}
             </button>
         </div>

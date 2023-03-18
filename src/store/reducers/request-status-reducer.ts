@@ -1,29 +1,19 @@
 import {createSlice} from '@reduxjs/toolkit';
 
+import {ToastMessages} from '../../types/constants/constants';
+
 interface RequestStatusState {
-    isBaseResponseError: boolean;
     isRequestLoading: boolean;
-    isCommentResponseError: boolean;
-    isCommentResponseSuccess: boolean;
-    isBookingCreateResponseError: boolean;
-    isBookingCreateResponseSuccess: boolean;
-    isBookingUpdateResponseError: boolean;
-    isBookingUpdateResponseSuccess: boolean;
-    isBookingCancelResponseError: boolean;
-    isBookingCancelResponseSuccess: boolean;
+    isResponseError: boolean;
+    isResponseSuccess: boolean;
+    responseErrorText: string;
 }
 
 const initialState: RequestStatusState = {
-    isBaseResponseError: false,
     isRequestLoading: false,
-    isCommentResponseError: false,
-    isCommentResponseSuccess: false,
-    isBookingCreateResponseError: false,
-    isBookingCreateResponseSuccess: false,
-    isBookingUpdateResponseError: false,
-    isBookingUpdateResponseSuccess: false,
-    isBookingCancelResponseError: false,
-    isBookingCancelResponseSuccess: false,
+    isResponseError: false,
+    isResponseSuccess: false,
+    responseErrorText: '',
 }
 
 export const RequestStatusReducer = createSlice({
@@ -31,7 +21,10 @@ export const RequestStatusReducer = createSlice({
         initialState,
         reducers: {
             setBaseResponseErrorTrue: (state) => {
-                state.isBaseResponseError = true;
+                state.isResponseError = false;
+                state.isResponseSuccess = false;
+                state.isResponseError = true;
+                state.responseErrorText = ToastMessages.responseError;
             },
             setLoadingTrue: (state) => {
                 state.isRequestLoading = true;
@@ -40,40 +33,64 @@ export const RequestStatusReducer = createSlice({
                 state.isRequestLoading = false;
             },
             setCommentResponseErrorTrue: (state) => {
-                state.isCommentResponseError = true;
+                state.isResponseError = false;
+                state.isResponseSuccess = false;
+                state.isResponseError = true;
+                state.responseErrorText = ToastMessages.commentError;
             },
             setCommentResponseSuccessTrue: (state) => {
-                state.isCommentResponseSuccess = true;
+                state.isResponseError = false;
+                state.isResponseSuccess = false;
+                state.isResponseSuccess = true;
+                state.responseErrorText = ToastMessages.commentSuccess;
             },
             setBookingCreateResponseErrorTrue: (state) => {
-                state.isBookingCreateResponseError = true;
+                state.isResponseError = false;
+                state.isResponseSuccess = false;
+                state.isResponseError = true;
+                state.responseErrorText = ToastMessages.bookingCreateError;
             },
             setBookingCreateResponseSuccessTrue: (state) => {
-                state.isBookingCreateResponseSuccess = true;
+                state.isResponseError = false;
+                state.isResponseSuccess = false;
+                state.isResponseSuccess = true;
+                state.responseErrorText = ToastMessages.bookingCreateSuccess;
             },
             setBookingUpdateResponseErrorTrue: (state) => {
-                state.isBookingUpdateResponseError = true;
+                state.isResponseError = false;
+                state.isResponseSuccess = false;
+                state.isResponseError = true;
+                state.responseErrorText = ToastMessages.bookingUpdateError;
             },
             setBookingUpdateResponseSuccessTrue: (state) => {
-                state.isBookingUpdateResponseSuccess = true;
+                state.isResponseError = false;
+                state.isResponseSuccess = false;
+                state.isResponseSuccess = true;
+                state.responseErrorText = ToastMessages.bookingUpdateSuccess;
             },
+            // setBookingUpdateResponseErrorTrue: (state) => {
+            //     state.isBookingUpdateResponseError = true;
+            // },
+            // setBookingUpdateResponseSuccessTrue: (state) => {
+            //     state.isBookingUpdateResponseSuccess = true;
+            // },
             setBookingCancelResponseErrorTrue: (state) => {
-                state.isBookingCancelResponseError = true;
+                state.isResponseError = false;
+                state.isResponseSuccess = false;
+                state.isResponseError = true;
+                state.responseErrorText = ToastMessages.bookingCancelError;
             },
             setBookingCancelResponseSuccessTrue: (state) => {
-                state.isBookingCancelResponseSuccess = true;
+                state.isResponseError = false;
+                state.isResponseSuccess = false;
+                state.isResponseSuccess = true;
+                state.responseErrorText = ToastMessages.bookingCancelSuccess;
             },
             setResponseStatusesFalse: (state) => {
-                state.isBaseResponseError = false;
-                state.isBookingCreateResponseSuccess = false;
-                state.isBookingCreateResponseError = false;
-                state.isBookingUpdateResponseSuccess = false;
-                state.isBookingUpdateResponseError = false;
-                state.isBookingCancelResponseSuccess = false;
-                state.isBookingCancelResponseError = false;
-                state.isCommentResponseSuccess = false;
-                state.isCommentResponseError = false;
-            }
+                state.isResponseError = false;
+                state.isResponseSuccess = false;
+                state.responseErrorText = '';
+            },
         }
     }
 );

@@ -62,14 +62,14 @@ export const BookingModal = ({selectedBook, setIsModalOpen}: CalendarProps) => {
     );
 
     const changeSelectedDay = (day: Dayjs) => {
-        setSelectedDay(day)
+        setSelectedDay(day);
     }
 
     const upMonthIndex = () => {
-        setMonthIndex(monthIndex + 1)
+        setMonthIndex(monthIndex + 1);
     }
     const downMonthIndex = () => {
-        setMonthIndex(monthIndex - 1)
+        setMonthIndex(monthIndex - 1);
     }
 
     const submitBookingHandler = () => {
@@ -106,6 +106,7 @@ export const BookingModal = ({selectedBook, setIsModalOpen}: CalendarProps) => {
             setIsModalOpen(false);
         }
         if (createIsError) {
+            console.log(123);
             dispatch(setBookingCreateResponseErrorTrue());
             setIsModalOpen(false);
         }
@@ -135,7 +136,7 @@ export const BookingModal = ({selectedBook, setIsModalOpen}: CalendarProps) => {
         createIsLoading, createIsSuccess, dispatch, monthIndex, setIsModalOpen, updateIsError, updateIsLoading, updateIsSuccess])
 
     return (
-        <BookModalLayout clickEvent={(e) => closeHandler(e)}
+        <BookModalLayout clickEvent={closeHandler}
                          wrapperTestId={DataTestId.BookingModal}>
             <div className={classes.bookingModal}>
                 <h2 className={classes.title} data-test-id={DataTestId.ModalTitle}>

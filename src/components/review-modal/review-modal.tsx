@@ -68,7 +68,7 @@ export const ReviewModal = ({setIsModalOpen}: ReviewProps) => {
     }
 
     return (
-        <BookModalLayout clickEvent={(e) => closeHandler(e)}
+        <BookModalLayout clickEvent={closeHandler}
                          wrapperTestId={DataTestId.ModalRateBook}>
 
             <form className={classes.reviewModal} onSubmit={handleSubmit(submitHandler)}>
