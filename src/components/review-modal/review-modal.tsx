@@ -33,6 +33,8 @@ export const ReviewModal = ({setIsModalOpen}: ReviewProps) => {
 
     const {user} = useAppSelector(state => state.userReducer);
 
+    const {isRequestFetching} = useAppSelector(state => state.requestStatusReducer);
+
     const {bookId} = useParams();
 
     const submitHandler: SubmitHandler<ReviewFields> = data => {
@@ -47,11 +49,11 @@ export const ReviewModal = ({setIsModalOpen}: ReviewProps) => {
     }
 
     useEffect(() => {
-        if (isError) {
+        if (isError && !isRequestFetching) {
             dispatch(setCommentResponseErrorTrue());
             setIsModalOpen(false);
         }
-        if (isSuccess) {
+        if (isSuccess && !isRequestFetching) {
             dispatch(setCommentResponseSuccessTrue());
             setIsModalOpen(false);
         }
@@ -60,7 +62,7 @@ export const ReviewModal = ({setIsModalOpen}: ReviewProps) => {
         } else {
             dispatch(setLoadingFalse());
         }
-    }, [dispatch, isError, isLoading, isSuccess, setIsModalOpen]);
+    }, [dispatch, isError, isLoading, isRequestFetching, isSuccess, setIsModalOpen]);
 
     const closeHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
