@@ -4,7 +4,11 @@ import {BookNotExist} from '../../../components/book-not-exist/book-not-exist';
 import {useAppDispatch, useAppSelector} from '../../../hooks/redux';
 import {libraryApi} from '../../../store/api/library-api';
 import {setBooks} from '../../../store/reducers/book-reducer';
-import {setErrorTrue, setLoadingFalse, setLoadingTrue} from '../../../store/reducers/request-status-reducer';
+import {
+    setBaseResponseErrorTrue,
+    setLoadingFalse,
+    setLoadingTrue
+} from '../../../store/reducers/request-status-reducer';
 import {DataTestId} from '../../../types/constants/constants';
 import {bookFilter} from '../../../utils/book-filter';
 
@@ -30,7 +34,7 @@ export const BookList = () => {
         if(books) dispatch(setBooks(books));
 
         if (isError) {
-            dispatch(setErrorTrue());
+            dispatch(setBaseResponseErrorTrue());
         }
         if(isLoading){
             dispatch(setLoadingTrue());

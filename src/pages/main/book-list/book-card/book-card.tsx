@@ -1,5 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import classNames from 'classnames';
 
 import noImageBook from '../../../../assets/defaultBook.png'
 import {BookRating} from '../../../../components/book-rating/book-rating';
@@ -9,7 +10,7 @@ import {useAppSelector} from '../../../../hooks/redux';
 import {API_URL} from '../../../../store/api/api-url';
 import {BookCardInterface} from '../../../../types/book-card';
 import {DataTestId} from '../../../../types/constants/constants';
-import {dateParser} from '../../../../utils/date-parser';
+import {bookingBtnText} from '../../../../utils/booking-btn';
 
 import classesList from './book-card-list.module.scss';
 import classesWindow from './book-card-window.module.scss';
@@ -22,13 +23,17 @@ export const BookCard = ({book, searchValue}: BookCardProps) => {
 
     const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
+    const {user} = useAppSelector(state => state.userReducer);
+
     const {listView} = useAppSelector(state => state.listViewReducer);
+
+    const {currentCategory} = useAppSelector(state => state.categoryReducer);
     const booking = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
         e.stopPropagation();
         setIsBookingModalOpen(!isBookingModalOpen);
     }
-    const {currentCategory} = useAppSelector(state => state.categoryReducer);
+    const isBookedByUser = book?.booking?.customerId === user?.id
     const openBook = (e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
         navigate(`/books/${currentCategory.path}/${book.id}`, {state: book.categories[0]});
@@ -46,10 +51,11 @@ export const BookCard = ({book, searchValue}: BookCardProps) => {
                 <BookRating rating={book.rating} wrapperTestId="" emptyStarTestId='' filledStarTestId=''/> : 'еще нет оценок'}</div>
             <p className={listView ? classesWindow.cardTitle : classesList.cardTitle}>{light(cutTitle(book.title))}</p>
             <span className={listView ? classesWindow.cardAuthor : classesList.cardAuthor}>{`${book.authors.map(el => el)}, ${book.issueYear}`}</span>
-            <button className={listView ? classesWindow.cardBtn : classesList.cardBtn} type="button"
-                    disabled={book.delivery && book.delivery.handed ? book.delivery.handed : false}
+            <button className={listView ? classNames(classesWindow.cardBtn, {[classesWindow.cardBtnBooked]: isBookedByUser}) : classNames(classesList.cardBtn, {[classesWindow.cardBtnBooked]: isBookedByUser})} type="button"
+                    data-test-id={DataTestId.BookingButton}
+                    disabled={!!book.delivery?.dateHandedTo || (book.booking !== null && book.booking.customerId !== user?.id)}
                     onClick={(e) => booking(e)}>
-                {book.delivery && book.delivery.handed && book.delivery.dateHandedTo ? `Занята до ${dateParser(book.delivery.dateHandedTo)}` : 'Забронировать'}
+                {bookingBtnText(book)}
             </button>
         </div>
             {isBookingModalOpen && book && <BookingModal setIsModalOpen={setIsBookingModalOpen} selectedBook={book}/>}

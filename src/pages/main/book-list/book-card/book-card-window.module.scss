@@ -79,6 +79,15 @@
             box-shadow: var(--box-shadow-active);
         }
     }
+    &BtnBooked {
+        color: var(--black100);
+        background: var(--whiteMain);
+        border: 1px solid var(--black20);
+        &:hover {
+            border: 1px solid var(--black40);
+            box-shadow: var(--box-shadow-hover);
+        }
+    }
 }
 
 @media (max-width: 768px) {

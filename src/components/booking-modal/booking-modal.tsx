@@ -1,13 +1,25 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import classNames from 'classnames';
 import dayjs, {Dayjs} from 'dayjs';
 
 import ArrowDown from '../../assets/calendar/arrowDown.svg';
 import ArrowUp from '../../assets/calendar/arrowUp.svg';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {libraryApi} from '../../store/api/library-api';
+import {
+    setBookingCancelResponseErrorTrue,
+    setBookingCancelResponseSuccessTrue,
+    setBookingCreateResponseErrorTrue,
+    setBookingCreateResponseSuccessTrue, setBookingUpdateResponseErrorTrue,
+    setBookingUpdateResponseSuccessTrue,
+    setLoadingFalse,
+    setLoadingTrue
+} from '../../store/reducers/request-status-reducer';
 import {BookInterface} from '../../types/book';
 import {BookCardInterface} from '../../types/book-card';
+import {
+    BookingRequest,
+} from '../../types/booking';
 import {DataTestId} from '../../types/constants/constants';
 import {getMonthMatrix, getYear} from '../../utils/dayjs';
 import {BookModalLayout} from '../book-modal-layout/book-modal-layout';
@@ -25,18 +37,29 @@ export const BookingModal = ({selectedBook, setIsModalOpen}: CalendarProps) => {
     const dispatch = useAppDispatch();
     const {user} = useAppSelector(state => state.userReducer);
 
-    const [createBooking] = libraryApi.useCreateBookingMutation();
-    const [updateBooking] = libraryApi.useUpdateBookingMutation();
+    const [createBooking, {
+        isLoading: createIsLoading,
+        isError: createIsError,
+        isSuccess: createIsSuccess
+    }] = libraryApi.useCreateBookingMutation();
+    const [updateBooking, {
+        isLoading: updateIsLoading,
+        isError: updateIsError,
+        isSuccess: updateIsSuccess
+    }] = libraryApi.useUpdateBookingMutation();
+    const [cancelBooking, {
+        isLoading: cancelIsLoading,
+        isError: cancelIsError,
+        isSuccess: cancelIsSuccess
+    }] = libraryApi.useCancelBookingMutation();
 
-    const isBookedByUser = selectedBook?.booking?.customerId === user?.id
+    const isBookedByUser = selectedBook?.booking?.customerId === user?.id;
 
     const [currentMonth, setCurrentMonth] = useState(getMonthMatrix());
     const [monthIndex, setMonthIndex] = useState(dayjs().month());
     const [selectedDay, setSelectedDay] = useState(
         isBookedByUser ? dayjs(selectedBook?.booking?.dateOrder).locale('ru') : null
     );
-    console.log(selectedDay);
-    const {bookId} = useParams();
 
     const changeSelectedDay = (day: Dayjs) => {
         setSelectedDay(day)
@@ -49,12 +72,27 @@ export const BookingModal = ({selectedBook, setIsModalOpen}: CalendarProps) => {
         setMonthIndex(monthIndex - 1)
     }
 
-    const selectDayHandler = () => {
-        console.log('day');
+    const submitBookingHandler = () => {
+        const requestData: BookingRequest = {
+            data: {
+                book: selectedBook.id,
+                customer: user!.id.toString(),
+                dateOrder: selectedDay!.format(),
+                order: true,
+            },
+        }
+
+        if (isBookedByUser) {
+            const bookingId = selectedBook.booking!.id.toString();
+
+            updateBooking({bookingId, data: requestData});
+        } else {
+            createBooking(requestData);
+        }
     }
 
     const cancelBookingHandler = () => {
-
+        cancelBooking(selectedBook.booking!.id.toString());
     }
 
     const closeHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.MouseEvent<HTMLDivElement>) => {
@@ -63,12 +101,42 @@ export const BookingModal = ({selectedBook, setIsModalOpen}: CalendarProps) => {
     }
 
     useEffect(() => {
-        setCurrentMonth(getMonthMatrix(monthIndex))
-    }, [monthIndex])
+        if (createIsSuccess) {
+            dispatch(setBookingCreateResponseSuccessTrue());
+            setIsModalOpen(false);
+        }
+        if (createIsError) {
+            dispatch(setBookingCreateResponseErrorTrue());
+            setIsModalOpen(false);
+        }
+        if (updateIsSuccess) {
+            dispatch(setBookingUpdateResponseSuccessTrue());
+            setIsModalOpen(false);
+        }
+        if (updateIsError) {
+            dispatch(setBookingUpdateResponseErrorTrue());
+            setIsModalOpen(false);
+        }
+        if (cancelIsSuccess) {
+            dispatch(setBookingCancelResponseSuccessTrue());
+            setIsModalOpen(false);
+        }
+        if (cancelIsError) {
+            dispatch(setBookingCancelResponseErrorTrue());
+            setIsModalOpen(false);
+        }
+        if (createIsLoading || updateIsLoading || cancelIsLoading) {
+            dispatch(setLoadingTrue());
+        } else {
+            dispatch(setLoadingFalse());
+        }
+        setCurrentMonth(getMonthMatrix(monthIndex));
+    }, [cancelIsError, cancelIsLoading, cancelIsSuccess, createIsError,
+        createIsLoading, createIsSuccess, dispatch, monthIndex, setIsModalOpen, updateIsError, updateIsLoading, updateIsSuccess])
 
     return (
         <BookModalLayout clickEvent={(e) => closeHandler(e)}
-                         wrapperTestId={DataTestId.ModalRateBook}>
+                         wrapperTestId={DataTestId.BookingModal}>
             <div className={classes.bookingModal}>
                 <h2 className={classes.title} data-test-id={DataTestId.ModalTitle}>
                     {isBookedByUser ? 'Изменение даты бронирования' : 'Выбор даты бронирования'}
@@ -113,9 +181,8 @@ export const BookingModal = ({selectedBook, setIsModalOpen}: CalendarProps) => {
                         ))}
                     </div>
                 </div>
-
                 <button type="submit"
-                        onClick={selectDayHandler}
+                        onClick={submitBookingHandler}
                         className={classes.submitBtn}
                         disabled={
                             !selectedDay ||
@@ -128,7 +195,7 @@ export const BookingModal = ({selectedBook, setIsModalOpen}: CalendarProps) => {
                 {isBookedByUser && (
                     <button type="submit"
                             onClick={cancelBookingHandler}
-                            className={classes.submitBtn}
+                            className={classNames(classes.submitBtn, classes.cancelBooking)}
                             data-test-id={DataTestId.BookingCancelButton}
                     >Отменить бронь</button>
                 )}

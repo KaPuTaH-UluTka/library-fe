@@ -1,32 +1,37 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 interface RequestStatusState {
-    responseError: boolean
-    isRequestLoading: boolean
-    isCommentResponseError: boolean
-    isCommentResponseSuccess: boolean
-    isBookingResponseError: boolean
-    isBookingResponseSuccess: boolean
+    isBaseResponseError: boolean;
+    isRequestLoading: boolean;
+    isCommentResponseError: boolean;
+    isCommentResponseSuccess: boolean;
+    isBookingCreateResponseError: boolean;
+    isBookingCreateResponseSuccess: boolean;
+    isBookingUpdateResponseError: boolean;
+    isBookingUpdateResponseSuccess: boolean;
+    isBookingCancelResponseError: boolean;
+    isBookingCancelResponseSuccess: boolean;
 }
 
 const initialState: RequestStatusState = {
-    responseError: false,
+    isBaseResponseError: false,
     isRequestLoading: false,
     isCommentResponseError: false,
     isCommentResponseSuccess: false,
-    isBookingResponseError: false,
-    isBookingResponseSuccess: false,
+    isBookingCreateResponseError: false,
+    isBookingCreateResponseSuccess: false,
+    isBookingUpdateResponseError: false,
+    isBookingUpdateResponseSuccess: false,
+    isBookingCancelResponseError: false,
+    isBookingCancelResponseSuccess: false,
 }
 
 export const RequestStatusReducer = createSlice({
         name: 'requestStatus',
         initialState,
         reducers: {
-            setErrorTrue: (state) => {
-                state.responseError = true;
-            },
-            setErrorFalse: (state) => {
-                state.responseError = false;
+            setBaseResponseErrorTrue: (state) => {
+                state.isBaseResponseError = true;
             },
             setLoadingTrue: (state) => {
                 state.isRequestLoading = true;
@@ -37,30 +42,35 @@ export const RequestStatusReducer = createSlice({
             setCommentResponseErrorTrue: (state) => {
                 state.isCommentResponseError = true;
             },
-            setCommentResponseErrorFalse: (state) => {
-                state.isCommentResponseError = false;
-            },
             setCommentResponseSuccessTrue: (state) => {
                 state.isCommentResponseSuccess = true;
             },
-            setCommentResponseSuccessFalse: (state) => {
-                state.isCommentResponseSuccess = false;
+            setBookingCreateResponseErrorTrue: (state) => {
+                state.isBookingCreateResponseError = true;
             },
-            setBookingResponseErrorTrue: (state) => {
-                state.isBookingResponseError = true;
+            setBookingCreateResponseSuccessTrue: (state) => {
+                state.isBookingCreateResponseSuccess = true;
             },
-            setBookingResponseErrorFalse: (state) => {
-                state.isBookingResponseError = false;
+            setBookingUpdateResponseErrorTrue: (state) => {
+                state.isBookingUpdateResponseError = true;
             },
-            setBookingResponseSuccessTrue: (state) => {
-                state.isBookingResponseSuccess = true;
+            setBookingUpdateResponseSuccessTrue: (state) => {
+                state.isBookingUpdateResponseSuccess = true;
             },
-            setBookingResponseSuccessFalse: (state) => {
-                state.isBookingResponseSuccess = false;
+            setBookingCancelResponseErrorTrue: (state) => {
+                state.isBookingCancelResponseError = true;
+            },
+            setBookingCancelResponseSuccessTrue: (state) => {
+                state.isBookingCancelResponseSuccess = true;
             },
             setResponseStatusesFalse: (state) => {
-                state.isBookingResponseSuccess = false;
-                state.isBookingResponseError = false;
+                state.isBaseResponseError = false;
+                state.isBookingCreateResponseSuccess = false;
+                state.isBookingCreateResponseError = false;
+                state.isBookingUpdateResponseSuccess = false;
+                state.isBookingUpdateResponseError = false;
+                state.isBookingCancelResponseSuccess = false;
+                state.isBookingCancelResponseError = false;
                 state.isCommentResponseSuccess = false;
                 state.isCommentResponseError = false;
             }
@@ -70,17 +80,16 @@ export const RequestStatusReducer = createSlice({
 
 export default RequestStatusReducer.reducer;
 export const {
-    setErrorTrue,
-    setErrorFalse,
+    setBaseResponseErrorTrue,
     setLoadingTrue,
     setLoadingFalse,
     setCommentResponseErrorTrue,
-    setCommentResponseErrorFalse,
-    setBookingResponseErrorTrue,
-    setBookingResponseErrorFalse,
-    setCommentResponseSuccessFalse,
     setCommentResponseSuccessTrue,
-    setBookingResponseSuccessTrue,
-    setBookingResponseSuccessFalse,
+    setBookingCreateResponseErrorTrue,
+    setBookingCreateResponseSuccessTrue,
+    setBookingUpdateResponseErrorTrue,
+    setBookingUpdateResponseSuccessTrue,
+    setBookingCancelResponseSuccessTrue,
+    setBookingCancelResponseErrorTrue,
     setResponseStatusesFalse,
 } = RequestStatusReducer.actions;

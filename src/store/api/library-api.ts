@@ -3,7 +3,10 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import {BookInterface} from '../../types/book';
 import {BookCardInterface} from '../../types/book-card';
 import {BookCategoryInterface} from '../../types/book-category';
-import {BookingFields, BookingResponse} from '../../types/booking';
+import {
+    BookingRequest,
+    BookingResponse,
+} from '../../types/booking';
 import {ApiPaths} from '../../types/constants/constants';
 import {ReviewFields, ReviewResponse} from '../../types/review';
 import {
@@ -21,7 +24,7 @@ export const libraryApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: `${API_URL}/api`
     }),
-    tagTypes: ['Book'],
+    tagTypes: ['Book', 'AllBooks'],
     endpoints: (builder) => ({
         getBookCategories: builder.query<BookCategoryInterface[], void>({
             query: () => ({
@@ -35,6 +38,7 @@ export const libraryApi = createApi({
                 url: ApiPaths.books,
                 headers: {'authorization': `Bearer ${localStorage.getItem('token')}`}
             }),
+            providesTags: () => ['AllBooks']
         }),
         getBookById: builder.query<BookInterface, string>({
             keepUnusedDataFor: 0,
@@ -53,37 +57,39 @@ export const libraryApi = createApi({
             }),
             invalidatesTags: ['Book']
         }),
-        updateComment: builder.mutation<BookInterface, { id: string, comment: BookingFields }>({
-            query: ({id, comment}) => ({
+        updateComment: builder.mutation<BookInterface, { id: string, data: ReviewFields }>({
+            query: ({id, data}) => ({
                 url: `${ApiPaths.comment}/${id}`,
                 method: 'PUT',
-                body: comment,
+                body: data,
                 headers: {'authorization': `Bearer ${localStorage.getItem('token')}`}
             }),
         }),
-        createBooking: builder.mutation<BookingResponse, BookingFields>({
-            query: (bookingOrder) => ({
+        createBooking: builder.mutation<BookingResponse, BookingRequest>({
+            query: (data) => ({
                 url: ApiPaths.booking,
                 method: 'POST',
-                body: bookingOrder,
+                body: data,
                 headers: {'authorization': `Bearer ${localStorage.getItem('token')}`}
             }),
             invalidatesTags: ['Book']
         }),
-        updateBooking: builder.mutation<BookingResponse, { id: string, bookingOrder: BookingFields }>({
-            query: ({id, bookingOrder}) => ({
-                url: `${ApiPaths.booking}/${id}`,
+        updateBooking: builder.mutation<BookingResponse, {bookingId: string, data: BookingRequest }>({
+            query: ({bookingId, data}) => ({
+                url: `${ApiPaths.booking}/${bookingId}`,
                 method: 'PUT',
-                body: bookingOrder,
+                body: data,
                 headers: {'authorization': `Bearer ${localStorage.getItem('token')}`}
             }),
+            invalidatesTags: ['Book']
         }),
-        deleteBooking: builder.mutation<void, string>({
+        cancelBooking: builder.mutation<void, string>({
             query: (id) => ({
                 url: `${ApiPaths.booking}/${id}`,
                 method: 'DElETE',
                 headers: {'authorization': `Bearer ${localStorage.getItem('token')}`}
             }),
+            invalidatesTags: ['Book']
         }),
         createUser: builder.mutation<AuthResponse, User>({
             query: (user) => ({

@@ -1,8 +1,8 @@
-export interface BookingFields {
+export interface BookingRequest {
     data: {
         order: boolean;
         dateOrder: string;
-        book: string;
+        book: number;
         customer: string;
     }
 }

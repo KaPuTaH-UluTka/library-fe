@@ -108,6 +108,16 @@
     margin-top: 42px;
 }
 
+.btnBooked {
+    color: var(--black100);
+    background: var(--whiteMain);
+    border: 1px solid var(--black20);
+    &:hover {
+        border: 1px solid var(--black40);
+        box-shadow: var(--box-shadow-hover);
+    }
+}
+
 .ratingTitle {
     font-weight: 700;
     font-size: 18px;

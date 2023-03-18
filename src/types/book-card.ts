@@ -27,7 +27,7 @@ export interface BookCardInterface {
     comments: CommentInterface[
         ] | null,
     booking: {
-        id: number | null,
+        id: number,
         order: boolean | null,
         dateOrder: string,
         customerId: number,

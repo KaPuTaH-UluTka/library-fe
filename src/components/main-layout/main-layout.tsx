@@ -9,13 +9,17 @@ import {Loader} from '../loader/loader';
 import {Toast} from '../toast/toast';
 
 export const MainLayout = ({children}: { children: JSX.Element }) => {
-    const token = localStorage.getItem('token');
+    const {token} = useAppSelector(state => state.userReducer);
 
     const {
         isRequestLoading,
-        responseError,
-        isBookingResponseError,
-        isBookingResponseSuccess,
+        isBaseResponseError,
+        isBookingCreateResponseError,
+        isBookingCreateResponseSuccess,
+        isBookingUpdateResponseError,
+        isBookingUpdateResponseSuccess,
+        isBookingCancelResponseError,
+        isBookingCancelResponseSuccess,
         isCommentResponseError,
         isCommentResponseSuccess
     } = useAppSelector(state => state.requestStatusReducer);
@@ -29,9 +33,13 @@ export const MainLayout = ({children}: { children: JSX.Element }) => {
         {children}
         <Footer/>
         {isRequestLoading && <Loader/>}
-        {responseError && <Toast error={true} message={ToastMessages.responseError}/>}
-        {isBookingResponseError && <Toast error={true} message={ToastMessages.bookingError}/>}
-        {isBookingResponseSuccess && <Toast error={false} message={ToastMessages.bookingSuccess}/>}
+        {isBaseResponseError && <Toast error={true} message={ToastMessages.responseError}/>}
+        {isBookingCreateResponseError && <Toast error={true} message={ToastMessages.bookingCreateError}/>}
+        {isBookingCreateResponseSuccess && <Toast error={false} message={ToastMessages.bookingCreateSuccess}/>}
+        {isBookingUpdateResponseError && <Toast error={true} message={ToastMessages.bookingUpdateError}/>}
+        {isBookingUpdateResponseSuccess && <Toast error={false} message={ToastMessages.bookingUpdateSuccess}/>}
+        {isBookingCancelResponseError && <Toast error={true} message={ToastMessages.bookingCancelError}/>}
+        {isBookingCancelResponseSuccess && <Toast error={false} message={ToastMessages.bookingCancelSuccess}/>}
         {isCommentResponseError && <Toast error={true} message={ToastMessages.commentError}/>}
         {isCommentResponseSuccess && <Toast error={false} message={ToastMessages.commentSuccess}/>}
     </>

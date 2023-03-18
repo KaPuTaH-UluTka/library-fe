@@ -4,12 +4,13 @@
     align-items: center;
     row-gap: 32px;
     width: 100%;
+
     .title {
         text-align: center;
         font-weight: 700;
         font-size: 24px;
         line-height: 30px;
-        width: 180px;
+        max-width: 250px;
     }
 
     .calendar {
@@ -75,6 +76,15 @@
 
         &:active {
             box-shadow: var(--box-shadow-active);
+        }
+    }
+    .cancelBooking {
+        color: var(--black100);
+        background: var(--whiteMain);
+        border: 1px solid var(--black20);
+        &:hover {
+            border: 1px solid var(--black40);
+            box-shadow: var(--box-shadow-hover);
         }
     }
 }

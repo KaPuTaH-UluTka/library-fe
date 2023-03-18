@@ -5,9 +5,9 @@ import {useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {libraryApi} from '../../store/api/library-api';
 import {
-    setCommentResponseSuccessTrue, setErrorTrue,
+    setCommentResponseSuccessTrue, setBaseResponseErrorTrue,
     setLoadingFalse,
-    setLoadingTrue
+    setLoadingTrue, setCommentResponseErrorTrue
 } from '../../store/reducers/request-status-reducer';
 import {DataTestId} from '../../types/constants/constants';
 import {ReviewFields} from '../../types/review';
@@ -37,22 +37,25 @@ export const ReviewModal = ({setIsModalOpen}: ReviewProps) => {
 
     const submitHandler: SubmitHandler<ReviewFields> = data => {
         if (user && bookId)
-            createComment({data:{
-                ...data,
-                user: user.id.toString(),
-                book: bookId
-            }})
+            createComment({
+                data: {
+                    ...data,
+                    user: user.id.toString(),
+                    book: bookId
+                }
+            })
     }
 
     useEffect(() => {
         if (isError) {
-            dispatch(setErrorTrue());
+            dispatch(setCommentResponseErrorTrue());
+            setIsModalOpen(false);
         }
-        if(isSuccess){
+        if (isSuccess) {
             dispatch(setCommentResponseSuccessTrue());
             setIsModalOpen(false);
         }
-        if(isLoading){
+        if (isLoading) {
             dispatch(setLoadingTrue());
         } else {
             dispatch(setLoadingFalse());
@@ -67,8 +70,10 @@ export const ReviewModal = ({setIsModalOpen}: ReviewProps) => {
     return (
         <BookModalLayout clickEvent={(e) => closeHandler(e)}
                          wrapperTestId={DataTestId.ModalRateBook}>
+
             <form className={classes.reviewModal} onSubmit={handleSubmit(submitHandler)}>
-                <h2 className={classes.title} data-test-id={DataTestId.ModalTitle}>Оцените книгу</h2>
+                <h2 className={classes.title} data-test-id={DataTestId.ModalTitle}>Оцените
+                    книгу</h2>
                 <div className={classes.rating}>
                     <h3 className={classes.ratingTitle}>Ваша оценка</h3>
                     <BookRatingSelect control={control}/>
