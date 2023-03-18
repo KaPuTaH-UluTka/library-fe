@@ -55,19 +55,19 @@
 
             .menuToggle:checked ~ .menuBtn > span {
                 transform: rotate(45deg);
-                background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+                background: var(--orange-gradient);
             }
 
             .menuToggle:checked ~ .menuBtn > span::before {
                 top: 0;
                 transform: rotate(0);
-                background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+                background: var(--orange-gradient);
             }
 
             .menuToggle:checked ~ .menuBtn > span::after {
                 top: 0;
                 transform: rotate(90deg);
-                background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+                background: var(--orange-gradient);
             }
 
             .menuToggle:checked ~ .menuBtn {
@@ -114,7 +114,7 @@
             font-size: 32px;
             line-height: 40px;
             margin-left: -150px;
-            color: var(--black-color);
+            color: var(--black100);
         }
 
         .welcomeWrapper {
@@ -130,7 +130,7 @@
 
                 text-align: right;
                 letter-spacing: 0.1px;
-                color: var(--black-color);
+                color: var(--black100);
             }
 
             .userAvatar {
@@ -147,7 +147,7 @@
         visibility: hidden;
         box-shadow: 4px 4px 4px rgba(54, 54, 54, 0.05), -4px 4px 4px rgba(54, 54, 54, 0.05);
         border-radius: 0px 0px 10px 10px;
-        background: var(--white-color);
+        background: var(--whiteMain);
         margin-top: 98px;
         z-index: 11;
         display: flex;
@@ -160,7 +160,7 @@
             font-weight: 700;
             font-size: 0px;
             line-height: 28px;
-            color: var(--black-color);
+            color: var(--black100);
             transition: 0.3s;
 
         }

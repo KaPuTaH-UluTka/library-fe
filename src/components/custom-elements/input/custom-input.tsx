@@ -81,7 +81,7 @@ export const CustomInput = ({
             {...register}
             alwaysShowMask={!error?.message && !watchName && label !== 'phone'}
             onFocus={focusHandler}
-            onBlur={(e) => blurHandler(e)}
+            onBlur={blurHandler}
         />
     ) : (
         <input
@@ -89,7 +89,7 @@ export const CustomInput = ({
             {...register}
             type={isOpenEye ? 'text' : type}
             onFocus={focusHandler}
-            onBlur={(e) => blurHandler(e)}
+            onBlur={blurHandler}
         />
     )}
         <label
@@ -150,7 +150,7 @@ export const CustomInput = ({
                 src={isOpenEye ? OpenEye : CloseEye}
                 className={classes.eyeImg}
                 alt='eye'
-                onClick={(e) => changeIsOpenEye(e)}
+                onClick={changeIsOpenEye}
                 role='presentation'
                 data-test-id={isOpenEye ? DataTestId.EyeOpened : DataTestId.EyeClosed}
             />

@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import RightArrow from '../../../assets/auth-icons/arrowRight.svg'
 import {CustomInput} from '../../../components/custom-elements/input/custom-input';
 import {Loader} from '../../../components/loader/loader';
-import {ModalAuthLayout} from '../../../components/modal-auth-layout/modal-auth-layout';
+import {AuthModalLayout} from '../../../components/auth-modal-layout/auth-modal-layout';
 import {useAppDispatch} from '../../../hooks/redux';
 import {isFetchBaseQueryError} from '../../../store/api/api-helpers';
 import {libraryApi} from '../../../store/api/library-api';
@@ -95,7 +95,7 @@ export const Login = () => {
                     </div>
                 </div>}
             {isError && isFetchBaseQueryError(error) && error.status !== 400 && (
-                <ModalAuthLayout>
+                <AuthModalLayout>
                     <h2 className={classes.modalTitle}>Вход не выполнен</h2>
                     <p className={classes.modalMessage}>
                         {LoginResponseErrors.smthWrong}
@@ -106,7 +106,7 @@ export const Login = () => {
                             Повторить
                         </button>
                     </form>
-                </ModalAuthLayout>
+                </AuthModalLayout>
             )}
             {isLoading && <Loader/>}</>
     );

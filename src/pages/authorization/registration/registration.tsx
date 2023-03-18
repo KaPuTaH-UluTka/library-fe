@@ -6,7 +6,7 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import RightArrow from '../../../assets/auth-icons/arrowRight.svg'
 import {CustomInput} from '../../../components/custom-elements/input/custom-input';
 import {Loader} from '../../../components/loader/loader';
-import {ModalAuthLayout} from '../../../components/modal-auth-layout/modal-auth-layout';
+import {AuthModalLayout} from '../../../components/auth-modal-layout/auth-modal-layout';
 import {useRegistrationErrors} from '../../../hooks/use-registration-errors';
 import {isFetchBaseQueryError} from '../../../store/api/api-helpers';
 import {libraryApi} from '../../../store/api/library-api';
@@ -57,7 +57,7 @@ export const Registration = () => {
 
     return (<>
             {isSuccess && (
-                <ModalAuthLayout>
+                <AuthModalLayout>
                     <h2 className={classes.modalTitle}>Регистрация успешна</h2>
                     <p className={classes.modalMessage}>
                         Регистрация прошла успешно. Зайдите в личный кабинет, используя свои логин и
@@ -70,10 +70,10 @@ export const Registration = () => {
                             Вход
                         </button>
                     </form>
-                </ModalAuthLayout>
+                </AuthModalLayout>
             )}
             {isError && (
-                <ModalAuthLayout>
+                <AuthModalLayout>
                     <h2 className={classes.modalTitle}>Данные не сохранились</h2>
                     <p className={classes.modalMessage}>
                         {isFetchBaseQueryError(error) && error.status === 400 ? RegistrationResponseErrors.userExist : RegistrationResponseErrors.smthWrong}
@@ -86,7 +86,7 @@ export const Registration = () => {
 
                         </button>
                     </form>
-                </ModalAuthLayout>
+                </AuthModalLayout>
             )}
             {!isError && !isSuccess && (<div className={classes.registration}>
                 <h2 className={classes.registrationTitle}>Регистрация</h2>

@@ -1,0 +1,52 @@
+.dayWrapper {
+    position: relative;
+    color: var(--black43);
+    .number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+        border-radius: 50%;
+        border: 1px solid transparent;
+        cursor: pointer;
+        margin: 0;
+        &:hover {
+            border: 1px solid var(--black20);
+        }
+        &.selectable {
+            color: var(--black100);
+        }
+        &.currentDay {
+            color: var(--orange-color);
+        }
+        &.weekend {
+            background-color: var(--negtiveBg);
+        }
+        &.selectedDay {
+            background: var(--orange-gradient);
+            color: var(--whiteMain);
+        }
+    }
+
+    .dayWeek {
+        position: absolute;
+        top: -35px;
+        left: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        width: 32px;
+        height: 32px;
+        transform: translateX(-50%);
+        background: var(--orange-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+    }
+}

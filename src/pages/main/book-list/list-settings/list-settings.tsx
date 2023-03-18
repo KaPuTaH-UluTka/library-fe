@@ -70,7 +70,7 @@ export const ListSettings = (props: {sortOrder: boolean, searchValue: string, se
         <div className={classes.settings} ref={ref}>
             <div className={classes['search-and-sort']}>
                 {size.clientWidth && size.clientWidth < 550 ? <React.Fragment>
-                        <form className={classes['search-form']} onChange={(e) => handleSearch(e)}>
+                        <form className={classes['search-form']} onChange={handleSearch}>
                             <input
                                 className={isSearchOpen ? classNames(classes.search, {[classes['search-active']]: props.searchValue}) : classes.hide}
                                 type="search" data-test-id="input-search"
@@ -87,7 +87,7 @@ export const ListSettings = (props: {sortOrder: boolean, searchValue: string, se
                             <img src={searchIcon} alt="search-icon"/>
                         </button>
                     </React.Fragment> :
-                    <form className={classes['search-form']} onChange={(e) => handleSearch(e)}>
+                    <form className={classes['search-form']} onChange={handleSearch}>
                         <input
                             className={classNames(classes.search, {[classes['search-active']]: props.searchValue})}
                             type="search" data-test-id="input-search"

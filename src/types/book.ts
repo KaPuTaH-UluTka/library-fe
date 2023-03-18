@@ -26,13 +26,13 @@ export interface BookInterface {
     comments: CommentInterface[
     ] | null,
     booking: {
-        id: number | null,
+        id: number,
         order: boolean | null,
         dateOrder: string,
         customerId: number,
         customerFirstName: string,
         customerLastName: string
-    },
+    } | null,
     delivery: {
         id: number | null,
         handed: boolean | null,

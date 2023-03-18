@@ -15,7 +15,7 @@ export const Header = () => {
     const [isContextMenu, setIsContextMenu] = useState(false);
     const dispatch = useAppDispatch();
 
-    const user = JSON.parse(localStorage.getItem('user') || '');
+    const {user} = useAppSelector(state => state.userReducer);
 
     const testId = {
         burgerNav: 'burger-navigation',
@@ -57,7 +57,7 @@ export const Header = () => {
             {isContextMenu && <div className={classNames(classes.contextMenu, {[classes.activeContext]: isContextMenu })}>
                 <NavLink
                     className={classNames(classes.contextLink, {[classes.activeLink]: isContextMenu })}
-                    to="">Профиль</NavLink>
+                    to={AppPaths.userProfile}>Профиль</NavLink>
                 <NavLink data-test-id={DataTestId.ExitButton}
                          className={classNames(classes.contextLink, {[classes.activeLink]: isContextMenu })}
                          to={AppPaths.auth} onClick={logoutHandler}>Выход</NavLink>

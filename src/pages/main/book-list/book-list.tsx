@@ -1,13 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import {BookNotExist} from '../../../components/book-not-exist/book-not-exist';
-import {Loader} from '../../../components/loader/loader';
-import {Toast} from '../../../components/toast/toast';
 import {useAppDispatch, useAppSelector} from '../../../hooks/redux';
 import {libraryApi} from '../../../store/api/library-api';
 import {setBooks} from '../../../store/reducers/book-reducer';
-import {setErrorTrue} from '../../../store/reducers/error-reducer';
-import {DataTestId, ToastMessages} from '../../../types/constants/constants';
+import {
+    setBaseResponseErrorTrue, setFetchingFalse, setFetchingTrue,
+    setLoadingFalse,
+    setLoadingTrue
+} from '../../../store/reducers/request-status-reducer';
+import {DataTestId} from '../../../types/constants/constants';
+import {bookFilter} from '../../../utils/book-filter';
 
 import {BookCard} from './book-card/book-card';
 import {ListSettings} from './list-settings/list-settings';
@@ -16,9 +19,8 @@ import classes from './book-list.module.scss';
 
 export const BookList = () => {
     const dispatch = useAppDispatch();
-    const {data: books, isLoading, isError} = libraryApi.useGetAllBooksQuery();
 
-    const {responseError} = useAppSelector(state => state.errorReducer);
+    const {data: books, isFetching, isError} = libraryApi.useGetAllBooksQuery();
 
     const {currentCategory} = useAppSelector(state => state.categoryReducer);
 
@@ -29,58 +31,30 @@ export const BookList = () => {
     const [searchValue, setSearchValue] = useState('');
 
     useEffect(() => {
-
         if(books) dispatch(setBooks(books));
 
         if (isError) {
-            dispatch(setErrorTrue());
+            dispatch(setBaseResponseErrorTrue());
         }
-    }, [books, dispatch, isError])
-
-    const filterBooks = () => {
-
-        if (books && currentCategory.name) {
-            let filteredBooks;
-
-            if (currentCategory.path === 'all') {
-                filteredBooks = books;
-            } else {
-                filteredBooks = books.filter(el => currentCategory.name ? el.categories.includes(currentCategory.name) : null);
-            }
-            let sortedBooks;
-            const booksForSort = [...filteredBooks];
-
-            if (sortOrder) {
-                sortedBooks = booksForSort.sort((a, b) => a.rating - b.rating);
-            } else {
-                sortedBooks = booksForSort.sort((a, b) => b.rating - a.rating);
-            }
-
-            if (searchValue) {
-               return sortedBooks.filter(el => el.title.slice(0, 54).toLowerCase().includes(searchValue.toLowerCase()));
-            }
-
-            return sortedBooks;
-
+        if (isFetching) {
+            dispatch(setLoadingTrue());
+            dispatch(setFetchingTrue());
+        } else {
+            dispatch(setLoadingFalse());
+            dispatch(setFetchingFalse());
         }
+    }, [books, dispatch, isError, isFetching]);
 
-        return books;
-    }
-
-    const correctBooks = filterBooks();
+    const correctBooks = bookFilter(books, currentCategory, sortOrder, searchValue);
 
     return (
-        <React.Fragment>
-            <div className={classes['book-list-wrapper']}>
+        <div className={classes.bookListWrapper}>
                 <ListSettings sortOrder={sortOrder} searchValue={searchValue} setSearchValue={setSearchValue}/>
-                <div className={listView ? classes['window-style'] : classes['list-style']}>
+                <div className={listView ? classes.windowStyle : classes.listStyle} data-test-id={DataTestId.Content}>
                     {correctBooks && correctBooks.map(el => <BookCard book={el} key={el.id} searchValue={searchValue}/>)}
                 </div>
-                {isLoading && <Loader/>}
                 {correctBooks && correctBooks.length === 0 && searchValue && <BookNotExist templateToShow={false}/>}
                 {correctBooks && correctBooks.length === 0 && !searchValue && <BookNotExist templateToShow={true}/>}
             </div>
-            {responseError && <Toast testId={DataTestId.Error} error={true} message={ToastMessages.responseError}/>}
-        </React.Fragment>
     );
 };

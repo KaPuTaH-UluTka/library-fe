@@ -2,9 +2,9 @@
     position: relative;
     .input {
         border: none;
-        background: var(--milk-color);
-        color: var(--black-color);
-        border-bottom: var(--gray-color) 1px solid;
+        background: var(--black5);
+        color: var(--black100);
+        border-bottom: var(--black43) 1px solid;
         font-weight: 400;
         font-size: 14px;
         line-height: 18px;
@@ -20,7 +20,7 @@
     }
 
     .placeholder {
-        color: var(--black-color);
+        color: var(--black100);
         position: absolute;
         margin-left: -404px;
         margin-top: 37px;
@@ -33,12 +33,12 @@
             font-size: 12px;
             line-height: 16px;
             transition: 0.2s;
-            color: var(--gray-color);
+            color: var(--black43);
         }
     }
 
     .inputError {
-        border-bottom: var(--form-error-color) 1px solid;
+        border-bottom: var(--negative) 1px solid;
         transition: 0.2s;
     }
 
@@ -48,10 +48,10 @@
         line-height: 16px;
         margin-left: 12px;
         margin-top: 4px;
-        color: var(--gray-color);
+        color: var(--black43);
 
         &.active {
-            color: var(--form-error-color);
+            color: var(--negative);
         }
     }
 
@@ -61,11 +61,11 @@
         line-height: 16px;
         margin-left: 12px;
         margin-top: 4px;
-        color: var(--gray-color);
+        color: var(--black43);
         display: none;
 
         &.visibleError {
-            color: var(--form-error-color);
+            color: var(--negative);
             display: block;
         }
 

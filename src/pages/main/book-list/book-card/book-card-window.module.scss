@@ -4,51 +4,52 @@
     padding: 8px 8px 16px 8px;
     display: flex;
     flex-direction: column;
-    box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 201, 0.18), 0px 1px 5px rgba(191, 196, 201, 0.24);
+    box-shadow: var(--box-shadow);
     border-radius: 10px;
-    background: var(--white-color);
+    background: var(--whiteMain);
     justify-content: space-between;
     cursor: pointer;
 
-    &-img {
+    &Img {
         width: 174px;
         height: 242px;
         border-radius: 10px;
+        border: 1px solid var(--black43);
     }
 
-    &-rating {
+    &Rating {
         display: flex;
         font-weight: 400;
         font-size: 14px;
         line-height: 18px;
         margin-top: 18px;
-        color: var(--dark-gray-color);
+        color: var(--black40);
     }
 
-    &-title {
+    &Title {
         font-weight: 600;
         font-size: 14px;
         line-height: 18px;
         letter-spacing: 0.1px;
         margin-top: 16px;
-        color: var(--black-color);
+        color: var(--black100);
         word-break: break-word;
         hyphens: auto;
     }
 
-    &-author {
+    &Author {
         font-weight: 400;
         font-size: 14px;
         line-height: 18px;
         margin-top: 8px;
-        color: var(--gray-color);
+        color: var(--black43);
     }
 
-    &-btn {
+    &Btn {
         margin-left: 4px;
         width: 166px;
         height: 40px;
-        background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+        background: var(--orange-gradient);
         border-radius: 20px;
         border: none;
         font-weight: 600;
@@ -57,49 +58,57 @@
         letter-spacing: 0.2px;
         text-transform: uppercase;
         cursor: pointer;
-        color: var(--white-color);
-    }
+        color: var(--whiteMain);
+        &:disabled {
+            background: var(--black5);
+            border: 1px solid var(--black20);
+            color: var(--black43);
+            cursor: auto;
+        }
 
-    &-btn:disabled {
-        background: #F9F9FA;
-        border: 1px solid #BFC4C9;
-        color: var(--gray-color);
-        cursor: auto;
-    }
+        &:disabled:hover {
+            border: 1px solid var(--black43);
+            box-shadow: var(--box-shadow-hover);
+        }
 
-    &-btn:disabled:hover {
-        border: 1px solid #A7A7A7;
-        box-shadow: 0px 2px 5px rgba(54, 54, 54, 0.1);
-    }
+        &:hover {
+            border: 1px solid #FF740F;
+            box-shadow: var(--box-shadow-hover);
+        }
 
-    &-btn:active {
-        box-shadow: 0px 3px 4px rgba(222, 125, 11, 0.2), 0px 1px 10px rgba(249, 89, 8, 0.2);
+        &:active {
+            box-shadow: var(--box-shadow-active);
+        }
     }
-
-    &-btn:hover {
-        border: 1px solid #FF740F;
-        box-shadow: 0px 2px 5px rgba(54, 54, 54, 0.1);
+    &BtnBooked {
+        color: var(--black100);
+        background: var(--whiteMain);
+        border: 1px solid var(--black20);
+        &:hover {
+            border: 1px solid var(--black40);
+            box-shadow: var(--box-shadow-hover);
+        }
     }
 }
 
 @media (max-width: 768px) {
     .card {
 
-        &-rating {
+        &Rating {
             font-weight: 400;
             font-size: 14px;
             line-height: 18px;
             margin-top: 18px;
         }
 
-        &-title {
+        &Title {
             font-weight: 700;
             font-size: 12px;
             line-height: 18px;
             margin-top: 23px;
         }
 
-        &-author {
+        &Author {
             font-weight: 700;
             font-size: 12px;
             line-height: 18px;
@@ -114,25 +123,25 @@
         width: 288px;
         padding: 8px 16px 16px 16px;
 
-        &-img {
+        &Img {
             margin: 0 auto;
         }
 
-        &-rating {
+        &Rating {
             font-weight: 400;
             font-size: 14px;
             line-height: 18px;
             margin-top: 16px;
         }
 
-        &-title {
+        &Title {
             font-weight: 600;
             font-size: 14px;
             line-height: 18px;
             margin-top: 16px;
         }
 
-        &-author {
+        &Author {
             font-weight: 400;
             font-size: 12px;
             line-height: 18px;
@@ -140,7 +149,7 @@
             margin-top: 8px;
         }
 
-        &-btn {
+        &Btn {
             margin-left: 0px;
             width: 256px;
         }

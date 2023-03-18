@@ -1,612 +1,486 @@
-.book-page {
+.bookPage {
     width: 100%;
     min-height: calc(100vh - 205px);
     display: flex;
     justify-content: center;
-    .book-page-wrapper {
+}
+.bookPageWrapper {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 42px;
+    max-width: 1110px;
+    width: 100%;
+}
+
+.info {
+    margin-top: 42px;
+}
+
+.book {
+    display: flex;
+}
+
+.about {
+    margin-left: 30px;
+}
+
+.aboutBookTitle {
+    margin-top: 62px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 28px;
+    color: var(--black100);
+    max-width: 350px;
+    padding-bottom: 16px;
+    border-bottom: 1px #EBEBEB solid;
+    margin-bottom: 0;
+}
+
+.aboutBookDescription {
+    margin-top: 16px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+    white-space: pre-line;
+    vertical-align: bottom;
+    color: var(--black100);
+}
+
+.title {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: 0.1px;
+    color: var(--black100);
+}
+
+.author {
+    margin-top: 24px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 28px;
+    color: var(--black43);
+}
+
+.btn {
+    margin-top: 32px;
+    display: flex;
+    width: 350px;
+    height: 52px;
+    background: var(--orange-gradient);
+    border-radius: 30px;
+    border: none;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--whiteMain);
+    align-items: center;
+    justify-content: center;
+}
+
+.btn:disabled {
+    background: #F9F9FA;
+    border: 1px solid #BFC4C9;
+    color: var(--black43);
+    cursor: auto;
+}
+
+.btn:disabled:hover {
+    border: 1px solid #A7A7A7;
+    box-shadow: var(--box-shadow-hover);
+}
+
+.btn:active {
+    box-shadow: var(--box-shadow-active);
+}
+
+.btn:hover {
+    border: 1px solid #FF740F;
+    box-shadow: var(--box-shadow-hover);
+}
+
+.rating {
+    margin-top: 42px;
+}
+
+.btnBooked {
+    color: var(--black100);
+    background: var(--whiteMain);
+    border: 1px solid var(--black20);
+    &:hover {
+        border: 1px solid var(--black40);
+        box-shadow: var(--box-shadow-hover);
+    }
+}
+
+.ratingTitle {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 0.1px;
+    width: 350px;
+    border-bottom: 1px #EBEBEB solid;
+    padding-bottom: 14px;
+    margin-bottom: 0;
+    color: var(--black100);
+}
+
+.ratingInfo {
+    display: flex;
+    margin-top: 16px;
+    width: 221px;
+    justify-content: space-between;
+}
+
+.emptyReviews {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0.1px;
+    color: var(--black100);
+    position: absolute;
+    margin-left: 190px;
+}
+
+.ratingNumber {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 0.1px;
+}
+
+.reviews {
+    margin-top: 60px;
+}
+
+.reviewsToggle {
+    position: absolute;
+    border: none;
+    background: none;
+    margin-top: -35px;
+    margin-left: 130px;
+    transform: rotate(0);
+    animation: 0.2s closeReviews linear;
+}
+
+.reviewsToggleActive {
+    position: absolute;
+    border: none;
+    background: none;
+    margin-top: -35px;
+    margin-left: 130px;
+    transform: rotate(180deg);
+    animation: 0.2s openReviews linear;
+}
+
+.reviewsTitle {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 0.1px;
+    width: 350px;
+    border-bottom: 1px #EBEBEB solid;
+    padding-bottom: 16px;
+    color: var(--black100);
+    margin-bottom: 0;
+
+    span {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 24px;
+        color: var(--black43);
+        padding-left: 8px;
+    }
+}
+
+.reviewsList {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 42px;
+    width: 730px;
+}
+
+.reviewsListHide {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+.bookImg {
+    max-width: 445px;
+    height: 594px;
+    border-radius: 10px;
+}
+
+@media (max-width: 900px) {
+    .bookPage {
+        max-width: 820px;
+    }
+    .book {
         display: flex;
-        flex-direction: column;
-        padding-bottom: 42px;
-        max-width: 1110px;
-        width: 100%;
-        .book-page-info {
-            margin-top: 42px;
-
-            .book {
-                display: flex;
-
-                &-info {
-                    margin-left: 30px;
-
-                    &-title {
-                        font-weight: 700;
-                        font-size: 32px;
-                        line-height: 40px;
-                        letter-spacing: 0.1px;
-                        color: var(--black-color);
-                    }
-
-                    &-author {
-                        margin-top: 24px;
-                        font-style: normal;
-                        font-weight: 700;
-                        font-size: 18px;
-                        line-height: 28px;
-                        color: var(--gray-color);
-                    }
-
-                    &-btn-booking {
-                        margin-top: 32px;
-                        display: flex;
-                        width: 350px;
-                        height: 52px;
-                        background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
-                        border-radius: 30px;
-                        border: none;
-                        font-weight: 600;
-                        font-size: 16px;
-                        line-height: 150%;
-                        letter-spacing: 0.2px;
-                        text-transform: uppercase;
-                        cursor: pointer;
-                        color: var(--white-color);
-                        align-items: center;
-                        justify-content: center;
-                    }
-
-                    &-btn-booking:disabled {
-                        background: #F9F9FA;
-                        border: 1px solid #BFC4C9;
-                        color: var(--gray-color);
-                        cursor: auto;
-                    }
-
-                    &-btn-booking:disabled:hover {
-                        border: 1px solid #A7A7A7;
-                        box-shadow: 0px 2px 5px rgba(54, 54, 54, 0.1);
-                    }
-
-                    &-btn-booking:active {
-                        box-shadow: 0px 3px 4px rgba(222, 125, 11, 0.2), 0px 1px 10px rgba(249, 89, 8, 0.2);
-                    }
-
-                    &-btn-booking:hover {
-                        border: 1px solid #FF740F;
-                        box-shadow: 0px 2px 5px rgba(54, 54, 54, 0.1);
-                    }
-
-                    &-about-title {
-                        margin-top: 62px;
-                        font-weight: 700;
-                        font-size: 18px;
-                        line-height: 28px;
-                        color: var(--black-color);
-                        max-width: 350px;
-                        padding-bottom: 16px;
-                        border-bottom: 1px #EBEBEB solid;
-                        margin-bottom: 0;
-                    }
-
-                    &-about-info {
-                        margin-top: 16px;
-                        font-weight: 400;
-                        font-size: 16px;
-                        line-height: 24px;
-                        letter-spacing: 0.1px;
-                        white-space: pre-line;
-                        vertical-align: bottom;
-                        color: var(--black-color);
-                    }
-                }
-
-                &-img {
-                    max-width: 445px;
-                    height: 594px;
-                    border-radius: 10px;
-                }
-            }
-        }
-
-        .rating {
-            margin-top: 42px;
-
-            &-title {
-                font-weight: 700;
-                font-size: 18px;
-                line-height: 28px;
-                letter-spacing: 0.1px;
-                width: 350px;
-                border-bottom: 1px #EBEBEB solid;
-                padding-bottom: 14px;
-                margin-bottom: 0;
-                color: var(--black-color);
-            }
-
-            &-info {
-                display: flex;
-                margin-top: 16px;
-                width: 221px;
-                justify-content: space-between;
-
-                &-not-reviews {
-                    font-weight: 400;
-                    font-size: 14px;
-                    line-height: 18px;
-                    letter-spacing: 0.1px;
-                    color: var(--black-color);
-                    position: absolute;
-                    margin-left: 190px;
-                }
-
-                &-number {
-                    font-weight: 700;
-                    font-size: 18px;
-                    line-height: 28px;
-                    letter-spacing: 0.1px;
-                }
-            }
-        }
-
-        .reviews {
-            margin-top: 60px;
-
-            &-title {
-                font-weight: 700;
-                font-size: 18px;
-                line-height: 28px;
-                letter-spacing: 0.1px;
-                width: 350px;
-                border-bottom: 1px #EBEBEB solid;
-                padding-bottom: 16px;
-                color: var(--black-color);
-                margin-bottom: 0;
-
-                span {
-                    font-weight: 400;
-                    font-size: 14px;
-                    line-height: 24px;
-                    color: var(--gray-color);
-                    padding-left: 8px;
-                }
-            }
-
-            &-toggle {
-                position: absolute;
-                border: none;
-                background: none;
-                margin-top: -35px;
-                margin-left: 130px;
-                transform: rotate(0);
-                animation: 0.2s closeReviews linear;
-
-                &-active {
-                    position: absolute;
-                    border: none;
-                    background: none;
-                    margin-top: -35px;
-                    margin-left: 130px;
-                    transform: rotate(180deg);
-                    animation: 0.2s openReviews linear;
-                }
-            }
-
-
-            &-list {
-                margin-top: 16px;
-                display: flex;
-                flex-direction: column;
-                row-gap: 42px;
-                width: 730px;
-            }
-
-            .hide {
-                width: 0;
-                height: 0;
-                visibility: hidden;
-            }
-
-            &-btn {
-                margin-top: 42px;
-                display: flex;
-                width: 350px;
-                height: 52px;
-                background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
-                border-radius: 30px;
-                border: none;
-                font-weight: 600;
-                font-size: 16px;
-                line-height: 150%;
-                letter-spacing: 0.2px;
-                text-transform: uppercase;
-                cursor: pointer;
-                color: var(--white-color);
-                align-items: center;
-                justify-content: center;
-            }
-
-            &-btn:disabled:hover {
-                border: 1px solid #A7A7A7;
-                box-shadow: 0px 2px 5px rgba(54, 54, 54, 0.1);
-            }
-
-            &-btn:active {
-                box-shadow: 0px 3px 4px rgba(222, 125, 11, 0.2), 0px 1px 10px rgba(249, 89, 8, 0.2);
-            }
-
-            &-btn:hover {
-                border: 1px solid #FF740F;
-                box-shadow: 0px 2px 5px rgba(54, 54, 54, 0.1);
-            }
-        }
+    }
+    .about {
+        margin-left: 30px;
+    }
+    .title {
+        font-size: 26px;
     }
 
-    @media (max-width: 900px) {
-        .book-page-wrapper {
-
-            .book-page {
-                max-width: 820px;
-
-                .book {
-                    display: flex;
-
-                    &-info {
-                        margin-left: 30px;
-
-                        &-title {
-                            font-size: 26px;
-                        }
-
-                        &-author {
-                            font-size: 16px;
-                        }
-                    }
-                }
-            }
-        }
+    .author {
+        font-size: 16px;
     }
 }
 
 @media (max-width: 768px) {
-    .book-page {
-        .book-page-wrapper {
-            display: flex;
-            justify-content: normal;
-            padding-bottom: 48px;
-            min-height: 100%;
-            max-width: 640px;
-            .book-page-info {
+    .bookPageWrapper {
+        display: flex;
+        justify-content: normal;
+        padding-bottom: 48px;
+        min-height: 100%;
+        max-width: 640px;
+    }
 
-                padding: 0 15px 15px;
+    .rating {
+        margin-top: 52px;
+    }
 
-                .book {
+    .ratingTitle {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        width: 305px;
+    }
 
-                    &-info {
-                        margin-left: 30px;
+    .ratingInfo {
+        display: flex;
+        margin-top: 16px;
+        width: 221px;
+        justify-content: space-between;
+    }
 
-                        &-title {
-                            font-size: 24px;
-                            line-height: 30px;
-                        }
+    .emptyReviews {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 18px;
+        letter-spacing: 0.1px;
+    }
 
-                        &-author {
-                            margin-top: 30px;
-                            font-size: 14px;
-                            line-height: 18px;
-                        }
+    .ratingNumber {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 28px;
+        letter-spacing: 0.1px;
+    }
 
-                        &-btn-booking {
-                            margin-top: 32px;
-                            width: 306px;
-                        }
+    .info {
+        padding: 0 15px 15px;
+    }
 
-                        &-about-title {
-                            margin-top: 50px;
-                            margin-left: -165px;
-                            font-weight: 600;
-                            font-size: 16px;
-                            line-height: 24px;
-                            width: 305px;
+    .about {
+        margin-left: 30px;
+    }
 
-                        }
+    .title {
+        font-size: 24px;
+        line-height: 30px;
+    }
 
-                        &-about-info {
-                            margin-left: -165px;
-                        }
-                    }
+    .author {
+        margin-top: 30px;
+        font-size: 14px;
+        line-height: 18px;
+    }
 
-                    &-img {
-                        width: 136px;
-                        height: 198px;
-                        border-radius: 5px;
-                    }
-                }
-            }
+    .btn {
+        margin-top: 32px;
+        width: 306px;
+    }
 
-            .rating {
-                margin-top: 52px;
+    .aboutBookTitle {
+        margin-top: 50px;
+        margin-left: -165px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        width: 305px;
 
-                &-title {
-                    font-weight: 600;
-                    font-size: 16px;
-                    line-height: 24px;
-                    width: 305px;
-                }
+    }
 
-                &-info {
-                    display: flex;
-                    margin-top: 16px;
-                    width: 221px;
-                    justify-content: space-between;
+    .aboutBookDescription {
+        margin-left: -165px;
+    }
 
-                    &-not-reviews {
-                        font-weight: 400;
-                        font-size: 14px;
-                        line-height: 18px;
-                        letter-spacing: 0.1px;
-                    }
+    .reviews {
+        margin-top: 52px;
+    }
 
-                    &-number {
-                        font-weight: 700;
-                        font-size: 18px;
-                        line-height: 28px;
-                        letter-spacing: 0.1px;
-                    }
-                }
-            }
+    .reviewsTitle {
+        width: 305px;
 
-            .reviews {
-                margin-top: 52px;
-
-                &-title {
-                    width: 305px;
-
-                    span {
-                        font-weight: 400;
-                        font-size: 16px;
-                        line-height: 24px;
-                        padding-left: 8px;
-                    }
-                }
-
-                &-list {
-                    margin-top: 16px;
-                    display: flex;
-                    flex-direction: column;
-                    row-gap: 42px;
-                    width: 640px;
-                }
-
-                &-btn {
-                    width: 100%;
-                }
-            }
+        span {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            padding-left: 8px;
         }
     }
-}
 
-@media (max-width: 680px) {
-    .book-page {
-        .book-page-wrapper {
-            max-width: 600px;
-            .book-page-info {
+    .reviewsList {
+        margin-top: 16px;
+        display: flex;
+        flex-direction: column;
+        row-gap: 42px;
+        width: 640px;
+    }
 
-
-                .detailed-info {
-                    &-list-wrapper {
-                        max-width: 400px;
-                        flex-wrap: wrap;
-
-                        .detailed-info-list:nth-child(3) {
-                            padding-left: 0;
-
-                            .detailed-info-list-item:first-child {
-                                padding-bottom: 20px;
-                            }
-                        }
-
-                        .detailed-info-list:nth-child(4) {
-                            .detailed-info-list-item:last-child {
-                                width: 168px;
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    .bookImg {
+        width: 136px;
+        height: 198px;
+        border-radius: 5px;
     }
 }
-
-@media (max-width: 600px) {
-    .book-page {
-        .book-page-wrapper {
-            max-width: 540px;
-        }
-    }
-}
-
-@media (max-width: 560px) {
-    .book-page {
-        .book-page-wrapper {
-            max-width: 500px;
-        }
-    }
-}
-
-@media (max-width: 500px) {
-    .book-page {
-        .book-page-wrapper {
-            max-width: 460px;
-            .book-page-info {
-                .book {
-                    display: flex;
-                    align-items: center;
-                    flex-direction: column;
-
-                    &-info {
-                        margin-left: 0;
-
-                        &-about-title {
-                            margin-left: 0;
-                        }
-
-                        &-about-info {
-                            margin-left: 0;
-                        }
-                    }
-
-                }
-            }
-
-        }
-    }
-}
-
 
 @media (max-width: 320px) {
-    .book-page {
+    .bookPage {
         display: flex;
         justify-content: normal;
         padding-bottom: 20px;
         min-height: 100%;
         overflow: hidden;
-        .book-page-wrapper {
+    }
 
-            max-width: 288px;
-            margin-left: calc(50% - 144px);
-            .book-page-info {
+    .bookPageWrapper {
+        max-width: 288px;
+        margin-left: calc(50% - 144px);
+    }
 
-                .book {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    flex-direction: column;
+    .rating {
+        margin-top: 42px;
+    }
 
-                    &-info {
-                        margin-top: 15px;
-                        margin-left: 0px;
+    .ratingTitle {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 28px;
+        width: 209px;
+    }
 
-                        &-title {
-                            font-weight: 700;
-                            font-size: 18px;
-                            line-height: 28px;
-                        }
+    .ratingInfo {
+        display: flex;
+        margin-top: 1px;
+        width: 221px;
+        justify-content: space-between;
+    }
 
-                        &-author {
-                            margin-top: 8px;
-                            font-size: 12px;
-                        }
+    .emptyReviews {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 18px;
+        letter-spacing: 0.1px;
+        color: var(--black100);
+    }
 
-                        &-btn-booking {
-                            margin-top: 42px;
-                            height: 40px;
-                            width: 288px;
-                        }
+    .ratingNumber {
+        margin-left: 100px;
+    }
 
-                        &-about-title {
-                            margin-top: 42px;
-                            margin-left: 0;
-                            font-weight: 700;
-                            font-size: 18px;
-                            line-height: 28px;
-                            width: 209px;
-
-                        }
-
-                        &-about-info {
-                            font-size: 12px;
-                            line-height: 18px;
-                            margin-left: 0px;
-                            margin-top: 0;
-                            white-space: normal;
-                            letter-spacing: 0;
-                        }
-                    }
-
-                    &-img {
-                        width: 188px;
-                        height: 260px;
-                        border-radius: 10px;
-                    }
-                }
-            }
-
-            .rating {
-                margin-top: 42px;
-
-                &-title {
-                    font-weight: 700;
-                    font-size: 18px;
-                    line-height: 28px;
-                    width: 209px;
-                }
-
-                &-info {
-                    display: flex;
-                    margin-top: 1px;
-                    width: 221px;
-                    justify-content: space-between;
-
-                    &-not-reviews {
-                        font-weight: 400;
-                        font-size: 14px;
-                        line-height: 18px;
-                        letter-spacing: 0.1px;
-                        color: var(--black-color);
-                    }
-
-                    &-number {
-                        margin-left: 100px;
-                    }
-
-                    .book-rating {
-                        img {
-                            width: 28px;
-                            height: 27px;
-                        }
-                    }
-                }
-            }
-
-            .reviews {
-                margin-top: 42px;
-
-                &-title {
-                    width: 288px;
-                    padding-bottom: 8px;
-
-                    span {
-                        font-weight: 400;
-                        font-size: 16px;
-                        line-height: 24px;
-                        padding-left: 8px;
-                    }
-                }
-
-                &-toggle {
-                    margin-top: -28px;
-
-                    &-active {
-                        margin-top: -28px;
-                    }
-                }
-
-                &-list {
-                    margin-top: 16px;
-                    display: flex;
-                    flex-direction: column;
-                    row-gap: 32px;
-                    width: 640px;
-                }
-
-                &-btn {
-                    margin-top: 24px;
-                    width: 100%;
-                    font-size: 12px;
-                    line-height: 18px;
-                    height: 40px;
-                }
-            }
+    .book-rating {
+        img {
+            width: 28px;
+            height: 27px;
         }
+    }
+
+    .reviews {
+        margin-top: 42px;
+    }
+
+    .reviewsTitle {
+        width: 288px;
+        padding-bottom: 8px;
+
+        span {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            padding-left: 8px;
+        }
+    }
+
+    .reviewsToggle {
+        margin-top: -28px;
+
+        .reviewsToggleActive {
+            margin-top: -28px;
+        }
+    }
+
+    .reviewsList {
+        margin-top: 16px;
+        display: flex;
+        flex-direction: column;
+        row-gap: 32px;
+        width: 640px;
+    }
+
+    .book {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .about {
+        margin-top: 15px;
+        margin-left: 0px;
+    }
+
+    .title {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 28px;
+    }
+
+    .author {
+        margin-top: 8px;
+        font-size: 12px;
+    }
+
+    .btn {
+        margin-top: 42px;
+        height: 40px;
+        width: 288px;
+    }
+
+    .aboutBookTitle {
+        margin-top: 42px;
+        margin-left: 0;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 28px;
+        width: 209px;
+
+    }
+
+    .aboutBookDescription {
+        font-size: 12px;
+        line-height: 18px;
+        margin-left: 0px;
+        margin-top: 0;
+        white-space: normal;
+        letter-spacing: 0;
+    }
+
+    .bookImg {
+        width: 188px;
+        height: 260px;
+        border-radius: 10px;
     }
 }
 

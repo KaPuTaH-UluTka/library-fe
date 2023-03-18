@@ -4,56 +4,56 @@
     height: 218px;
     padding: 24px 24px 24px 16px;
     display: flex;
-    box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 201, 0.18), 0px 1px 5px rgba(191, 196, 201, 0.24);
+    box-shadow: var(--box-shadow);
     border-radius: 12px;
-    background: var(--white-color);
+    background: var(--whiteMain);
     cursor: pointer;
-    &-img {
+
+    &Img {
         width: 120px;
         height: 170px;
         border-radius: 10px;
+        border: 1px solid var(--black43);
     }
 
-    &-rating {
+    &Rating {
         display: flex;
         font-family: 'Montserrat', serif;
         font-style: normal;
         font-weight: 400;
         font-size: 14px;
         line-height: 18px;
-        color: var(--dark-gray-color);
+        color: var(--black40);
         position: absolute;
         margin-left: 135px;
         margin-top: 130px;
     }
 
-    &-title {
+    &Title {
         font-weight: 700;
         font-size: 22px;
         line-height: 32px;
-        color: var(--black-color);
+        color: var(--black100);
         margin-left: 17px;
-        overflow:hidden;
-        white-space:nowrap;
-        text-overflow: ellipsis;
+        overflow: hidden;
     }
 
-    &-author {
+    &Author {
         font-family: 'Montserrat', serif;
         font-style: normal;
         font-weight: 400;
         font-size: 16px;
         line-height: 24px;
-        color: var(--gray-color);
+        color: var(--black43);
         margin-left: 135px;
         margin-top: 75px;
         position: absolute;
     }
 
-    &-btn {
+    &Btn {
         width: 174px;
         height: 40px;
-        background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+        background: var(--orange-gradient);
         border-radius: 20px;
         border: none;
         font-family: 'Montserrat', serif;
@@ -67,27 +67,28 @@
         margin-left: 610px;
         margin-top: 120px;
         position: absolute;
-        color: var(--white-color);
-    }
+        color: var(--whiteMain);
 
-    &-btn:disabled {
-        background: #F9F9FA;
-        border: 1px solid #BFC4C9;
-        color: var(--gray-color);
-        cursor: auto;
-    }
-    &-btn:disabled:hover {
-        border: 1px solid #A7A7A7;
-        box-shadow: 0px 2px 5px rgba(54, 54, 54, 0.1);
-    }
+        &:disabled {
+            background: var(--black5);
+            border: 1px solid var(--black20);
+            color: var(--black43);
+            cursor: auto;
+        }
 
-    &-btn:active {
-        box-shadow: 0px 3px 4px rgba(222, 125, 11, 0.2), 0px 1px 10px rgba(249, 89, 8, 0.2);
-    }
+        &:disabled:hover {
+            border: 1px solid var(--black43);
+            box-shadow: var(--box-shadow-hover);
+        }
 
-    &-btn:hover {
-        border: 1px solid #FF740F;
-        box-shadow: 0px 2px 5px rgba(54, 54, 54, 0.1);
+        &:hover {
+            border: 1px solid #FF740F;
+            box-shadow: var(--box-shadow-hover);
+        }
+
+        &:active {
+            box-shadow: var(--box-shadow-active);
+        }
     }
 }
 
@@ -96,13 +97,14 @@
         max-width: 640px;
         height: 240px;
         padding: 16px 24px 16px 16px;
-        &-img {
+
+        &Img {
             width: 120px;
             height: 172px;
             border-radius: 10px;
         }
 
-        &-rating {
+        &Rating {
             font-style: normal;
             font-weight: 400;
             font-size: 14px;
@@ -112,7 +114,7 @@
             margin-top: 178px;
         }
 
-        &-title {
+        &Title {
             font-weight: 700;
             font-size: 24px;
             line-height: 30px;
@@ -121,7 +123,7 @@
             max-width: 464px;
         }
 
-        &-author {
+        &Author {
             font-weight: 400;
             font-size: 16px;
             line-height: 24px;
@@ -130,7 +132,7 @@
             position: absolute;
         }
 
-        &-btn {
+        &Btn {
             max-width: 174px;
             height: 40px;
             font-weight: 600;
@@ -149,7 +151,8 @@
         max-width: 480px;
         height: 100%;
         display: flex;
-        &-btn {
+
+        &Btn {
             width: 150px;
             height: 40px;
             font-weight: 600;
@@ -159,21 +162,22 @@
             margin-left: 130px;
             margin-top: 130px;
         }
-        &-rating {
+
+        &Rating {
             font-weight: 400;
             font-size: 12px;
             line-height: 18px;
             margin-top: 80px;
         }
 
-        &-title {
+        &Title {
             font-weight: 600;
             font-size: 14px;
             line-height: 18px;
             letter-spacing: 0.1px;
         }
 
-        &-author {
+        &Author {
             font-weight: 400;
             font-size: 16px;
             line-height: 24px;
@@ -186,7 +190,8 @@
 @media (max-width: 500px) {
     .card {
         max-width: 420px;
-        &-btn {
+
+        &Btn {
             width: 150px;
             height: 40px;
             font-weight: 600;
@@ -196,21 +201,22 @@
             margin-left: 130px;
             margin-top: 130px;
         }
-        &-rating {
+
+        &Rating {
             font-weight: 400;
             font-size: 12px;
             line-height: 18px;
             margin-top: 80px;
         }
 
-        &-title {
+        &Title {
             font-weight: 600;
             font-size: 14px;
             line-height: 18px;
             letter-spacing: 0.1px;
         }
 
-        &-author {
+        &Author {
             font-weight: 400;
             font-size: 12px;
             line-height: 24px;
@@ -237,13 +243,14 @@
         max-width: 288px;
         height: 146px;
         padding: 16px 16px 16px 8px;
-        &-img {
+
+        &Img {
             width: 70px;
             height: 100px;
             border-radius: 5px;
         }
 
-        &-rating {
+        &Rating {
             font-weight: 400;
             font-size: 12px;
             line-height: 18px;
@@ -252,16 +259,16 @@
             margin-top: 55px;
         }
 
-        &-title {
+        &Title {
             font-weight: 600;
             font-size: 14px;
             line-height: 18px;
             letter-spacing: 0.1px;
-            color: var(--black-color);
+            color: var(--black100);
             margin-left: 5px;
         }
 
-        &-author {
+        &Author {
             font-weight: 400;
             font-size: 12px;
             line-height: 18px;
@@ -270,12 +277,12 @@
             position: absolute;
         }
 
-        &-btn {
+        &Btn {
             width: 186px;
             margin-left: 75px;
             margin-top: 73px;
             position: absolute;
-            color: var(--white-color);
+            color: var(--whiteMain);
         }
     }
 }

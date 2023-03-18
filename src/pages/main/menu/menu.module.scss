@@ -4,13 +4,14 @@
         display: flex;
         flex-direction: column;
         margin-top: 5px;
+        z-index: 10;
 
         .general-link {
             width: 255px;
             font-weight: 700;
             font-size: 18px;
             line-height: 28px;
-            color: var(--black-color);
+            color: var(--black100);
             transition: 0.3s;
             margin-top: 36px;
             padding-bottom: 7px;
@@ -74,7 +75,7 @@
                     font-weight: 400;
                     font-size: 16px;
                     line-height: 24px;
-                    color: var(--black-color);
+                    color: var(--black100);
 
                     &-active {
                         transition: 0.3s;
@@ -83,14 +84,14 @@
                         line-height: 28px;
                         -webkit-background-clip: text;
                         -webkit-text-fill-color: transparent;
-                        background-image: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+                        background-image: var(--orange-gradient);
                     }
 
                     &-count {
                         font-weight: 400;
                         font-size: 14px;
                         line-height: 24px;
-                        color: var(--gray-color);
+                        color: var(--black43);
                         padding-left: 6px;
                         -webkit-text-fill-color: initial;
                     }
@@ -110,9 +111,9 @@
             line-height: 28px;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-image: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+            background-image: var(--orange-gradient);
             border-bottom: 1px #F83600 solid;
-            border-image: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+            border-image: var(--orange-gradient);
             border-image-slice: 1;
         }
     }
@@ -135,10 +136,10 @@
             width: 502px;
             margin-left: 65px;
             margin-top: 88px;
-            background: var(--milk-color);
+            background: var(--black5);
             padding: 32px 32px 52px 32px;
             border-radius: 10px;
-            box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 201, 0.18), 0px 1px 5px rgba(191, 196, 201, 0.24);
+            box-shadow: var(--box-shadow);
             z-index: 10;
 
             .general-link {
