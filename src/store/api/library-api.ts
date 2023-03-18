@@ -72,7 +72,7 @@ export const libraryApi = createApi({
                 body: data,
                 headers: {'authorization': `Bearer ${localStorage.getItem('token')}`}
             }),
-            invalidatesTags: ['Book']
+            invalidatesTags: ['Book', 'AllBooks']
         }),
         updateBooking: builder.mutation<BookingResponse, {bookingId: string, data: BookingRequest }>({
             query: ({bookingId, data}) => ({
@@ -81,7 +81,7 @@ export const libraryApi = createApi({
                 body: data,
                 headers: {'authorization': `Bearer ${localStorage.getItem('token')}`}
             }),
-            invalidatesTags: ['Book']
+            invalidatesTags: ['Book', 'AllBooks']
         }),
         cancelBooking: builder.mutation<void, string>({
             query: (id) => ({
@@ -89,7 +89,7 @@ export const libraryApi = createApi({
                 method: 'DElETE',
                 headers: {'authorization': `Bearer ${localStorage.getItem('token')}`}
             }),
-            invalidatesTags: ['Book']
+            invalidatesTags: ['Book', 'AllBooks']
         }),
         createUser: builder.mutation<AuthResponse, User>({
             query: (user) => ({
