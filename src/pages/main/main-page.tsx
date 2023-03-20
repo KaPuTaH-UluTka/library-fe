@@ -6,15 +6,6 @@ import { Menu } from './menu/menu';
 import classes from './main-page.module.scss';
 
 export const MainPage = () => {
-    const testId = {
-        burgerNav: '',
-        navigationLink: 'navigation-',
-        navigationLinkCount: 'navigation-book-count-for-',
-        showcaseId: 'navigation-showcase',
-        booksId: 'navigation-books',
-        termsId: 'navigation-terms',
-        contractId: 'navigation-contract'
-    };
 
     const [size, setSize] = useState<{clientHeight: null | number, clientWidth: null | number}>({clientHeight: null, clientWidth: null});
 
@@ -38,8 +29,8 @@ export const MainPage = () => {
     }, []);
 
 
-    return (<section className={classes['main-page']} ref={ref}>
-            {size.clientWidth && size.clientWidth > 899 && <Menu burger={false} testId={testId} isMenuOpen={true}/>}
+    return (<section className={classes.mainPage} ref={ref}>
+            {size.clientWidth && size.clientWidth > 899 && <Menu burger={false} isMenuOpen={true}/>}
             <Outlet />
         </section>
     );

@@ -1,4 +1,4 @@
-.menu-wrapper {
+.menuWrapper {
     .menu {
         width: 279px;
         display: flex;
@@ -6,7 +6,7 @@
         margin-top: 5px;
         z-index: 10;
 
-        .general-link {
+        .generalLink {
             width: 255px;
             font-weight: 700;
             font-size: 18px;
@@ -16,7 +16,7 @@
             margin-top: 36px;
             padding-bottom: 7px;
 
-            .general-link-chevron {
+            .generalLinkChevron {
                 position: absolute;
                 border: none;
                 margin-top: -25px;
@@ -27,7 +27,7 @@
                 background: url("../../../assets/orange-chevron.svg") center no-repeat;
                 animation: 0.2s closeToggle linear;
 
-                &-active {
+                &Active {
                     position: absolute;
                     border: none;
                     margin-top: -25px;
@@ -41,43 +41,43 @@
             }
         }
 
-        .general-link:hover {
+        .generalLink:hover {
             color: #FF5253;
             transition: 0.3s;
         }
 
-        .general-link:first-child {
+        .generalLink:first-child {
             margin-top: 0;
         }
 
-        .general-link:nth-child(3) {
+        .generalLink:nth-child(3) {
             margin-top: 43px;
         }
 
-        .category-list {
+        .categoryList {
             margin-left: 23px;
             width: 259px;
             height: 0;
             visibility: hidden;
 
-            &-active {
+            &Active {
                 margin-left: 23px;
                 height: unset;
                 visibility: visible;
                 display: block;
             }
 
-            &-item {
+            &Item {
                 display: flex;
                 margin-top: 16px;
 
-                &-link {
+                &Link {
                     font-weight: 400;
                     font-size: 16px;
                     line-height: 24px;
                     color: var(--black100);
 
-                    &-active {
+                    &Active {
                         transition: 0.3s;
                         font-weight: 700;
                         font-size: 18px;
@@ -87,7 +87,7 @@
                         background-image: var(--orange-gradient);
                     }
 
-                    &-count {
+                    &Count {
                         font-weight: 400;
                         font-size: 14px;
                         line-height: 24px;
@@ -97,7 +97,7 @@
                     }
                 }
 
-                &-link:hover {
+                &Link:hover {
                     color: #FF5253;
                     transition: 0.3s;
                 }
@@ -126,7 +126,7 @@
 }
 
 @media (max-width: 899px) {
-    .menu-wrapper {
+    .menuWrapper {
         width: 100%;
         height: 100%;
         position: absolute;
@@ -142,14 +142,14 @@
             box-shadow: var(--box-shadow);
             z-index: 10;
 
-            .general-link {
+            .generalLink {
                 margin-top: 40px;
 
-                &-profile {
+                &Profile {
                     margin-top: 32px;
                 }
 
-                &-exit {
+                &Exit {
                     margin-top: 32px;
                 }
             }
@@ -166,7 +166,7 @@
 }
 
 @media (max-width: 700px) {
-    .menu-wrapper {
+    .menuWrapper {
         .menu {
             width: 400px;
             margin-left: 20px;
@@ -180,7 +180,7 @@
 }
 
 @media (max-width: 550px) {
-    .menu-wrapper {
+    .menuWrapper {
         .menu {
             width: 300px;
 
@@ -192,7 +192,7 @@
 }
 
 @media (max-width: 320px) {
-    .menu-wrapper {
+    .menuWrapper {
         .menu {
             width: 288px;
             margin-left: 19px;

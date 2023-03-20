@@ -17,7 +17,6 @@ import classesWindow from './book-card-window.module.scss';
 
 interface BookCardProps { book: BookCardInterface, searchValue: string }
 
-
 export const BookCard = ({book, searchValue}: BookCardProps) => {
     const navigate = useNavigate();
 

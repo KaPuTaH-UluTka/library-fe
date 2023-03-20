@@ -31,6 +31,19 @@ export enum ApiPaths {
 }
 
 export enum DataTestId {
+    BurgerNavigation = 'burger-navigation',
+    BurgerNavigationLink = 'burger-',
+    BurgerNavigationLinkCount = 'burger-book-count-for-',
+    BurgerShowcase = 'burger-showcase',
+    BurgerBooks = 'burger-books',
+    BurgerTerms = 'burger-terms',
+    BurgerContract = 'burger-contract',
+    NavigationLink = 'navigation-',
+    NavigationLinkCount = 'navigation-book-count-for-',
+    NavigationShowcase= 'navigation-showcase',
+    NavigationBooks= 'navigation-books',
+    NavigationTerms= 'navigation-terms',
+    NavigationContract= 'navigation-contract',
     Card = 'card',
     ButtonHideReviews = 'button-hide-reviews',
     BookTitle = 'book-title',
@@ -75,6 +88,7 @@ export enum DataTestId {
     CommentText = 'comment-text',
     ButtonComment = 'button-comment',
     ButtonRateBook = 'button-rate-book',
+    ProfileAvatar = 'profile-avatar'
 
 }
 

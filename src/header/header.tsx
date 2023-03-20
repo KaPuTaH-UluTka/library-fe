@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {Link, NavLink} from 'react-router-dom';
+import {Link, NavLink, useLocation} from 'react-router-dom';
 import classNames from 'classnames';
 
-import userAvatar from '../assets/avatar.jpg';
-import logoClevertec from '../assets/logoCleverland.svg';
+import defaultAvatar from '../assets/header/defaultAvatar.jpg';
+import logoClevertec from '../assets/header/logoCleverland.svg';
 import {useAppDispatch, useAppSelector} from '../hooks/redux';
 import {Menu} from '../pages/main/menu/menu';
 import {logout} from '../store/reducers/user-reducer';
@@ -13,19 +13,12 @@ import classes from './header.module.scss';
 
 export const Header = () => {
     const [isContextMenu, setIsContextMenu] = useState(false);
+
+    const {pathname} = useLocation();
+
     const dispatch = useAppDispatch();
 
     const {user} = useAppSelector(state => state.userReducer);
-
-    const testId = {
-        burgerNav: 'burger-navigation',
-        navigationLink: 'burger-',
-        navigationLinkCount: 'burger-book-count-for-',
-        showcaseId: 'burger-showcase',
-        booksId: 'burger-books',
-        termsId: 'burger-terms',
-        contractId: 'burger-contract'
-    };
 
     const [isMenuOpen, menuToggle] = useState(false);
 
@@ -34,7 +27,7 @@ export const Header = () => {
     const contextMenuHandler = () => setIsContextMenu(!isContextMenu);
 
     return (
-        <header className={classNames(classes.header, {[classes.activeHeader]: isContextMenu })}>
+        <header className={classNames(classes.header, {[classes.activeHeader]: isContextMenu})}>
             <div className={classes.headerBar}>
                 <Link to="/"><img className={classes.logo} src={logoClevertec} alt="logo"/></Link>
                 <div className={classes.burgerMenu}>
@@ -45,21 +38,23 @@ export const Header = () => {
                            htmlFor="menu__toggle">
                         <span/>
                     </label>
-                    <Menu burger={true} testId={testId} menuToggle={menuToggle}
+                    <Menu burger={true} menuToggle={menuToggle}
                           isMenuOpen={isMenuOpen}/>
                 </div>
-                <h3 className={classes.headerTitle}>Библиотека</h3>
-                <div className={classes.welcomeWrapper} onClick={contextMenuHandler}>
+                <h3 className={classes.headerTitle}>{pathname === AppPaths.userProfile ? 'Личный кабинет' : 'Библиотека'}</h3>
+                <div className={classes.welcomeWrapper} onClick={contextMenuHandler}
+                     data-test-id={DataTestId.ProfileAvatar}>
                     <h3 className={classes.welcomeTitle}>{`Привет, ${user?.firstName}!`}</h3>
-                    <img className={classes.userAvatar} src={userAvatar} alt="avatar"/>
+                    <img className={classes.userAvatar} src={defaultAvatar} alt="avatar"/>
                 </div>
             </div>
-            {isContextMenu && <div className={classNames(classes.contextMenu, {[classes.activeContext]: isContextMenu })}>
+            {isContextMenu && <div
+                className={classNames(classes.contextMenu, {[classes.activeContext]: isContextMenu})}>
                 <NavLink
-                    className={classNames(classes.contextLink, {[classes.activeLink]: isContextMenu })}
-                    to={AppPaths.userProfile}>Профиль</NavLink>
+                    className={classNames(classes.contextLink, {[classes.activeLink]: isContextMenu})}
+                    to={AppPaths.userProfile} onClick={contextMenuHandler}>Профиль</NavLink>
                 <NavLink data-test-id={DataTestId.ExitButton}
-                         className={classNames(classes.contextLink, {[classes.activeLink]: isContextMenu })}
+                         className={classNames(classes.contextLink, {[classes.activeLink]: isContextMenu})}
                          to={AppPaths.auth} onClick={logoutHandler}>Выход</NavLink>
             </div>}
         </header>);

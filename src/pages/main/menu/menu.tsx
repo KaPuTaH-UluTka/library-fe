@@ -8,12 +8,35 @@ import {setCategories, setCategory} from '../../../store/reducers/category-reduc
 import {logout} from '../../../store/reducers/user-reducer';
 import {BookCategoryInterface} from '../../../types/book-category';
 import {AppPaths, DataTestId} from '../../../types/constants/constants';
-import {MenuTestId} from '../../../types/test-id';
 import {countCategories} from '../../../utils/categories-counter';
 
 import classes from './menu.module.scss';
 
-export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: (arg: boolean) => void, isMenuOpen: boolean }) => {
+interface MenuProps {
+    burger: boolean,
+    menuToggle?: (arg: boolean) => void,
+    isMenuOpen: boolean
+}
+
+export const Menu = ({burger, menuToggle, isMenuOpen}: MenuProps) => {
+
+    const testId = burger ? {
+        burgerNav: DataTestId.BurgerNavigation,
+        navigationLink: DataTestId.BurgerNavigationLink,
+        navigationLinkCount: DataTestId.BurgerNavigationLinkCount,
+        showcaseId: DataTestId.BurgerShowcase,
+        booksId: DataTestId.BurgerBooks,
+        termsId: DataTestId.BurgerTerms,
+        contractId: DataTestId.BurgerContract
+    } : {
+        burgerNav: '',
+        navigationLink: DataTestId.NavigationLink,
+        navigationLinkCount: DataTestId.NavigationLinkCount,
+        showcaseId: DataTestId.NavigationShowcase,
+        booksId: DataTestId.NavigationBooks,
+        termsId: DataTestId.NavigationTerms,
+        contractId: DataTestId.NavigationContract
+    };
 
     const dispatch = useAppDispatch();
 
@@ -33,7 +56,7 @@ export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: 
 
     const body = document.querySelector('body') as HTMLElement;
 
-    if (props.burger && props.isMenuOpen) {
+    if (burger && isMenuOpen) {
         body.classList.add('no-scroll');
     } else {
         body.classList.remove('no-scroll');
@@ -51,10 +74,10 @@ export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: 
 
             return;
         }
-        if (props.burger && categoryStatus) {
+        if (burger && categoryStatus) {
             body.classList.remove('no-scroll');
             if (category) dispatch(setCategory(category));
-            if (props.menuToggle) props.menuToggle(false);
+            if (menuToggle) menuToggle(false);
         }
         setShowcaseStatus(true);
         if (categoryStatus) {
@@ -68,48 +91,47 @@ export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: 
         setContractStatus(false);
     };
 
-
     const desktopBooksHandler = (category: BookCategoryInterface) => {
         dispatch(setCategory(category));
     }
 
     const termsHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         e.stopPropagation();
-        if (props.burger) {
+        if (burger) {
             body.classList.remove('no-scroll');
         }
         setCategoryStatus(false);
         setShowcaseStatus(false);
         setContractStatus(false);
         setTermsStatus(true);
-        if (props.menuToggle) props.menuToggle(false);
+        if (menuToggle) menuToggle(false);
     };
 
     const contractHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         e.stopPropagation();
-        if (props.burger) {
+        if (burger) {
             body.classList.remove('no-scroll');
         }
         setCategoryStatus(false);
         setShowcaseStatus(false);
         setTermsStatus(false);
         setContractStatus(true);
-        if (props.menuToggle) props.menuToggle(false);
+        if (menuToggle) menuToggle(false);
     };
 
 
     const closeMenu = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation();
-        if (props.menuToggle) {
+        if (menuToggle) {
             body.classList.remove('no-scroll');
-            props.menuToggle(false);
+            menuToggle(false);
         }
     };
 
     let bookInCategory: { [key: string]: number } | null = null;
 
     useEffect(() => {
-        if(!categories) dispatch(setCategories(bookCategories));
+        if (!categories) dispatch(setCategories(bookCategories));
     });
 
     if (books.length > 0) {
@@ -120,54 +142,53 @@ export const Menu = (props: { burger: boolean, testId: MenuTestId, menuToggle?: 
         dispatch(logout());
     }
 
-
     return (
-        <div className={props.isMenuOpen ? classes['menu-wrapper'] : classes.hide}
-             data-test-id={props.testId.burgerNav} onClick={closeMenu}>
+        <div className={isMenuOpen ? classes.menuWrapper : classes.hide}
+             data-test-id={testId.burgerNav} onClick={closeMenu}>
             <div className={classes.menu} onClick={(e) => e.stopPropagation()}>
-                <NavLink data-test-id={props.testId.showcaseId}
-                         className={showcaseStatus ? classNames(classes['general-link'], classes.active) : classes['general-link']}
+                <NavLink data-test-id={testId.showcaseId}
+                         className={showcaseStatus ? classNames(classes.generalLink, classes.active) : classes.generalLink}
                          onClick={booksHandler} to={AppPaths.booksAll}>Витрина книг
                     {isSuccess && showcaseStatus && <div
-                        className={categoryStatus ? classes['general-link-chevron-active'] : classes['general-link-chevron']}
+                        className={categoryStatus ? classes.generalLinkChevronActive : classes.generalLinkChevron}
                     />}
                 </NavLink>
-                <ul className={categoryStatus ? classes['category-list-active'] : classes['category-list']}>
-                    {isSuccess && <li className={classes['category-list-item']}><NavLink
-                        data-test-id={props.testId.booksId}
-                        onClick={(e) => props.burger ? booksHandler(e) : desktopBooksHandler(defaultCategory)}
-                        className={({isActive}) => isActive ? classes['category-list-item-link-active'] : classes['category-list-item-link']}
+                <ul className={categoryStatus ? classes.categoryListActive : classes.categoryList}>
+                    {isSuccess && <li className={classes.categoryListItem}><NavLink
+                        data-test-id={testId.booksId}
+                        onClick={(e) => burger ? booksHandler(e) : desktopBooksHandler(defaultCategory)}
+                        className={({isActive}) => isActive ? classes.categoryListItemLinkActive : classes.categoryListItemLink}
                         to={AppPaths.booksAll}>Все книги</NavLink>
                     </li>}
 
                     {categories && categories.map((el) => <li
-                        className={classes['category-list-item']}
+                        className={classes.categoryListItem}
                         key={el.id}>
                         <NavLink
-                            onClick={(e) => props.burger ? booksHandler(e, el) : desktopBooksHandler(el)}
-                            className={({isActive}) => isActive ? classes['category-list-item-link-active'] : classes['category-list-item-link']}
+                            onClick={(e) => burger ? booksHandler(e, el) : desktopBooksHandler(el)}
+                            className={({isActive}) => isActive ? classes.categoryListItemLinkActive : classes.categoryListItemLink}
                             to={`${AppPaths.books}/${el.path}`}><span
-                            data-test-id={props.testId.navigationLink + el.path}>{el.name}</span>
-                            <span data-test-id={props.testId.navigationLinkCount + el.path}
-                                  className={classes['category-list-item-link-count']}>{bookInCategory && el.name && bookInCategory[el.name] ? bookInCategory[el.name] : 0}</span>
+                            data-test-id={testId.navigationLink + el.path}>{el.name}</span>
+                            <span data-test-id={testId.navigationLinkCount + el.path}
+                                  className={classes.categoryListItemLinkCount}>{bookInCategory && el.name && bookInCategory[el.name] ? bookInCategory[el.name] : 0}</span>
                         </NavLink></li>)}
                 </ul>
-                <NavLink data-test-id={props.testId.termsId}
-                         className={termsStatus ? classNames(classes['general-link'], classes.active) : classes['general-link']}
+                <NavLink data-test-id={testId.termsId}
+                         className={termsStatus ? classNames(classes.generalLink, classes.active) : classes.generalLink}
                          onClick={termsHandler} to={AppPaths.terms}>Правила
                     пользования</NavLink>
-                <NavLink data-test-id={props.testId.contractId}
-                         className={contractStatus ? classNames(classes['general-link'], classes.active) : classes['general-link']}
+                <NavLink data-test-id={testId.contractId}
+                         className={contractStatus ? classNames(classes.generalLink, classes.active) : classes.generalLink}
                          onClick={contractHandler} to={AppPaths.contract}>Договор
                     оферты</NavLink>
-                {props.burger && <>
+                {burger && <>
                     <div className={classes.separator}/>
                     <NavLink
-                        className={classNames(classes['general-link'], classes['general-link-profile'])}
+                        className={classNames(classes.generalLink, classes.generalLinkProfile)}
                         to={AppPaths.userProfile}>Профиль</NavLink>
                     <NavLink data-test-id={DataTestId.ExitButton}
-                        className={classNames(classes['general-link'], classes['general-link-exit'])}
-                        to={AppPaths.auth} onClick={handleLogout}>Выход</NavLink></>}
+                             className={classNames(classes.generalLink, classes.generalLinkExit)}
+                             to={AppPaths.auth} onClick={handleLogout}>Выход</NavLink></>}
             </div>
         </div>
     );

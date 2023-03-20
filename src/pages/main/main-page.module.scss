@@ -1,4 +1,4 @@
-.main-page {
+.mainPage {
     display: flex;
     width: 100%;
     justify-content: center;
@@ -6,13 +6,13 @@
     margin-top: 50px;
 }
 @media (max-width: 768px) {
-    .main-page {
+    .mainPage {
         margin-top: 38px;
     }
 }
 
 @media (max-width: 320px) {
-    .main-page {
+    .mainPage {
         margin-top: 11px;
     }
 }
