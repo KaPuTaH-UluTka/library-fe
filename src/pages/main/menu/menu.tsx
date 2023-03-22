@@ -66,20 +66,13 @@ export const Menu = ({burger, menuToggle, isMenuOpen}: MenuProps) => {
 
     const booksHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, category?: BookCategoryInterface) => {
         e.stopPropagation();
-        if (!showcaseStatus) {
-            setCategoryStatus(true);
-            setShowcaseStatus(true);
-            setTermsStatus(false);
-            setContractStatus(false);
 
-            return;
-        }
         if (burger && categoryStatus) {
             body.classList.remove('no-scroll');
             if (category) dispatch(setCategory(category));
             if (menuToggle) menuToggle(false);
         }
-        setShowcaseStatus(true);
+
         if (categoryStatus) {
             setCategoryStatus(false);
         } else {
@@ -90,6 +83,18 @@ export const Menu = ({burger, menuToggle, isMenuOpen}: MenuProps) => {
         setTermsStatus(false);
         setContractStatus(false);
     };
+
+    const showcaseHandler = () => {
+        if (showcaseStatus) {
+            setShowcaseStatus(false);
+            setCategoryStatus(false);
+        } else {
+            setCategoryStatus(true);
+            setShowcaseStatus(true);
+            setTermsStatus(false);
+            setContractStatus(false);
+        }
+    }
 
     const desktopBooksHandler = (category: BookCategoryInterface) => {
         dispatch(setCategory(category));
@@ -148,7 +153,7 @@ export const Menu = ({burger, menuToggle, isMenuOpen}: MenuProps) => {
             <div className={classes.menu} onClick={(e) => e.stopPropagation()}>
                 <NavLink data-test-id={testId.showcaseId}
                          className={showcaseStatus ? classNames(classes.generalLink, classes.active) : classes.generalLink}
-                         onClick={booksHandler} to={AppPaths.booksAll}>Витрина книг
+                         onClick={showcaseHandler} to={AppPaths.booksAll}>Витрина книг
                     {isSuccess && showcaseStatus && <div
                         className={categoryStatus ? classes.generalLinkChevronActive : classes.generalLinkChevron}
                     />}

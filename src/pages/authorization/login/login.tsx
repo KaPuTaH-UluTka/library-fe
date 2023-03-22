@@ -1,20 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import {Link, useNavigate} from 'react-router-dom';
 import {yupResolver} from '@hookform/resolvers/yup';
 import classNames from 'classnames';
 
 import RightArrow from '../../../assets/auth-icons/arrowRight.svg'
+import {AuthModalLayout} from '../../../components/auth-modal-layout/auth-modal-layout';
 import {CustomInput} from '../../../components/custom-elements/input/custom-input';
 import {Loader} from '../../../components/loader/loader';
-import {AuthModalLayout} from '../../../components/auth-modal-layout/auth-modal-layout';
 import {useAppDispatch} from '../../../hooks/redux';
 import {isFetchBaseQueryError} from '../../../store/api/api-helpers';
 import {libraryApi} from '../../../store/api/library-api';
 import {setToken, setUser} from '../../../store/reducers/user-reducer';
 import {AppPaths, DataTestId, LoginResponseErrors} from '../../../types/constants/constants';
 import {LoginUser} from '../../../types/user';
-import {loginSchema} from '../validation';
+import {loginSchema} from '../../../validation/validation';
 
 import classes from './login.module.scss';
 
@@ -25,7 +25,9 @@ export const Login = () => {
     const [loginUser, {
         isLoading,
         isError,
+        isSuccess,
         error,
+        data: loginData
     }] = libraryApi.useLoginUserMutation();
 
     const {
@@ -39,15 +41,17 @@ export const Login = () => {
     })
 
     const submitHandler: SubmitHandler<LoginUser> = data => {
-            const user = loginUser(data).unwrap();
-
-                user.then(userData => {
-                    dispatch(setUser(userData.user));
-                    dispatch(setToken(userData.jwt));
-                    navigate(AppPaths.booksAll);
-                }).catch(err => err);
-
+        loginUser(data);
     }
+
+
+    useEffect(() => {
+        if(isSuccess && loginData) {
+            dispatch(setToken(loginData.jwt));
+            dispatch(setUser(loginData.user));
+            navigate(AppPaths.booksAll);
+        }
+    },[isSuccess, loginData, dispatch, navigate]);
 
     return (<>
             {(!localStorage.getItem('user') && !isError || isFetchBaseQueryError(error) && error.status === 400) &&

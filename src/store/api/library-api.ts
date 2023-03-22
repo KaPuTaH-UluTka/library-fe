@@ -12,7 +12,7 @@ import {ReviewFields, ReviewResponse} from '../../types/review';
 import {
     AuthResponse,
     ForgotPassword,
-    LoginUser,
+    LoginUser, RegisteredUser,
     ResetPassword,
     User
 } from '../../types/user';
@@ -27,10 +27,10 @@ export const libraryApi = createApi({
             const {token} = (getState() as RootState).userReducer
 
             if (token) {
-                headers.set('authorization', `Bearer ${token}`)
+                headers.set('authorization', `Bearer ${token}`);
             }
 
-            return headers
+            return headers;
         },
     }),
     tagTypes: ['Book', 'AllBooks'],
@@ -99,11 +99,37 @@ export const libraryApi = createApi({
                 body: user
             })
         }),
+        updateUser: builder.mutation<RegisteredUser, {userId: string, user: User }>({
+            query: ({userId, user}) => ({
+                url:`${ApiPaths.updateUser}/${userId}`,
+                method: 'PUT',
+                body: user
+            })
+        }),
+        uploadAvatar: builder.mutation<void, File>({
+            query: (file) => ({
+                url:`${ApiPaths.uploadAvatar}`,
+                method: 'POST',
+                body: file
+            })
+        }),
+        updateAvatar: builder.mutation<RegisteredUser,{userId: string, data: {avatar: number}}>({
+            query: ({userId, data}) => ({
+                url:`${ApiPaths.updateUser}/${userId}`,
+                method: 'PUT',
+                body: data
+            })
+        }),
         loginUser: builder.mutation<AuthResponse, LoginUser>({
             query: (user) => ({
                 url: ApiPaths.loginUser,
                 method: 'POST',
                 body: user
+            })
+        }),
+        me: builder.query<RegisteredUser, void>({
+            query: () => ({
+                url: ApiPaths.me,
             })
         }),
         forgotPassword: builder.mutation<{ ok: boolean }, ForgotPassword>({

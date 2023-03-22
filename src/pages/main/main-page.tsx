@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
+import {DataTestId} from '../../types/constants/constants';
+
 import { Menu } from './menu/menu';
 
 import classes from './main-page.module.scss';
@@ -29,7 +31,7 @@ export const MainPage = () => {
     }, []);
 
 
-    return (<section className={classes.mainPage} ref={ref}>
+    return (<section className={classes.mainPage} ref={ref} data-test-id={DataTestId.MainPage}>
             {size.clientWidth && size.clientWidth > 899 && <Menu burger={false} isMenuOpen={true}/>}
             <Outlet />
         </section>

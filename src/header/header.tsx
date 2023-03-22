@@ -50,7 +50,7 @@ export const Header = () => {
             </div>
             {isContextMenu && <div
                 className={classNames(classes.contextMenu, {[classes.activeContext]: isContextMenu})}>
-                <NavLink
+                <NavLink data-test-id={DataTestId.ProfileButton}
                     className={classNames(classes.contextLink, {[classes.activeLink]: isContextMenu})}
                     to={AppPaths.userProfile} onClick={contextMenuHandler}>Профиль</NavLink>
                 <NavLink data-test-id={DataTestId.ExitButton}

@@ -13,7 +13,7 @@ import {libraryApi} from '../../../store/api/library-api';
 import {AppPaths, DataTestId, RegistrationResponseErrors} from '../../../types/constants/constants';
 import {User} from '../../../types/user';
 import {selectRegistrationSchema} from '../../../utils/authorization';
-import {passwordSchema, usernameSchema} from '../validation';
+import {passwordSchema, usernameSchema} from '../../../validation/validation';
 
 import classes from './registration.module.scss';
 
@@ -26,7 +26,7 @@ export const Registration = () => {
         isLoading,
         error,
         reset: apiReset
-    }] = libraryApi.useCreateUserMutation()
+    }] = libraryApi.useCreateUserMutation();
 
     const {register, formState: {errors}, handleSubmit, watch, clearErrors, reset} = useForm<User>({
         mode: 'onBlur',

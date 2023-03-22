@@ -1,6 +1,6 @@
 import {lazy, object, ref, string} from 'yup';
 
-import {RegistrationErrorMessages} from '../../types/constants/constants';
+import {RegistrationErrorMessages} from '../types/constants/constants';
 
 export const Regex = {
     loginLetter: /(?=.*[a-zA-Z]).+/,
@@ -29,7 +29,7 @@ export const registrationStageOneSchema = object({
 export const registrationStageTwoSchema = object({
     firstName: string().required(RegistrationErrorMessages.required),
     lastName: string().required(RegistrationErrorMessages.required),
-})
+});
 
 export const registrationStageThreeSchema = object({
     phone: string()
@@ -38,7 +38,28 @@ export const registrationStageThreeSchema = object({
     email: string()
         .required(RegistrationErrorMessages.required)
         .matches(Regex.email, RegistrationErrorMessages.email),
-})
+});
+
+export const editUserProfileSchema = object({
+    username: string()
+        .required(RegistrationErrorMessages.required)
+        .matches(Regex.loginLetter, RegistrationErrorMessages.latinAlphabet)
+        .matches(Regex.loginNumber, RegistrationErrorMessages.numbers),
+    password: string()
+        .required(RegistrationErrorMessages.required)
+        .min(8, RegistrationErrorMessages.atLeastEightCharacters)
+        .matches(Regex.passwordUpperLetter,   RegistrationErrorMessages.withUpperLetter )
+        .matches(Regex.passwordOneNum,  RegistrationErrorMessages.withNumber ),
+    firstName: string().required(RegistrationErrorMessages.required),
+    lastName: string().required(RegistrationErrorMessages.required),
+    phone: string()
+        .required(RegistrationErrorMessages.required)
+        .matches(Regex.phone, RegistrationErrorMessages.phone),
+    email: string()
+        .required(RegistrationErrorMessages.required)
+        .matches(Regex.email, RegistrationErrorMessages.email),
+});
+
 
 export const usernameSchema = object({
     username: string()

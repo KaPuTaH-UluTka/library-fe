@@ -17,7 +17,7 @@ import {
     ForgotErrorMessages,
 } from '../../../types/constants/constants';
 import {ForgotPasswordFields} from '../../../types/user';
-import {forgotPasswordSchema, resetPasswordSchema} from '../validation';
+import {forgotPasswordSchema, resetPasswordSchema} from '../../../validation/validation';
 
 import classes from './forgot-pass.module.scss';
 

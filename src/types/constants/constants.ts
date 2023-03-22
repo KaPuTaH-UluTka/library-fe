@@ -21,16 +21,23 @@ export enum ApiPaths {
 
     loginUser = '/auth/local',
 
+    me = '/users/me',
+
+    updateUser = '/api/users/',
+
     forgotPassword = '/auth/forgot-password',
 
     resetPassword = '/auth/reset-password',
 
     booking = '/bookings',
 
-    comment = '/comments'
+    comment = '/comments',
+
+    uploadAvatar = '/upload'
 }
 
 export enum DataTestId {
+    MainPage = 'main-page',
     BurgerNavigation = 'burger-navigation',
     BurgerNavigationLink = 'burger-',
     BurgerNavigationLinkCount = 'burger-book-count-for-',
@@ -40,10 +47,10 @@ export enum DataTestId {
     BurgerContract = 'burger-contract',
     NavigationLink = 'navigation-',
     NavigationLinkCount = 'navigation-book-count-for-',
-    NavigationShowcase= 'navigation-showcase',
-    NavigationBooks= 'navigation-books',
-    NavigationTerms= 'navigation-terms',
-    NavigationContract= 'navigation-contract',
+    NavigationShowcase = 'navigation-showcase',
+    NavigationBooks = 'navigation-books',
+    NavigationTerms = 'navigation-terms',
+    NavigationContract = 'navigation-contract',
     Card = 'card',
     ButtonHideReviews = 'button-hide-reviews',
     BookTitle = 'book-title',
@@ -88,8 +95,8 @@ export enum DataTestId {
     CommentText = 'comment-text',
     ButtonComment = 'button-comment',
     ButtonRateBook = 'button-rate-book',
-    ProfileAvatar = 'profile-avatar'
-
+    ProfileAvatar = 'profile-avatar',
+    ProfileButton = 'profile-button'
 }
 
 export enum RegistrationErrorMessages {
@@ -129,4 +136,14 @@ export enum ToastMessages {
     bookingCancelSuccess = 'Бронирование книги успешно отменено!',
     bookingCancelError = 'Не удалось снять бронирование книги. Попробуйте позже!',
     responseError = 'Что-то пошло не так. Обновите страницу через некоторое время.',
+}
+
+export enum PlugMessages {
+    bookedBook = 'Забронируйте книгу \nи она отобразится',
+    currentBook = 'Прочитав книгу, \nона отобразится в истории',
+    history = 'Вы не читали книг \nиз нашей библиотеки',
+    bookingExpired = 'Дата бронирования \nкниги истекла',
+    bookingExpiredDesc = 'Через 24 часа книга будет  доступна всем',
+    handedExpired = 'Вышел срок \nпользования книги',
+    handedExpiredDesc = 'Верните книгу, пожалуйста',
 }
