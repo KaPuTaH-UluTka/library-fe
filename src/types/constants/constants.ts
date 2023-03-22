@@ -9,7 +9,6 @@ export enum AppPaths {
     registration = '/registration',
     auth = '/auth',
     forgotPass = '/forgot-pass',
-
     userProfile = '/profile'
 }
 
@@ -23,7 +22,7 @@ export enum ApiPaths {
 
     me = '/users/me',
 
-    updateUser = '/api/users/',
+    updateUser = '/users',
 
     forgotPassword = '/auth/forgot-password',
 

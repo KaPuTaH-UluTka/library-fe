@@ -11,14 +11,14 @@ import {useAppDispatch, useAppSelector} from '../../../../hooks/redux';
 import {
     setListView,
     setWindowView
-} from '../../../../store/reducers/list-view-reducer';
+} from '../../../../store/reducers/card-view-reducer';
 import {setSortOrder} from '../../../../store/reducers/sort-order-reducer';
 
 import classes from './list-settings.module.scss';
 
 export const ListSettings = (props: {sortOrder: boolean, searchValue: string, setSearchValue: (searchValue: string) => void}) => {
     const dispatch = useAppDispatch();
-    const {listView} = useAppSelector(state => state.listViewReducer);
+    const {cardView} = useAppSelector(state => state.cardViewReducer);
 
     const [isSearchOpen, searchOpenToggle] = useState(false);
 
@@ -104,17 +104,17 @@ export const ListSettings = (props: {sortOrder: boolean, searchValue: string, se
             <div className={searchState ? classes.hide : classes['list-style']}>
 
                 <button
-                    className={listView ? classNames(classes.gradient, classes['change-view-btn']) : classes['change-view-btn']}
+                    className={cardView ? classNames(classes.gradient, classes['change-view-btn']) : classes['change-view-btn']}
                     onClick={() => dispatch(setWindowView())} type="button"
                     data-test-id="button-menu-view-window"
-                ><img src={listView ? WindowWhiteIcon : WindowGrayIcon} alt="window-icon"/>
+                ><img src={cardView ? WindowWhiteIcon : WindowGrayIcon} alt="window-icon"/>
                 </button>
 
                 <button
-                    className={listView ? classes['change-view-btn'] : classNames(classes.gradient, classes['change-view-btn'])}
+                    className={cardView ? classes['change-view-btn'] : classNames(classes.gradient, classes['change-view-btn'])}
                     onClick={() => dispatch(setListView())} type="button"
                     data-test-id="button-menu-view-list"
-                ><img src={listView ? ListGrayIcon : ListWhiteIcon} alt="list-icon"/>
+                ><img src={cardView ? ListGrayIcon : ListWhiteIcon} alt="list-icon"/>
                 </button>
 
             </div>

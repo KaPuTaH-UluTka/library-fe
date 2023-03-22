@@ -26,7 +26,7 @@ export const BookList = () => {
 
     const {sortOrder} = useAppSelector(state => state.sortOrderReducer);
 
-    const listView = useAppSelector(state => state.listViewReducer);
+    const {cardView} = useAppSelector(state => state.cardViewReducer);
 
     const [searchValue, setSearchValue] = useState('');
 
@@ -50,8 +50,8 @@ export const BookList = () => {
     return (
         <div className={classes.bookListWrapper}>
                 <ListSettings sortOrder={sortOrder} searchValue={searchValue} setSearchValue={setSearchValue}/>
-                <div className={listView ? classes.windowStyle : classes.listStyle} data-test-id={DataTestId.Content}>
-                    {correctBooks && correctBooks.map(el => <BookCard book={el} key={el.id} searchValue={searchValue}/>)}
+                <div className={cardView ? classes.windowStyle : classes.listStyle} data-test-id={DataTestId.Content}>
+                    {correctBooks && correctBooks.map(el => <BookCard cardView={cardView} book={el} key={el.id} searchValue={searchValue}/>)}
                 </div>
                 {correctBooks && correctBooks.length === 0 && searchValue && <BookNotExist templateToShow={false}/>}
                 {correctBooks && correctBooks.length === 0 && !searchValue && <BookNotExist templateToShow={true}/>}

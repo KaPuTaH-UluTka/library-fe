@@ -44,7 +44,6 @@ export const Login = () => {
         loginUser(data);
     }
 
-
     useEffect(() => {
         if(isSuccess && loginData) {
             dispatch(setToken(loginData.jwt));

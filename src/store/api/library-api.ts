@@ -19,6 +19,7 @@ import {
 import {RootState} from '../store';
 
 import {API_URL} from './api-url';
+import {ImageFull} from "../../types/upload-images";
 
 export const libraryApi = createApi({
     reducerPath: 'libraryApi',
@@ -33,7 +34,7 @@ export const libraryApi = createApi({
             return headers;
         },
     }),
-    tagTypes: ['Book', 'AllBooks'],
+    tagTypes: ['Book', 'AllBooks', 'User'],
     endpoints: (builder) => ({
         getBookCategories: builder.query<BookCategoryInterface[], void>({
             query: () => ({
@@ -90,7 +91,7 @@ export const libraryApi = createApi({
                 url: `${ApiPaths.booking}/${id}`,
                 method: 'DElETE',
             }),
-            invalidatesTags: ['Book', 'AllBooks']
+            invalidatesTags: ['Book', 'AllBooks', 'User']
         }),
         createUser: builder.mutation<AuthResponse, User>({
             query: (user) => ({
@@ -99,25 +100,25 @@ export const libraryApi = createApi({
                 body: user
             })
         }),
-        updateUser: builder.mutation<RegisteredUser, {userId: string, user: User }>({
+        updateUser: builder.mutation<RegisteredUser, {userId: number, user: User }>({
             query: ({userId, user}) => ({
                 url:`${ApiPaths.updateUser}/${userId}`,
                 method: 'PUT',
                 body: user
             })
         }),
-        uploadAvatar: builder.mutation<void, File>({
+        uploadAvatar: builder.mutation<ImageFull[], FormData>({
             query: (file) => ({
-                url:`${ApiPaths.uploadAvatar}`,
+                url:ApiPaths.uploadAvatar,
                 method: 'POST',
-                body: file
+                body: file,
             })
         }),
-        updateAvatar: builder.mutation<RegisteredUser,{userId: string, data: {avatar: number}}>({
-            query: ({userId, data}) => ({
+        updateAvatar: builder.mutation<RegisteredUser,{userId: number, avatar: number}>({
+            query: ({userId, avatar}) => ({
                 url:`${ApiPaths.updateUser}/${userId}`,
                 method: 'PUT',
-                body: data
+                body: {avatar}
             })
         }),
         loginUser: builder.mutation<AuthResponse, LoginUser>({
@@ -130,7 +131,8 @@ export const libraryApi = createApi({
         me: builder.query<RegisteredUser, void>({
             query: () => ({
                 url: ApiPaths.me,
-            })
+            }),
+            providesTags: () => ['User']
         }),
         forgotPassword: builder.mutation<{ ok: boolean }, ForgotPassword>({
             query: (email) => ({

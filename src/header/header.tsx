@@ -10,6 +10,7 @@ import {logout} from '../store/reducers/user-reducer';
 import {AppPaths, DataTestId} from '../types/constants/constants';
 
 import classes from './header.module.scss';
+import {API_URL} from "../store/api/api-url";
 
 export const Header = () => {
     const [isContextMenu, setIsContextMenu] = useState(false);
@@ -45,7 +46,7 @@ export const Header = () => {
                 <div className={classes.welcomeWrapper} onClick={contextMenuHandler}
                      data-test-id={DataTestId.ProfileAvatar}>
                     <h3 className={classes.welcomeTitle}>{`Привет, ${user?.firstName}!`}</h3>
-                    <img className={classes.userAvatar} src={defaultAvatar} alt="avatar"/>
+                    <img className={classes.userAvatar} src={user?.avatar ? API_URL + user.avatar : defaultAvatar} alt="avatar"/>
                 </div>
             </div>
             {isContextMenu && <div

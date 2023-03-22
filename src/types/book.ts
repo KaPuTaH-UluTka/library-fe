@@ -62,3 +62,12 @@ export interface CommentInterface {
             avatarUrl: string
     }
 }
+
+export interface UserBook {
+    id: number,
+    title: string,
+    rating: number,
+    issueYear: string | null,
+    authors: string[],
+    image: string | null,
+}
