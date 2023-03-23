@@ -5,11 +5,13 @@
     border-radius: 10px;
     background: var(--plugBg);
     color: var(--whiteMain);
+    position: absolute;
 }
 
 .plugError {
+    top: 0;
     backdrop-filter: blur(10px);
-    background: var(--plugErrorBg);
+    background: rgba(255, 82, 83, 0.7);;
 }
 
 .plugTitle {
@@ -23,4 +25,16 @@
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
+}
+
+@media (max-width: 320px) {
+    .plugTitle {
+        font-size: 18px;
+        line-height: 28px;
+    }
+
+    .plugDescription {
+        font-size: 14px;
+        line-height: 18px;
+    }
 }

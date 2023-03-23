@@ -17,12 +17,13 @@
         padding-left: 12px;
         padding-top: 5px;
         transition: 0.2s;
+        position: relative;
     }
 
     .placeholder {
         color: var(--black100);
         position: absolute;
-        margin-left: -404px;
+        left: 12px;
         margin-top: 37px;
         transition: 0.2s;
         pointer-events: none;
@@ -87,15 +88,5 @@
         right: 10px;
         width: 25px;
         cursor: pointer;
-    }
-}
-
-@media (max-width: 600px) {
-    .inputWrapper {
-
-        .placeholder {
-            margin-left: -244px;
-        }
-
     }
 }

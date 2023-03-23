@@ -138,11 +138,22 @@ export enum ToastMessages {
 }
 
 export enum PlugMessages {
-    bookedBook = 'Забронируйте книгу \nи она отобразится',
-    currentBook = 'Прочитав книгу, \nона отобразится в истории',
+    bookedBookTitle = 'Забронируйте книгу \nи она отобразится',
+    currentBookTitle = 'Прочитав книгу, \nона отобразится в истории',
     history = 'Вы не читали книг \nиз нашей библиотеки',
-    bookingExpired = 'Дата бронирования \nкниги истекла',
-    bookingExpiredDesc = 'Через 24 часа книга будет  доступна всем',
-    handedExpired = 'Вышел срок \nпользования книги',
-    handedExpiredDesc = 'Верните книгу, пожалуйста',
+    bookingExpiredTitle = 'Дата бронирования \nкниги истекла',
+    bookingExpiredDescription = 'Через 24 часа книга будет  доступна всем',
+    handedExpiredTitle = 'Вышел срок \nпользования книги',
+    handedExpiredDescription = 'Верните книгу, пожалуйста',
+}
+
+export enum ProfileSectionText {
+    userDataTitle = 'Учётные данные',
+    userDataDescription = 'Здесь вы можете отредактировать информацию о себе',
+    bookedBookTitle = 'Забронированная книга',
+    bookedBookDescription = 'Здесь вы можете просмотреть забронированную книгу, а так же отменить бронь',
+    handledBookTitle = 'Книга которую взяли',
+    handledBookDescription = 'Здесь можете просмотреть информацию о книге и узнать сроки возврата',
+    historyTitle = 'История',
+    historyDescription = 'Список прочитанных книг',
 }
