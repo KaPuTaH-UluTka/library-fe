@@ -45,49 +45,20 @@
         color: var(--black43);
     }
 
-    &Btn {
-        margin-left: 4px;
-        width: 166px;
-        height: 40px;
-        background: var(--orange-gradient);
-        border-radius: 20px;
-        border: none;
-        font-weight: 600;
-        font-size: 12px;
-        line-height: 18px;
-        letter-spacing: 0.2px;
-        text-transform: uppercase;
-        cursor: pointer;
-        color: var(--whiteMain);
-        &:disabled {
-            background: var(--black5);
-            border: 1px solid var(--black20);
-            color: var(--black43);
-            cursor: auto;
-        }
-
-        &:disabled:hover {
-            border: 1px solid var(--black43);
-            box-shadow: var(--box-shadow-hover);
-        }
-
-        &:hover {
-            border: 1px solid #FF740F;
-            box-shadow: var(--box-shadow-hover);
-        }
-
-        &:active {
-            box-shadow: var(--box-shadow-active);
-        }
+    &BtnWrapper {
+        width: 100%;
     }
-    &BtnBooked {
-        color: var(--black100);
-        background: var(--whiteMain);
-        border: 1px solid var(--black20);
-        &:hover {
-            border: 1px solid var(--black40);
-            box-shadow: var(--box-shadow-hover);
-        }
+
+
+}
+
+.wide {
+    width: 255px;
+}
+
+@media (max-width: 900px) {
+    .wide {
+        width: 190px;
     }
 }
 
@@ -148,10 +119,9 @@
             text-transform: none;
             margin-top: 8px;
         }
+    }
 
-        &Btn {
-            margin-left: 0px;
-            width: 256px;
-        }
+    .wide {
+        width: 288px;
     }
 }

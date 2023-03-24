@@ -5549,7 +5549,7 @@ describe('Sprint 7', () => {
                     .should('have.css', 'background-color')
                     .and('eq', 'rgb(110, 118, 241)');
             });
-            it('empty-history', () => {
+            it('empty-profile-history', () => {
                 getContent();
                 cy.intercept('GET', /me/, USER_NO_HISTORY).as('me');
                 cy.visit('http://localhost:3000/#/profile');
@@ -5647,26 +5647,26 @@ describe('Sprint 7', () => {
             });
         });
 
-        describe('history-tests', () => {
+        describe('profile-history-tests', () => {
             describe('exist-and-visible', () => {
                 it('test', () => {
                     getFullData();
                     cy.visit('http://localhost:3000/#/profile');
                     cy.wait(['@books', '@me', '@categories']);
-                    cy.get('[data-test-id=history]')
+                    cy.get('[data-test-id=profile-history]')
                         .should('be.visible')
                         .contains('История')
                         .should('have.css', 'font-weight', '700')
                         .should('have.css', 'font-size', '24px')
                         .should('have.css', 'color', 'rgb(54, 54, 54)');
-                    cy.get('[data-test-id=history]')
+                    cy.get('[data-test-id=profile-history]')
                         .contains('Список прочитанных книг', { matchCase: false })
                         .should('have.css', 'font-weight', '400')
                         .should('have.css', 'font-size', '16px')
                         .should('have.css', 'color', 'rgb(167, 167, 167)');
                     cy.get('[data-test-id=card]').should('be.visible');
                     cy.wait(5000);
-                    cy.get('[data-test-id=history]').screenshot('25-1440-history', {
+                    cy.get('[data-test-id=profile-history]').screenshot('25-1440-profile-history', {
                         clip: { x: 0, y: 0, width: 1440, height: 600 },
                     });
                 });
@@ -5681,9 +5681,9 @@ describe('Sprint 7', () => {
                 );
                 cy.visit('http://localhost:3000/#/profile');
                 cy.wait(['@books', '@me', '@categories']);
-                cy.get('[data-test-id=history-slide]')
+                cy.get('[data-test-id=profile-history-slide]')
                     .eq(0)
-                    .find('[data-test-id=history-review-button]')
+                    .find('[data-test-id=profile-history-review-button]')
                     .contains('Оставить отзыв', { matchCase: false })
                     .click();
                 cy.wait('@book');
@@ -5734,9 +5734,9 @@ describe('Sprint 7', () => {
                 );
                 cy.visit('http://localhost:3000/#/profile');
                 cy.wait(['@books', '@me','@categories']);
-                cy.get('[data-test-id=history-slide]')
+                cy.get('[data-test-id=profile-history-slide]')
                     .eq(2)
-                    .find('[data-test-id=history-review-button]')
+                    .find('[data-test-id=profile-history-review-button]')
                     .contains('Изменить оценку', { matchCase: false })
                     .click();
                 cy.wait('@book');
@@ -5784,7 +5784,7 @@ describe('Sprint 7', () => {
             cy.intercept('GET', 'https://strapi.cleverland.by/api/books/**', book).as('book');
             cy.visit('http://localhost:3000/#/profile');
             cy.wait(['@books', '@me', '@categories']);
-            cy.get('[data-test-id=history-slide]').eq(number).click();
+            cy.get('[data-test-id=profile-history-slide]').eq(number).click();
             cy.wait('@book');
             cy.url().should('contain', `${book.id}`);
             if (book.id === 94) {

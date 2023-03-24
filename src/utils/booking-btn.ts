@@ -1,7 +1,7 @@
 import {BookInterface} from '../types/book';
 import {BookCardInterface} from '../types/book-card';
+import {dateParser} from './date-utils';
 
-import {dateParser} from './date-parser';
 
 export const bookingBtnText = (book: BookInterface | BookCardInterface
 

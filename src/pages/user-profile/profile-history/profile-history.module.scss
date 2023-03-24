@@ -1,0 +1,16 @@
+
+.slider {
+    margin-top: 32px;
+    z-index: 100;
+    .swiperWrapper {
+        height: 518px;
+    }
+    padding-bottom: 62px;
+}
+
+@media (max-width: 320px) {
+    .swiperWrapper {
+        min-width: 292px;
+        padding-left: 2px;
+    }
+}

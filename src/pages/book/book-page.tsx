@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import classNames from 'classnames';
+import {skipToken} from '@reduxjs/toolkit/query/react';
 
 import BlackChevron from '../../assets/black-chevron.svg';
 import noImageBook from '../../assets/defaultBook.png';
@@ -14,7 +15,9 @@ import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {API_URL} from '../../store/api/api-url';
 import {libraryApi} from '../../store/api/library-api';
 import {
-    setBaseResponseErrorTrue, setFetchingFalse, setFetchingTrue,
+    setBaseResponseErrorTrue,
+    setFetchingFalse,
+    setFetchingTrue,
     setLoadingFalse,
     setLoadingTrue
 } from '../../store/reducers/request-status-reducer';
@@ -25,7 +28,7 @@ import {commentExistChecker} from '../../utils/comment-exist-checker';
 import {Slider} from './slider/slider';
 
 import classes from './book-page.module.scss';
-import { CommentInterface } from '../../types/book';
+import {CommentInterface} from '../../types/book';
 
 export const BookPage = () => {
 
@@ -35,7 +38,7 @@ export const BookPage = () => {
 
     const {user} = useAppSelector(state => state.userReducer);
 
-    const {data: book, isError, isFetching} = libraryApi.useGetBookByIdQuery(bookId || '0');
+    const {data: bookData, isError, isFetching} = libraryApi.useGetBookByIdQuery(bookId || skipToken);
 
     const [isReviewsOpen, setReviewsState] = useState(false);
     const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
@@ -43,11 +46,16 @@ export const BookPage = () => {
 
     const body = document.querySelector('body') as HTMLElement;
 
+    let book;
+
+    if(bookData && !('length' in bookData)) {book = bookData}
+    if(bookData && ('length' in bookData) && bookId) {book = bookData[+bookId - 1]}
+
     const isBookedByUser = book?.booking?.customerId === user?.id;
 
     const copiedComments: CommentInterface[] = [];
 
-    book?.comments?.forEach(el => copiedComments.push(el));
+    book?.comments?.forEach((el: CommentInterface) => copiedComments.push(el));
 
     const sortedComments = copiedComments.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
 
@@ -70,9 +78,9 @@ export const BookPage = () => {
     }, [body.classList, dispatch, isBookingModalOpen, isError, isFetching, isReviewModalOpen]);
 
     return <section className={classes.bookPage}>
-        <div className={classes.bookPageWrapper}>
+        {book && <div className={classes.bookPageWrapper}>
             <BookLink bookTitle={book?.title}/>
-            {book && <div className={classes.info}>
+            <div className={classes.info}>
                 <div className={classes.book}>
                     {book.images && book.images.length > 1 ? <Slider images={book.images}/> :
                         <img className={classes.bookImg}
@@ -119,7 +127,6 @@ export const BookPage = () => {
                         onClick={() => isReviewsOpen ? setReviewsState(false) : setReviewsState(true)}
                         data-test-id={DataTestId.ButtonHideReviews}
                         type="button"><img src={BlackChevron} alt="black-chevron"/></button>
-
                     <div
                         className={classNames(classes.reviewsList, {[classes.reviewsListHide]: isReviewsOpen})}
                         data-test-id={DataTestId.Reviews}>
@@ -133,10 +140,10 @@ export const BookPage = () => {
                         Оценить книгу
                     </button>
                 </div>
-            </div>}
+            </div>
             {isReviewModalOpen && <ReviewModal setIsModalOpen={setIsReviewModalOpen}/>}
-            {isBookingModalOpen && book &&
+            {isBookingModalOpen &&
                 <BookingModal setIsModalOpen={setIsBookingModalOpen} selectedBook={book}/>}
-        </div>
+        </div>}
     </section>
 };

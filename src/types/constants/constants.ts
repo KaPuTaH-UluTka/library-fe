@@ -36,6 +36,9 @@ export enum ApiPaths {
 }
 
 export enum DataTestId {
+    SlideBig = 'slide-big',
+    SlideMini = 'slide-mini',
+    HighLightMatches = 'highlight-matches',
     MainPage = 'main-page',
     BurgerNavigation = 'burger-navigation',
     BurgerNavigationLink = 'burger-',
@@ -95,7 +98,17 @@ export enum DataTestId {
     ButtonComment = 'button-comment',
     ButtonRateBook = 'button-rate-book',
     ProfileAvatar = 'profile-avatar',
-    ProfileButton = 'profile-button'
+    ProfileButton = 'profile-button',
+    EditButton = 'edit-button',
+    SaveButton = 'save-button',
+    ProfileForm = 'profile-form',
+    EmptyBlueCard = 'empty-blue-card',
+    Expired = 'expired',
+    CancelBookingButton = 'cancel-booking-button',
+    History = 'history',
+    HistoryReviewButton = 'history-review-button',
+    HistorySlide = 'history-slide'
+
 }
 
 export enum RegistrationErrorMessages {
@@ -128,13 +141,16 @@ export enum ForgotErrorMessages {
 export enum ToastMessages {
     commentSuccess = 'Спасибо, что нашли время оценить книгу!',
     commentError = 'Оценка не была отправлена. Попробуйте позже!',
+    commentUpdateSuccess = 'Спасибо, что нашли время изменить оценку!',
     bookingCreateSuccess = 'Книга забронирована. Подробности можно посмотреть на странице Профиль',
     bookingCreateError = 'Что-то пошло не так, книга не забронирована. Попробуйте позже!',
-    bookingUpdateSuccess = 'Изменения успешно сохранены!',
-    bookingUpdateError = 'Изменения не были сохранены. Попробуйте позже!',
+    generalUpdateSuccess = 'Изменения успешно сохранены!',
+    generalUpdateError = 'Изменения не были сохранены. Попробуйте позже!',
     bookingCancelSuccess = 'Бронирование книги успешно отменено!',
     bookingCancelError = 'Не удалось снять бронирование книги. Попробуйте позже!',
     responseError = 'Что-то пошло не так. Обновите страницу через некоторое время.',
+    avatarSuccess = 'Фото успешно сохранено!',
+    avatarError = 'Что-то пошло не так, фото не сохранилось. Попробуйте позже!'
 }
 
 export enum PlugMessages {

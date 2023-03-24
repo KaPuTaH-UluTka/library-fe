@@ -50,45 +50,20 @@
         position: absolute;
     }
 
-    &Btn {
-        width: 174px;
-        height: 40px;
-        background: var(--orange-gradient);
-        border-radius: 20px;
-        border: none;
-        font-family: 'Montserrat', serif;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 12px;
-        line-height: 18px;
-        letter-spacing: 0.2px;
-        text-transform: uppercase;
-        cursor: pointer;
+    &BtnWrapper {
+        max-width: 196px;
+        width: 100%;
         bottom: 24px;
         right: 16px;
         position: absolute;
-        color: var(--whiteMain);
+    }
 
-        &:disabled {
-            background: var(--black5);
-            border: 1px solid var(--black20);
-            color: var(--black43);
-            cursor: auto;
-        }
-
-        &:disabled:hover {
-            border: 1px solid var(--black43);
-            box-shadow: var(--box-shadow-hover);
-        }
-
-        &:hover {
-            border: 1px solid #FF740F;
-            box-shadow: var(--box-shadow-hover);
-        }
-
-        &:active {
-            box-shadow: var(--box-shadow-active);
-        }
+    .handedIssue {
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 30px;
+        text-transform: uppercase;
+        color: var(--accentMain);
     }
 }
 
@@ -131,16 +106,17 @@
             position: absolute;
         }
 
-        &Btn {
-            max-width: 174px;
-            height: 40px;
-            font-weight: 600;
-            font-size: 12px;
-            line-height: 18px;
-            cursor: pointer;
+        &BtnWrapper {
             bottom: 16px;
             right: 16px;
-            position: absolute;
+        }
+
+        .handedIssue {
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 20px;
+            text-transform: uppercase;
+            color: var(--accentMain);
         }
     }
 }
@@ -150,13 +126,10 @@
         height: 100%;
         display: flex;
 
-        &Btn {
-            width: 150px;
-            height: 40px;
-            font-weight: 600;
+        &BtnWrapper {
+            max-width: 150px;
             font-size: 12px;
             line-height: 18px;
-            cursor: pointer;
         }
 
         &Rating {
@@ -185,15 +158,6 @@
 
 @media (max-width: 500px) {
     .card {
-
-        &Btn {
-            width: 150px;
-            height: 40px;
-            font-weight: 600;
-            font-size: 12px;
-            line-height: 18px;
-            cursor: pointer;
-        }
 
         &Rating {
             font-weight: 400;
@@ -258,8 +222,8 @@
             position: absolute;
         }
 
-        &Btn {
-            width: 186px;
+        &BtnWrapper {
+            max-width: 174px;
             bottom: 16px;
             right: 16px;
         }

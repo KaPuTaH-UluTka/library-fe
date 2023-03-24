@@ -1,6 +1,7 @@
 import React from 'react'
 
 import classes from './search-highlight.module.scss'
+import {DataTestId} from '../../types/constants/constants';
 
 export const Highlight = (props: { filter: string; title: string }) => {
     const {filter, title} = props;
@@ -12,6 +13,6 @@ export const Highlight = (props: { filter: string; title: string }) => {
 
 
     return <React.Fragment>{firstPart}<span
-        className={classes.highlight} data-test-id='highlight-matches'
+        className={classes.highlight} data-test-id={DataTestId.HighLightMatches}
     >{lightText}</span>{secondPart}</React.Fragment>
 }

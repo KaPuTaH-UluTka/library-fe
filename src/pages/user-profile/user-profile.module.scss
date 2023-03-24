@@ -5,8 +5,8 @@
     width: 100%;
     align-items: center;
     min-height: calc(100vh - 205px);
-    margin-top: 50px;
     letter-spacing: 0.1px;
+    padding: 50px 0 62px 0;
 }
 
 .userProfile {
@@ -15,96 +15,20 @@
     flex-direction: column;
     width: 100%;
     row-gap: 92px;
-
-    .userAvatarEdit {
-        display: flex;
-        align-items: center;
-
-        .userAvatarUpload {
-            position: relative;
-            display: flex;
-            justify-content: center;
-
-            .avatarUploadInput {
-                display: none;
-            }
-
-            .userAvatarMask {
-                position: absolute;
-                width: 141px;
-                height: 42px;
-                background: url('../../assets/avatarMask.svg') 141px 42px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-radius: 0 0 50% 50% / 0 0 100% 100%;
-                bottom: 0;
-            }
-
-            .avatarMaskIcon {
-                width: 32px;
-                height: 32px;
-            }
-
-            .userAvatar {
-                width: 160px;
-                height: 160px;
-                border-radius: 50%;
-            }
-        }
-
-        .userName {
-            font-weight: 500;
-            font-size: 52px;
-            line-height: 64px;
-            letter-spacing: 0.2px;
-            white-space: pre-wrap;
-            margin-left: 30px;
-        }
-    }
-}
-
-.userInfoForm {
-    display: flex;
-    flex-direction: row;
-    column-gap: 30px;
-}
-
-.formColumn {
-    display: flex;
-    flex-direction: column;
-    row-gap: 16px;
-    max-width: 540px;
-    width: 100%;
-}
-
-.sectionContent {
-    width: 100%;
-    height: 218px;
-    margin-top: 32px;
-    position: relative;
 }
 
 @media (max-width: 768px) {
-    .formColumn {
-        max-width: 305px;
+    .profileWrapper {
+        padding: 0 64px;
     }
 }
 
 @media (max-width: 550px) {
-    .userInfoForm {
-        flex-direction: column;
-    }
-    .formColumn {
-        max-width: 100%;
-    }
+
 }
 
 @media (max-width: 320px) {
     .profileWrapper {
         padding: 0 16px;
-    }
-    .formColumn {
-        max-width: 288px;
     }
 }

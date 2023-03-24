@@ -8,7 +8,8 @@ import {
     BookingResponse,
 } from '../../types/booking';
 import {ApiPaths} from '../../types/constants/constants';
-import {ReviewFields, ReviewResponse} from '../../types/review';
+import {CommentFields, CommentResponse} from '../../types/review';
+import {ImageFull} from '../../types/upload-images';
 import {
     AuthResponse,
     ForgotPassword,
@@ -19,7 +20,6 @@ import {
 import {RootState} from '../store';
 
 import {API_URL} from './api-url';
-import {ImageFull} from "../../types/upload-images";
 
 export const libraryApi = createApi({
     reducerPath: 'libraryApi',
@@ -48,14 +48,14 @@ export const libraryApi = createApi({
             }),
             providesTags: () => ['AllBooks']
         }),
-        getBookById: builder.query<BookInterface, string>({
+        getBookById: builder.query<BookInterface | BookInterface[], string>({
             keepUnusedDataFor: 0,
             query: (id) => ({
                 url: `${ApiPaths.books}/${id}`,
             }),
             providesTags: () => ['Book']
         }),
-        createComment: builder.mutation<ReviewResponse, { data: ReviewFields }>({
+        createComment: builder.mutation<CommentResponse, { data: CommentFields }>({
             query: (comment) => ({
                 url: ApiPaths.comment,
                 method: 'POST',
@@ -63,7 +63,7 @@ export const libraryApi = createApi({
             }),
             invalidatesTags: ['Book']
         }),
-        updateComment: builder.mutation<BookInterface, { id: string, data: ReviewFields }>({
+        updateComment: builder.mutation<BookInterface, { id: string, data: CommentFields }>({
             query: ({id, data}) => ({
                 url: `${ApiPaths.comment}/${id}`,
                 method: 'PUT',
@@ -105,21 +105,23 @@ export const libraryApi = createApi({
                 url:`${ApiPaths.updateUser}/${userId}`,
                 method: 'PUT',
                 body: user
-            })
+            }),
+            invalidatesTags: ['User']
         }),
         uploadAvatar: builder.mutation<ImageFull[], FormData>({
             query: (file) => ({
                 url:ApiPaths.uploadAvatar,
                 method: 'POST',
                 body: file,
-            })
+            }),
         }),
         updateAvatar: builder.mutation<RegisteredUser,{userId: number, avatar: number}>({
             query: ({userId, avatar}) => ({
                 url:`${ApiPaths.updateUser}/${userId}`,
                 method: 'PUT',
                 body: {avatar}
-            })
+            }),
+            invalidatesTags: ['User']
         }),
         loginUser: builder.mutation<AuthResponse, LoginUser>({
             query: (user) => ({

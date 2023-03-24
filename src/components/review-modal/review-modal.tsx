@@ -5,12 +5,12 @@ import {useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {libraryApi} from '../../store/api/library-api';
 import {
-    setCommentResponseSuccessTrue, setBaseResponseErrorTrue,
+    setCommentResponseSuccessTrue,
     setLoadingFalse,
     setLoadingTrue, setCommentResponseErrorTrue
 } from '../../store/reducers/request-status-reducer';
 import {DataTestId} from '../../types/constants/constants';
-import {ReviewFields} from '../../types/review';
+import {CommentFields} from '../../types/review';
 import {BookModalLayout} from '../book-modal-layout/book-modal-layout';
 import {BookRatingSelect} from '../book-rating-select/book-rating-select';
 
@@ -23,7 +23,7 @@ interface ReviewProps {
 
 export const ReviewModal = ({setIsModalOpen}: ReviewProps) => {
 
-    const {register, handleSubmit, control} = useForm<ReviewFields>({
+    const {register, handleSubmit, control} = useForm<CommentFields>({
         defaultValues: {rating: 1},
     });
 
@@ -37,7 +37,7 @@ export const ReviewModal = ({setIsModalOpen}: ReviewProps) => {
 
     const {bookId} = useParams();
 
-    const submitHandler: SubmitHandler<ReviewFields> = data => {
+    const submitHandler: SubmitHandler<CommentFields> = data => {
         if (user && bookId)
             createComment({
                 data: {

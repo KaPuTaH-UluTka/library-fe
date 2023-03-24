@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import classes from './plug.module.scss'
 
 interface PlugProps {
-    error: boolean;
+    error?: boolean;
     title: string;
     description?: string;
 }

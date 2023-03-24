@@ -52,6 +52,42 @@ export const RequestStatusReducer = createSlice({
                 state.isResponseSuccess = true;
                 state.responseErrorText = ToastMessages.commentSuccess;
             },
+            setCommentUpdateResponseErrorTrue: (state) => {
+                state.isResponseError = false;
+                state.isResponseSuccess = false;
+                state.isResponseError = true;
+                state.responseErrorText = ToastMessages.generalUpdateError;
+            },
+            setCommentUpdateResponseSuccessTrue: (state) => {
+                state.isResponseError = false;
+                state.isResponseSuccess = false;
+                state.isResponseSuccess = true;
+                state.responseErrorText = ToastMessages.commentUpdateSuccess;
+            },
+            setUserUpdateResponseErrorTrue: (state) => {
+                state.isResponseError = false;
+                state.isResponseSuccess = false;
+                state.isResponseError = true;
+                state.responseErrorText = ToastMessages.generalUpdateError;
+            },
+            setUserUpdateResponseSuccessTrue: (state) => {
+                state.isResponseError = false;
+                state.isResponseSuccess = false;
+                state.isResponseSuccess = true;
+                state.responseErrorText = ToastMessages.generalUpdateSuccess;
+            },
+            setAvatarUpdateResponseErrorTrue: (state) => {
+                state.isResponseError = false;
+                state.isResponseSuccess = false;
+                state.isResponseError = true;
+                state.responseErrorText = ToastMessages.avatarError;
+            },
+            setAvatarUpdateResponseSuccessTrue: (state) => {
+                state.isResponseError = false;
+                state.isResponseSuccess = false;
+                state.isResponseSuccess = true;
+                state.responseErrorText = ToastMessages.avatarSuccess;
+            },
             setBookingCreateResponseErrorTrue: (state) => {
                 state.isResponseError = false;
                 state.isResponseSuccess = false;
@@ -68,20 +104,14 @@ export const RequestStatusReducer = createSlice({
                 state.isResponseError = false;
                 state.isResponseSuccess = false;
                 state.isResponseError = true;
-                state.responseErrorText = ToastMessages.bookingUpdateError;
+                state.responseErrorText = ToastMessages.generalUpdateError;
             },
             setBookingUpdateResponseSuccessTrue: (state) => {
                 state.isResponseError = false;
                 state.isResponseSuccess = false;
                 state.isResponseSuccess = true;
-                state.responseErrorText = ToastMessages.bookingUpdateSuccess;
+                state.responseErrorText = ToastMessages.generalUpdateSuccess;
             },
-            // setBookingUpdateResponseErrorTrue: (state) => {
-            //     state.isBookingUpdateResponseError = true;
-            // },
-            // setBookingUpdateResponseSuccessTrue: (state) => {
-            //     state.isBookingUpdateResponseSuccess = true;
-            // },
             setBookingCancelResponseErrorTrue: (state) => {
                 state.isResponseError = false;
                 state.isResponseSuccess = false;
@@ -112,6 +142,12 @@ export const {
     setFetchingFalse,
     setCommentResponseErrorTrue,
     setCommentResponseSuccessTrue,
+    setCommentUpdateResponseErrorTrue,
+    setCommentUpdateResponseSuccessTrue,
+    setAvatarUpdateResponseErrorTrue,
+    setAvatarUpdateResponseSuccessTrue,
+    setUserUpdateResponseErrorTrue,
+    setUserUpdateResponseSuccessTrue,
     setBookingCreateResponseErrorTrue,
     setBookingCreateResponseSuccessTrue,
     setBookingUpdateResponseErrorTrue,

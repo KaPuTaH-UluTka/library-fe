@@ -66,7 +66,7 @@ export interface CommentInterface {
 export interface UserBook {
     id: number,
     title: string,
-    rating: number,
+    rating?: number,
     issueYear: string | null,
     authors: string[],
     image: string | null,

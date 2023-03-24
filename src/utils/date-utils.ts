@@ -1,3 +1,5 @@
+export const isDateExpired = (date: string | null) => (date ? new Date().getDate() > new Date(date).getDate() : false);
+
 export const dateParser = (date: string) => {
     const dateObj = new Date(date);
     const month = dateObj.getMonth() + 1;

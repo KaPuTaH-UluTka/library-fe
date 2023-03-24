@@ -13,19 +13,20 @@ import {HintHighlight} from './hint-highlight/hint-highlight';
 import classes from './custom-input.module.scss';
 
 type CustomInputProps = {
-    label: string
-    register: UseFormRegisterReturn
-    placeholder: string
-    watchName: string
-    messageHelper?: string
-    error?: FieldError
-    type: string
-    withoutErrorMessage?: boolean
-    mask?: string
-    maskPlaceholder?: string
-    errors?: string[]
-    isFullColorError?: boolean
-    clearErrors?: UseFormClearErrors<any>
+    label: string;
+    register: UseFormRegisterReturn;
+    placeholder: string;
+    watchName: string;
+    messageHelper?: string;
+    error?: FieldError;
+    type: string;
+    withoutErrorMessage?: boolean;
+    mask?: string;
+    maskPlaceholder?: string;
+    errors?: string[];
+    isFullColorError?: boolean;
+    clearErrors?: UseFormClearErrors<any>;
+    isDisabled?: boolean;
 }
 
 export const CustomInput = ({
@@ -42,6 +43,7 @@ export const CustomInput = ({
                                 errors,
                                 isFullColorError,
                                 clearErrors,
+    isDisabled
                             }: CustomInputProps) => {
     const [isOpenEye, setIsOpenEye] = useState(false);
     const [isOnFocus, setIsOnFocus] = useState(false);
@@ -82,6 +84,7 @@ export const CustomInput = ({
             alwaysShowMask={!error?.message && !watchName && label !== 'phone'}
             onFocus={focusHandler}
             onBlur={blurHandler}
+            disabled={isDisabled ? isDisabled : false}
         />
     ) : (
         <input
@@ -90,6 +93,7 @@ export const CustomInput = ({
             type={isOpenEye ? 'text' : type}
             onFocus={focusHandler}
             onBlur={blurHandler}
+            disabled={isDisabled ? isDisabled : false}
         />
     )}
         <label

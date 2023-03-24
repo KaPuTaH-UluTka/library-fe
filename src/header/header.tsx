@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link, NavLink, useLocation} from 'react-router-dom';
 import classNames from 'classnames';
 
@@ -43,13 +43,12 @@ export const Header = () => {
                           isMenuOpen={isMenuOpen}/>
                 </div>
                 <h3 className={classes.headerTitle}>{pathname === AppPaths.userProfile ? 'Личный кабинет' : 'Библиотека'}</h3>
-                <div className={classes.welcomeWrapper} onClick={contextMenuHandler}
-                     data-test-id={DataTestId.ProfileAvatar}>
+                <div className={classes.welcomeWrapper} onClick={contextMenuHandler}>
                     <h3 className={classes.welcomeTitle}>{`Привет, ${user?.firstName}!`}</h3>
                     <img className={classes.userAvatar} src={user?.avatar ? API_URL + user.avatar : defaultAvatar} alt="avatar"/>
                 </div>
             </div>
-            {isContextMenu && <div
+            <div
                 className={classNames(classes.contextMenu, {[classes.activeContext]: isContextMenu})}>
                 <NavLink data-test-id={DataTestId.ProfileButton}
                     className={classNames(classes.contextLink, {[classes.activeLink]: isContextMenu})}
@@ -57,6 +56,6 @@ export const Header = () => {
                 <NavLink data-test-id={DataTestId.ExitButton}
                          className={classNames(classes.contextLink, {[classes.activeLink]: isContextMenu})}
                          to={AppPaths.auth} onClick={logoutHandler}>Выход</NavLink>
-            </div>}
+            </div>
         </header>);
 };
