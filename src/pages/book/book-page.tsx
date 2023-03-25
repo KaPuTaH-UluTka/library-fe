@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import classNames from 'classnames';
 import {skipToken} from '@reduxjs/toolkit/query/react';
+import classNames from 'classnames';
 
 import BlackChevron from '../../assets/black-chevron.svg';
 import noImageBook from '../../assets/defaultBook.png';
@@ -9,8 +9,8 @@ import {BookDetails} from '../../components/book-details/book-details';
 import {BookLink} from '../../components/book-link/book-link';
 import {BookRating} from '../../components/book-rating/book-rating';
 import {BookingModal} from '../../components/booking-modal/booking-modal';
+import {CustomButton} from '../../components/custom-elements/button/custom-button';
 import {ReviewItem} from '../../components/review-item/review-item';
-import {ReviewModal} from '../../components/review-modal/review-modal';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {API_URL} from '../../store/api/api-url';
 import {libraryApi} from '../../store/api/library-api';
@@ -21,14 +21,17 @@ import {
     setLoadingFalse,
     setLoadingTrue
 } from '../../store/reducers/request-status-reducer';
+import {setCurrentComment, setIsReviewModalTrue} from '../../store/reducers/review-modal-reducer';
+import {BookInterface, CommentInterface} from '../../types/book';
+import {BookCardInterface} from '../../types/book-card';
 import {DataTestId} from '../../types/constants/constants';
-import {bookingBtnText} from '../../utils/booking-btn';
-import {commentExistChecker} from '../../utils/comment-exist-checker';
+import {BtnType, BtnVariant, Size} from '../../types/custom-element';
+import {bookingBtnText} from '../../utils/btn-text';
+import {commentExist} from '../../utils/comment-exist';
 
 import {Slider} from './slider/slider';
 
 import classes from './book-page.module.scss';
-import {CommentInterface} from '../../types/book';
 
 export const BookPage = () => {
 
@@ -38,20 +41,27 @@ export const BookPage = () => {
 
     const {user} = useAppSelector(state => state.userReducer);
 
-    const {data: bookData, isError, isFetching} = libraryApi.useGetBookByIdQuery(bookId || skipToken);
+    const {
+        data: bookData,
+        isError,
+        isFetching
+    } = libraryApi.useGetBookByIdQuery(bookId || skipToken);
 
     const [isReviewsOpen, setReviewsState] = useState(false);
-    const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
     const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+
+    const [trigger] = libraryApi.useLazyGetBookByIdQuery();
 
     const body = document.querySelector('body') as HTMLElement;
 
-    let book;
+    let book: BookCardInterface | BookInterface | null = null;
 
-    if(bookData && !('length' in bookData)) {book = bookData}
-    if(bookData && ('length' in bookData) && bookId) {book = bookData[+bookId - 1]}
-
-    const isBookedByUser = book?.booking?.customerId === user?.id;
+    if (bookData && !('length' in bookData)) {
+        book = bookData;
+    }
+    if (bookData && ('length' in bookData) && bookId) {
+        book = bookData[+bookId - 1];
+    }
 
     const copiedComments: CommentInterface[] = [];
 
@@ -59,11 +69,21 @@ export const BookPage = () => {
 
     const sortedComments = copiedComments.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
 
+    const openReviewModalHandler = () => {
+        if(book){
+            trigger(book?.id.toString());
+        }
+        const userComment = user?.comments?.find((comment) => comment.bookId === book?.id);
+
+        dispatch(setCurrentComment(userComment));
+        dispatch(setIsReviewModalTrue());
+    }
+
     useEffect(() => {
         if (isError) {
             dispatch(setBaseResponseErrorTrue());
         }
-        if (isReviewModalOpen || isBookingModalOpen) {
+        if (isBookingModalOpen) {
             body.classList.add('no-scroll');
         } else {
             body.classList.remove('no-scroll');
@@ -75,7 +95,7 @@ export const BookPage = () => {
             dispatch(setLoadingFalse());
             dispatch(setFetchingFalse());
         }
-    }, [body.classList, dispatch, isBookingModalOpen, isError, isFetching, isReviewModalOpen]);
+    }, [body.classList, dispatch, isBookingModalOpen, isError, isFetching]);
 
     return <section className={classes.bookPage}>
         {book && <div className={classes.bookPageWrapper}>
@@ -93,12 +113,14 @@ export const BookPage = () => {
                             className={classes.author}>{`
                             ${book.authors.map(el => el)}
                             ${book.issueYear}`}</div>
-                        <button className={classNames(classes.btn, {[classes.btnBooked]: isBookedByUser})} type="button"
-                                disabled={!!book.delivery?.dateHandedTo || (book.booking !== null && book.booking.customerId !== user?.id)}
-                                data-test-id={DataTestId.BookingButton}
-                                onClick={() => setIsBookingModalOpen(!isBookingModalOpen)}>
-                            {bookingBtnText(book)}
-                        </button>
+                        <div className={classes.btnWrapper}>
+                        <CustomButton type={BtnType.button} text={bookingBtnText(book)}
+                                      dataTestId={DataTestId.BookingButton}
+                                      clickHandler={() => setIsBookingModalOpen(true)}
+                                      variant={book.booking === null && !book.delivery ? BtnVariant.primary : BtnVariant.secondary}
+                                      size={Size.big}
+                                      isDisabled={!!book.delivery?.dateHandedTo || (book.booking !== null && book.booking.customerId !== user?.id)}/>
+                        </div>
                         <h5 className={classes.aboutBookTitle}>О книге</h5>
                         <p className={classes.aboutBookDescription}>{book.description}</p>
                     </div>
@@ -107,10 +129,8 @@ export const BookPage = () => {
                     <h5 className={classes.ratingTitle}>Рейтинг</h5>
                     <div className={classes.ratingInfo}>
                         {book.rating ?
-                            <BookRating rating={book.rating} wrapperTestId="" emptyStarTestId=''
-                                        filledStarTestId=''/> :
-                            <><BookRating wrapperTestId="" emptyStarTestId='' filledStarTestId=''
-                                          rating={0}/>
+                            <BookRating rating={book.rating}/> :
+                            <><BookRating rating={0}/>
                                 <span
                                     className={classes.emptyReviews}>еще нет оценок</span>
                             </>}
@@ -131,17 +151,17 @@ export const BookPage = () => {
                         className={classNames(classes.reviewsList, {[classes.reviewsListHide]: isReviewsOpen})}
                         data-test-id={DataTestId.Reviews}>
                         {sortedComments.map((el) => <ReviewItem comment={el}
-                                                                                key={el.id}/>)}
+                                                                key={el.id}/>)}
                     </div>
-                    <button className={classes.btn} type="button"
-                            data-test-id={DataTestId.ButtonRateBook}
-                            onClick={() => setIsReviewModalOpen(!isReviewModalOpen)}
-                            disabled={book.comments && user ? commentExistChecker(book.comments, user.id) : false}>
-                        Оценить книгу
-                    </button>
+                    <div className={classes.btnWrapper}>
+                    <CustomButton type={BtnType.button} text={book.comments && user && commentExist(book.comments, user.id) ? 'Изменить оценку' : 'Оценить книгу'}
+                                  dataTestId={DataTestId.ButtonRateBook}
+                                  clickHandler={openReviewModalHandler}
+                                  variant={book.comments && user && commentExist(book.comments, user.id) ? BtnVariant.secondary : BtnVariant.primary}
+                                  size={Size.big}/>
+                    </div>
                 </div>
             </div>
-            {isReviewModalOpen && <ReviewModal setIsModalOpen={setIsReviewModalOpen}/>}
             {isBookingModalOpen &&
                 <BookingModal setIsModalOpen={setIsBookingModalOpen} selectedBook={book}/>}
         </div>}

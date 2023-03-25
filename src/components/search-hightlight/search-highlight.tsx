@@ -3,8 +3,9 @@ import React from 'react'
 import classes from './search-highlight.module.scss'
 import {DataTestId} from '../../types/constants/constants';
 
-export const Highlight = (props: { filter: string; title: string }) => {
-    const {filter, title} = props;
+interface HighlightProps { filter: string; title: string }
+
+export const Highlight = ({filter, title}: HighlightProps) => {
 
     const i = title.toLowerCase().indexOf(filter.toLowerCase());
     const lightText = title.substring(i,i + filter.length)

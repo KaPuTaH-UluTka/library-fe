@@ -1,39 +1,26 @@
-import React, {useState} from 'react';
-import {A11y, Navigation, Pagination} from 'swiper';
+import React, {} from 'react';
+import {A11y, Pagination} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
 import {Plug} from '../../../components/plug/plug';
 import {useAppSelector} from '../../../hooks/redux';
+import {libraryApi} from '../../../store/api/library-api';
 import {DataTestId, PlugMessages} from '../../../types/constants/constants';
-import {CommentShort} from '../../../types/review';
 import {BookCard} from '../../main/book-list/book-card/book-card';
-import {mockedUser} from '../mocked-user';
 
 import classes from './profile-history.module.scss';
-import {ReviewModal} from '../../../components/review-modal/review-modal';
 
 export const ProfileHistory = () => {
 
-    // const {user} = useAppSelector(state => state.userReducer);
+    const {user} = useAppSelector(state => state.userReducer);
 
-    const user = mockedUser;
-
-    const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
-
-    const newCommentHandler = (bookId?: string | null) => {
-        if (bookId) { /* empty */
-        }
-    };
-
-    const updateCommentHandler = (comment: CommentShort, bookId?: string | null) => {
-        if (bookId && comment) { /* empty */
-        }
-    };
+    const {data: allBooks} = libraryApi.useGetAllBooksQuery();
+    const {data: categories} = libraryApi.useGetBookCategoriesQuery();
 
     return (<div className={classes.slider}>
-            { user?.history.books ?
+            {user?.history.books ?
             <Swiper
-                modules={[A11y,Pagination]}
+                modules={[A11y, Pagination]}
                 pagination={{clickable: true}}
                 className={classes.swiperWrapper}
                 spaceBetween={30}
@@ -49,7 +36,6 @@ export const ProfileHistory = () => {
                         slidesPerView: 4,
                     },
                 }}
-                data-test-id={DataTestId.History}
                 watchSlidesProgress={true}
             >
                 {user?.history.books.map((book) => {
@@ -57,13 +43,12 @@ export const ProfileHistory = () => {
 
                     return (
                         <SwiperSlide key={book.id} className={classes.slideItem} data-test-id={DataTestId.HistorySlide}>
-                            <BookCard cardView={true} book={user.booking.book} wide={true} setIsReviewModalOpen={setIsReviewModalOpen}/>
+                            <BookCard cardView={true} book={book} fromHistory={true} userComment={userComment}/>
                         </SwiperSlide>
                     );
                 })}
             </Swiper>
-            : <Plug title={PlugMessages.history}/>}
-            {isReviewModalOpen && <ReviewModal setIsModalOpen={setIsReviewModalOpen}/>}
+            : <Plug title={PlugMessages.history} dataTestId={DataTestId.EmptyBlueCard}/>}
         </div>
     );
 };

@@ -19,13 +19,19 @@ import {
 import {UserBook} from '../../../../types/book';
 import {BookCardInterface} from '../../../../types/book-card';
 import {DataTestId} from '../../../../types/constants/constants';
-import {BtnType, BtnVariant} from '../../../../types/custom-element';
-import {bookingBtnText} from '../../../../utils/booking-btn';
+import {BtnType, BtnVariant, Size} from '../../../../types/custom-element';
+import {bookingBtnText} from '../../../../utils/btn-text';
 import {cutTitle} from '../../../../utils/cut-title';
 import {dateParser} from '../../../../utils/date-utils';
 
 import classesList from './book-card-list.module.scss';
 import classesWindow from './book-card-window.module.scss';
+import {CommentShort} from "../../../../types/review";
+import {
+    setCurrentComment,
+    setIsReviewModalTrue
+} from "../../../../store/reducers/review-modal-reducer";
+import {skipToken} from "@reduxjs/toolkit/dist/query/react";
 
 interface BookCardProps {
     book: BookCardInterface | UserBook,
@@ -33,11 +39,11 @@ interface BookCardProps {
     searchValue?: string,
     bookingId?: number,
     handedIssue?: string,
-    wide?: boolean,
-    setIsReviewModalOpen?: (state:boolean) => void,
+    fromHistory?: boolean,
+    userComment?: CommentShort,
 }
 
-export const BookCard = ({book, cardView, searchValue, bookingId, handedIssue, wide, setIsReviewModalOpen}: BookCardProps) => {
+export const BookCard = ({book, cardView, searchValue, bookingId, handedIssue, fromHistory, userComment}: BookCardProps) => {
     const navigate = useNavigate();
 
     const dispatch = useAppDispatch();
@@ -52,6 +58,8 @@ export const BookCard = ({book, cardView, searchValue, bookingId, handedIssue, w
     const booking = () => {
         setIsBookingModalOpen(!isBookingModalOpen);
     }
+
+    const [trigger] = libraryApi.useLazyGetBookByIdQuery();
 
     const openBook = (e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
@@ -72,6 +80,12 @@ export const BookCard = ({book, cardView, searchValue, bookingId, handedIssue, w
         if (bookingId) cancelBooking(bookingId.toString());
     }
 
+    const openReviewModalHandler = () => {
+        trigger(book.id.toString());
+        dispatch(setCurrentComment(userComment));
+        dispatch(setIsReviewModalTrue());
+    }
+
     useEffect(() => {
         if (cancelIsSuccess && !isRequestFetching) {
             dispatch(setBookingCancelResponseSuccessTrue());
@@ -88,7 +102,7 @@ export const BookCard = ({book, cardView, searchValue, bookingId, handedIssue, w
 
     return (<>
             <div role="button" tabIndex={0}
-                 className={classNames(cardView ? classesWindow.card : classesList.card, {[classesWindow.wide]: wide})}
+                 className={classNames(cardView ? classesWindow.card : classesList.card, {[classesWindow.wide]: fromHistory})}
                  onClick={(e) => openBook(e)} data-test-id={DataTestId.Card}>
                 {book && typeof book.image === 'string' &&
                     <img className={cardView ? classesWindow.cardImg : classesList.cardImg}
@@ -113,11 +127,15 @@ export const BookCard = ({book, cardView, searchValue, bookingId, handedIssue, w
                                   isDisabled={!!book.delivery?.dateHandedTo || (book.booking !== null && book.booking.customerId !== user?.id)}
                                   dataTestId={DataTestId.BookingButton}/>}
                 {bookingId && !handedIssue && <CustomButton type={BtnType.submit} text="Отменить бронь"
-                                   clickHandler={cancelBookingHandler} dataTestId={DataTestId.BookingButton}/>}
+                                   clickHandler={cancelBookingHandler} dataTestId={DataTestId.CancelBookingButton}/>}
                 {handedIssue && <p className={classesList.handedIssue}>ВОЗВРАТ {dateParser(handedIssue)}</p>}
 
-                {setIsReviewModalOpen && <CustomButton type={BtnType.button} text="Оценить"
-                                              clickHandler={() =>setIsReviewModalOpen(true)} dataTestId={DataTestId.HistoryReviewButton}/>}
+                {fromHistory && <CustomButton type={BtnType.button} text={userComment ? 'Изменить оценку' : 'Оставить отзыв'}
+                    dataTestId={DataTestId.HistoryReviewButton}
+                    clickHandler={openReviewModalHandler}
+                    variant={userComment ? BtnVariant.secondary : BtnVariant.primary}
+                    size={Size.small}/>
+                }
                 </div>
             </div>
             {isBookingModalOpen && 'booking' in book && book &&

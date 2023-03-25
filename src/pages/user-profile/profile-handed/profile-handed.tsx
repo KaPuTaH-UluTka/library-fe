@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Plug} from '../../../components/plug/plug';
-import {PlugMessages} from '../../../types/constants/constants';
+import {DataTestId, PlugMessages} from '../../../types/constants/constants';
 import {isDateExpired} from '../../../utils/date-utils';
 import {BookCard} from '../../main/book-list/book-card/book-card';
 
@@ -19,9 +19,9 @@ export const ProfileHanded = () => {
             {user?.delivery.book ?
                 <BookCard cardView={false} book={user.delivery.book} searchValue=""
                           bookingId={user.booking.id} handedIssue={user.delivery.dateHandedTo}/> :
-                <Plug title={PlugMessages.bookedBookTitle}/>}
+                <Plug title={PlugMessages.currentBookTitle} dataTestId={DataTestId.EmptyBlueCard}/>}
             {IsDateExpired && <Plug error={true} title={PlugMessages.handedExpiredTitle}
-                  description={PlugMessages.handedExpiredDescription}/> }
+                  description={PlugMessages.handedExpiredDescription} dataTestId={DataTestId.Expired}/> }
         </div>
     );
 };

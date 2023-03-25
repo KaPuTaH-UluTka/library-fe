@@ -41,7 +41,7 @@ export const registrationStageThreeSchema = object({
 });
 
 export const editUserProfileSchema = object({
-    username: string()
+    login: string()
         .required(RegistrationErrorMessages.required)
         .matches(Regex.loginLetter, RegistrationErrorMessages.latinAlphabet)
         .matches(Regex.loginNumber, RegistrationErrorMessages.numbers),
@@ -63,6 +63,13 @@ export const editUserProfileSchema = object({
 
 export const usernameSchema = object({
     username: string()
+        .required(RegistrationErrorMessages.required)
+        .matches(Regex.loginLetter, RegistrationErrorMessages.latinAlphabet)
+        .matches(Regex.loginNumber, RegistrationErrorMessages.numbers),
+})
+
+export const loginProfileSchema = object({
+    login: string()
         .required(RegistrationErrorMessages.required)
         .matches(Regex.loginLetter, RegistrationErrorMessages.latinAlphabet)
         .matches(Regex.loginNumber, RegistrationErrorMessages.numbers),

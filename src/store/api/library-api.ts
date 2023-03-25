@@ -61,14 +61,15 @@ export const libraryApi = createApi({
                 method: 'POST',
                 body: comment,
             }),
-            invalidatesTags: ['Book']
+            invalidatesTags: ['Book', 'User']
         }),
-        updateComment: builder.mutation<BookInterface, { id: string, data: CommentFields }>({
-            query: ({id, data}) => ({
-                url: `${ApiPaths.comment}/${id}`,
+        updateComment: builder.mutation<CommentResponse, { commentId: number, data: CommentFields }>({
+            query: ({commentId, data}) => ({
+                url: `${ApiPaths.comment}/${commentId}`,
                 method: 'PUT',
-                body: data,
+                body: {data},
             }),
+            invalidatesTags: ['Book', 'User']
         }),
         createBooking: builder.mutation<BookingResponse, BookingRequest>({
             query: (data) => ({

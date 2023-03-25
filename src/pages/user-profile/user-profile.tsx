@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {ProfileSectionText} from '../../types/constants/constants';
+import {DataTestId, ProfileSectionText} from '../../types/constants/constants';
 
 import {AvatarUpload} from './avatar-upload/avatar-upload';
 import {ProfileBooked} from './profile-booked/profile-booked';
@@ -27,7 +27,7 @@ export const UserProfile = () => (
                                 description={ProfileSectionText.handledBookDescription}>
                     <ProfileHanded />
                 </ProfileSection>
-                <ProfileSection title={ProfileSectionText.historyTitle}
+                <ProfileSection title={ProfileSectionText.historyTitle} dataTestId={DataTestId.History}
                                 description={ProfileSectionText.historyDescription}>
                     <ProfileHistory/>
                 </ProfileSection>

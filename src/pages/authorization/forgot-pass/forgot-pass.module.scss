@@ -116,43 +116,8 @@
     text-align: center;
 }
 
-.submitBtn {
-    width: 100%;
-    height: 52px;
+.btnWrapper {
     margin-top: 17px;
-    background: var(--orange-gradient);
-    border-radius: 20px;
-    border: none;
-    font-family: 'Montserrat', serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 18px;
-    letter-spacing: 0.2px;
-    text-transform: uppercase;
-    cursor: pointer;
-    color: var(--whiteMain);
-
-    &:disabled {
-        background: var(--black5);
-        border: 1px solid var(--black20);
-        color: var(--black43);
-        cursor: auto;
-    }
-
-    &:disabled:hover {
-        border: 1px solid var(--black43);
-        box-shadow: var(--box-shadow-hover);
-    }
-
-    &:hover {
-        border: 1px solid var(--light-orange);
-        box-shadow: var(--box-shadow-hover);
-    }
-
-    &:active {
-        box-shadow: var(--box-shadow-active);
-    }
 }
 
 .forgotForm {

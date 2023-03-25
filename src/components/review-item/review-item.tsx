@@ -14,7 +14,6 @@ export const ReviewItem = ({comment}: { comment: CommentInterface }) => {
 
     return (
         <div className={classes.reviewItemWrapper} data-test-id={DataTestId.CommentWrapper}>
-            <div className={classes.reviewItem}>
                 <div className={classes.reviewItemHeader}><img
                     className={classes.reviewItemAvatar}
                     src={comment.user.avatarUrl ? API_URL + comment.user.avatarUrl : reviewAvatar}
@@ -29,6 +28,5 @@ export const ReviewItem = ({comment}: { comment: CommentInterface }) => {
                 {comment.rating && <BookRating rating={comment.rating} wrapperTestId={DataTestId.Rating} emptyStarTestId={DataTestId.Star} filledStarTestId={DataTestId.StarActive}/>}
                 {comment.text &&
                     <p className={classes.reviewItemFeedback} data-test-id={DataTestId.CommentText}>{comment.text}</p>}
-            </div>
         </div>)
 };

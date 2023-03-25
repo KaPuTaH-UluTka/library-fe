@@ -7,6 +7,7 @@ import requestStatusReducer from './reducers/request-status-reducer';
 import cardViewReducer from './reducers/card-view-reducer';
 import sortOrderReducer from './reducers/sort-order-reducer';
 import userReducer from './reducers/user-reducer';
+import reviewModalReducer from './reducers/review-modal-reducer';
 
 const rootReducer = combineReducers({
     cardViewReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     sortOrderReducer,
     bookReducer,
     userReducer,
+    reviewModalReducer,
     [libraryApi.reducerPath]: libraryApi.reducer
 });
 

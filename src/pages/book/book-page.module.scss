@@ -64,58 +64,13 @@
     color: var(--black43);
 }
 
-.btn {
+.btnWrapper {
     margin-top: 32px;
-    display: flex;
-    width: 350px;
-    height: 52px;
-    background: var(--orange-gradient);
-    border-radius: 30px;
-    border: none;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 150%;
-    letter-spacing: 0.2px;
-    text-transform: uppercase;
-    cursor: pointer;
-    color: var(--whiteMain);
-    align-items: center;
-    justify-content: center;
-}
-
-.btn:disabled {
-    background: #F9F9FA;
-    border: 1px solid #BFC4C9;
-    color: var(--black43);
-    cursor: auto;
-}
-
-.btn:disabled:hover {
-    border: 1px solid #A7A7A7;
-    box-shadow: var(--box-shadow-hover);
-}
-
-.btn:active {
-    box-shadow: var(--box-shadow-active);
-}
-
-.btn:hover {
-    border: 1px solid var(--light-orange);
-    box-shadow: var(--box-shadow-hover);
+    max-width: 350px;
 }
 
 .rating {
     margin-top: 42px;
-}
-
-.btnBooked {
-    color: var(--black100);
-    background: var(--whiteMain);
-    border: 1px solid var(--black20);
-    &:hover {
-        border: 1px solid var(--black40);
-        box-shadow: var(--box-shadow-hover);
-    }
 }
 
 .ratingTitle {
@@ -133,7 +88,8 @@
 .ratingInfo {
     display: flex;
     margin-top: 16px;
-    width: 221px;
+    max-width: 221px;
+    width: 100%;
     justify-content: space-between;
 }
 
@@ -203,7 +159,6 @@
     display: flex;
     flex-direction: column;
     row-gap: 42px;
-    width: 730px;
 }
 
 .reviewsListHide {
@@ -225,9 +180,6 @@
     .book {
         display: flex;
     }
-    .about {
-        margin-left: 30px;
-    }
     .title {
         font-size: 26px;
     }
@@ -241,9 +193,9 @@
     .bookPageWrapper {
         display: flex;
         justify-content: normal;
-        padding-bottom: 48px;
         min-height: 100%;
         max-width: 640px;
+        padding: 0 64px 48px;
     }
 
     .rating {
@@ -278,14 +230,6 @@
         letter-spacing: 0.1px;
     }
 
-    .info {
-        padding: 0 15px 15px;
-    }
-
-    .about {
-        margin-left: 30px;
-    }
-
     .title {
         font-size: 24px;
         line-height: 30px;
@@ -297,8 +241,7 @@
         line-height: 18px;
     }
 
-    .btn {
-        margin-top: 32px;
+    .btnWrapper {
         width: 306px;
     }
 
@@ -336,7 +279,6 @@
         display: flex;
         flex-direction: column;
         row-gap: 42px;
-        width: 640px;
     }
 
     .bookImg {
@@ -350,14 +292,13 @@
     .bookPage {
         display: flex;
         justify-content: normal;
-        padding-bottom: 20px;
         min-height: 100%;
         overflow: hidden;
     }
 
     .bookPageWrapper {
         max-width: 288px;
-        margin-left: calc(50% - 144px);
+        padding: 0 16px 20px;
     }
 
     .rating {
@@ -384,10 +325,6 @@
         line-height: 18px;
         letter-spacing: 0.1px;
         color: var(--black100);
-    }
-
-    .ratingNumber {
-        margin-left: 100px;
     }
 
     .book-rating {
@@ -426,7 +363,6 @@
         display: flex;
         flex-direction: column;
         row-gap: 32px;
-        width: 640px;
     }
 
     .book {
@@ -452,10 +388,9 @@
         font-size: 12px;
     }
 
-    .btn {
+    .btnWrapper {
         margin-top: 42px;
-        height: 40px;
-        width: 288px;
+        max-width: 288px;
     }
 
     .aboutBookTitle {

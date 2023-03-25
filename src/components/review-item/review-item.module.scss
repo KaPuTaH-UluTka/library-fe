@@ -1,13 +1,13 @@
 .reviewItemWrapper {
-    overflow: hidden;
-    .reviewItem {
+    width: 100%;
+
         .reviewItemHeader {
             display: flex;
             flex-direction: row;
             align-items: center;
             gap: 24px;
             padding-bottom: 16px;
-
+            width: 100%;
             .reviewItemAvatar {
                 width: 32px;
                 height: 32px;
@@ -21,7 +21,10 @@
                 align-items: center;
                 letter-spacing: 0.1px;
                 color: var(--black40);
-
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                column-gap: 24px;
                 span {
                     padding-left: 24px;
                 }
@@ -40,12 +43,41 @@
             letter-spacing: 0.1px;
             color: var(--black100);
         }
+
+}
+
+@media (max-width: 768px) {
+    .reviewItemWrapper {
+        max-width: 640px;
+            .reviewItemHeader {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 18px;
+                padding-bottom: 12px;
+
+                .reviewItemAvatar {
+                    width: 32px;
+                    height: 32px;
+                }
+
+                .reviewItemInfo {
+                    font-size: 15px;
+                    line-height: 20px;
+                    align-items: center;
+                    span {
+                        display: block;
+                        padding-left: 0;
+                    }
+                }
+            }
+
     }
 }
 
 @media (max-width: 320px) {
     .reviewItemWrapper {
-        .reviewItem {
+
             .reviewItemHeader {
                 display: flex;
                 flex-direction: row;
@@ -64,6 +96,8 @@
                     align-items: center;
                     width: 154px;
 
+                    flex-direction: column;
+
                     span {
                         display: block;
                         padding-left: 0;
@@ -78,6 +112,6 @@
                 line-height: 20px;
                 letter-spacing: 0.1px;
             }
-        }
+
     }
 }

@@ -73,9 +73,8 @@ export const AvatarUpload = () => {
     }, [data, dispatch, isError, isLoading, isSuccess, reset, updateAvatar, user?.id]);
 
     return (
-        <div className={classes.userAvatarEdit}>
-            <div className={classes.userAvatarWrapper}
-                 data-test-id={DataTestId.ProfileAvatar}>
+        <div className={classes.userAvatarEdit} data-test-id={DataTestId.ProfileAvatar}>
+            <div className={classes.userAvatarWrapper}>
                 <label className={classes.userAvatarUpload} htmlFor="avatarUpload">
                     <img className={classes.userAvatar} src={currentAvatar()} alt="avatar"/>
                     <div className={classes.userAvatarMask}>

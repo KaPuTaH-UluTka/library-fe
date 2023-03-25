@@ -11,15 +11,13 @@ import {Loader} from '../../../components/loader/loader';
 import {AuthModalLayout} from '../../../components/auth-modal-layout/auth-modal-layout';
 import {useRegistrationErrors} from '../../../hooks/use-registration-errors';
 import {libraryApi} from '../../../store/api/library-api';
-import {
-    AppPaths,
-    DataTestId,
-    ForgotErrorMessages,
-} from '../../../types/constants/constants';
+import {AppPaths, DataTestId, ForgotErrorMessages,} from '../../../types/constants/constants';
 import {ForgotPasswordFields} from '../../../types/user';
 import {forgotPasswordSchema, resetPasswordSchema} from '../../../validation/validation';
 
 import classes from './forgot-pass.module.scss';
+import {CustomButton} from "../../../components/custom-elements/button/custom-button";
+import {BtnType, Size} from "../../../types/custom-element";
 
 export const ForgotPass = () => {
     const navigate = useNavigate();
@@ -97,15 +95,17 @@ export const ForgotPass = () => {
                         />
                         {forgotError && (
                             <p className={classes.hintError} data-test-id={DataTestId.Hint}>
-                               error
+                                error
                             </p>
                         )}
                         <p className={classes.hint}>
                             На это email будет отправлено письмо с инструкциями по восстановлению
                             пароля
                         </p>
-
-                        <button type="submit" className={classes.submitBtn}>Восстановить</button>
+                        <div className={classes.btnWrapper}>
+                            <CustomButton type={BtnType.submit} text='Восстановить'
+                                          clickHandler={() => submitHandler} size={Size.big}/>
+                        </div>
                     </form>
                     <p className={classes.accountNotExist}>Нет учётной записи? <Link
                         className={classes.registrationLink}
@@ -137,8 +137,12 @@ export const ForgotPass = () => {
                             type='password'
                             clearErrors={clearErrors}
                         />
-                        <button type="submit" className={classes.submitBtn} disabled={!!errors.passwordConfirmation}>Сохранить изменения
-                        </button>
+                        <div className={classes.btnWrapper}>
+                            <CustomButton type={BtnType.submit} text='Сохранить изменения'
+                                          clickHandler={() => submitHandler}
+                                          isDisabled={!!errors.passwordConfirmation}
+                                          size={Size.big}/>
+                        </div>
                     </form>
                     <p className={classes.info}>
                         После сохранения войдите в библиотеку, используя новый пароль
@@ -160,9 +164,10 @@ export const ForgotPass = () => {
                     <p className={classes.modalMessage}>
                         Зайдите в личный кабинет, используя свои логин и новый пароль
                     </p>
-                    <button type="button" className={classes.submitBtn}
-                            onClick={() => navigate(AppPaths.auth)}>Вход
-                    </button>
+                    <div className={classes.btnWrapper}>
+                        <CustomButton type={BtnType.button} text='Вход'
+                                      clickHandler={() => navigate(AppPaths.auth)} size={Size.big}/>
+                    </div>
                 </AuthModalLayout>
             )}
             {isResetError && (
@@ -173,8 +178,10 @@ export const ForgotPass = () => {
                         {ForgotErrorMessages.smthWrong}
                     </p>
                     <form className={classes.forgotForm} onSubmit={handleSubmit(submitHandler)}>
-                        <button type="submit" className={classes.submitBtn}>Повторить
-                        </button>
+                        <div className={classes.btnWrapper}>
+                            <CustomButton type={BtnType.submit} text='Повторить'
+                                          clickHandler={() => submitHandler} size={Size.big}/>
+                        </div>
                     </form>
                 </AuthModalLayout>
             )}

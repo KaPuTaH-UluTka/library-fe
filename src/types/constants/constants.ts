@@ -105,9 +105,9 @@ export enum DataTestId {
     EmptyBlueCard = 'empty-blue-card',
     Expired = 'expired',
     CancelBookingButton = 'cancel-booking-button',
-    History = 'history',
-    HistoryReviewButton = 'history-review-button',
-    HistorySlide = 'history-slide'
+    History = 'profile-history',
+    HistoryReviewButton = 'profile-history-review-button',
+    HistorySlide = 'profile-history-slide'
 
 }
 

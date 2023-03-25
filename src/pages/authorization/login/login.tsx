@@ -17,6 +17,8 @@ import {LoginUser} from '../../../types/user';
 import {loginSchema} from '../../../validation/validation';
 
 import classes from './login.module.scss';
+import {CustomButton} from "../../../components/custom-elements/button/custom-button";
+import {BtnType, Size} from "../../../types/custom-element";
 
 export const Login = () => {
     const dispatch = useAppDispatch();
@@ -45,12 +47,12 @@ export const Login = () => {
     }
 
     useEffect(() => {
-        if(isSuccess && loginData) {
+        if (isSuccess && loginData) {
             dispatch(setToken(loginData.jwt));
             dispatch(setUser(loginData.user));
             navigate(AppPaths.booksAll);
         }
-    },[isSuccess, loginData, dispatch, navigate]);
+    }, [isSuccess, loginData, dispatch, navigate]);
 
     return (<>
             {(!localStorage.getItem('user') && !isError || isFetchBaseQueryError(error) && error.status === 400) &&
@@ -88,7 +90,12 @@ export const Login = () => {
                             <Link className={classes.forgotLink} to={AppPaths.forgotPass}>
                                 {isFetchBaseQueryError(error) && error.status === 400 ? 'Восстановить?' :
                                     'Забыли логин или пароль?'}</Link>
-                            <button type="submit" className={classes.submitBtn}>Вход</button>
+                            <div className={classes.btnWrapper}><CustomButton type={BtnType.submit}
+                                                                              text='Вход'
+                                                                              clickHandler={() => submitHandler}
+                                                                              size={Size.big}/>
+                            </div>
+
                         </form>
                         <p className={classes.accountNotExist}>Нет учётной записи? <Link
                             className={classes.registrationLink}
@@ -104,10 +111,8 @@ export const Login = () => {
                         {LoginResponseErrors.smthWrong}
                     </p>
                     <form className={classes.loginForm} onSubmit={handleSubmit(submitHandler)}>
-                        <button type="submit"
-                                className={classes.submitBtn}>
-                            Повторить
-                        </button>
+                        <CustomButton type={BtnType.submit} text='Повторить'
+                                      clickHandler={() => submitHandler} size={Size.big}/>
                     </form>
                 </AuthModalLayout>
             )}

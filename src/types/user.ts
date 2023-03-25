@@ -9,6 +9,15 @@ export interface User {
     phone: string
 }
 
+export interface UserProfile {
+    email: string,
+    login: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+    phone: string
+}
+
 export interface RegisteredUser {
         id: number
         username: string

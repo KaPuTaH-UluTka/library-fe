@@ -9,6 +9,11 @@ import {setUser} from '../../store/reducers/user-reducer';
 import {AppPaths} from '../../types/constants/constants';
 import {Loader} from '../loader/loader';
 import {Toast} from '../toast/toast';
+import {ReviewModal} from '../review-modal/review-modal';
+import {
+    setBaseResponseErrorTrue, setFetchingFalse, setFetchingTrue, setLoadingFalse,
+    setLoadingTrue
+} from "../../store/reducers/request-status-reducer";
 
 export const MainLayout = ({children}: { children: JSX.Element }) => {
     const {token} = useAppSelector(state => state.userReducer);
@@ -27,6 +32,9 @@ export const MainLayout = ({children}: { children: JSX.Element }) => {
         responseErrorText,
     } = useAppSelector(state => state.requestStatusReducer);
 
+    const {isReviewModal} = useAppSelector(state => state.reviewModalReducer);
+
+    const body = document.querySelector('body') as HTMLElement;
 
     useEffect(() => {
         if (token) {
@@ -37,8 +45,12 @@ export const MainLayout = ({children}: { children: JSX.Element }) => {
         if(isSuccess){
             dispatch(setUser(data));
         }
-
-    },[data, dispatch, isSuccess, navigate, token, trigger]);
+        if (isReviewModal) {
+            body.classList.add('no-scroll');
+        } else {
+            body.classList.remove('no-scroll');
+        }
+    },[body.classList, data, dispatch, isReviewModal, isSuccess, navigate, token, trigger]);
 
     return <>
         <Header/>
@@ -46,5 +58,6 @@ export const MainLayout = ({children}: { children: JSX.Element }) => {
         <Footer/>
         {isRequestLoading && <Loader/> || isRequestFetching && <Loader/>}
         {(isResponseSuccess || isResponseError) && !isRequestFetching && <Toast error={isResponseError} message={responseErrorText}/>}
+        {isReviewModal && <ReviewModal/>}
     </>
 };
