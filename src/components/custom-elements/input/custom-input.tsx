@@ -82,7 +82,7 @@ export const CustomInput = ({
             maskChar={maskPlaceholder}
             mask={mask}
             {...register}
-            alwaysShowMask={!error?.message && !watchName && label !== 'phone' && !fromProfile}
+            alwaysShowMask={fromProfile ? fromProfile : !error?.message && !watchName && label !== 'phone'}
             onFocus={focusHandler}
             onBlur={blurHandler}
             disabled={isDisabled ? isDisabled : false}
