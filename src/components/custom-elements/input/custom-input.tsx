@@ -27,6 +27,7 @@ type CustomInputProps = {
     isFullColorError?: boolean;
     clearErrors?: UseFormClearErrors<any>;
     isDisabled?: boolean;
+    fromProfile?: boolean;
 }
 
 export const CustomInput = ({
@@ -43,7 +44,7 @@ export const CustomInput = ({
                                 errors,
                                 isFullColorError,
                                 clearErrors,
-    isDisabled
+    isDisabled, fromProfile
                             }: CustomInputProps) => {
     const [isOpenEye, setIsOpenEye] = useState(false);
     const [isOnFocus, setIsOnFocus] = useState(false);
@@ -81,7 +82,7 @@ export const CustomInput = ({
             maskChar={maskPlaceholder}
             mask={mask}
             {...register}
-            alwaysShowMask={!error?.message && !watchName && label !== 'phone'}
+            alwaysShowMask={!error?.message && !watchName && label !== 'phone' && !fromProfile}
             onFocus={focusHandler}
             onBlur={blurHandler}
             disabled={isDisabled ? isDisabled : false}
@@ -110,7 +111,7 @@ export const CustomInput = ({
         {isWithErrorsAndErrorTypeRequired && (
             <p
                 className={classNames(classes.error, {
-                    [classes.visibleError]: error?.message,
+                    [classes.visibleError]: error,
                     [classes.hideError]: withoutErrorMessage,
                 })}
                 data-test-id={DataTestId.Hint}

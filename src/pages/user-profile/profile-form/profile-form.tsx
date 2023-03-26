@@ -29,12 +29,15 @@ export const ProfileForm = () => {
 
     const [isInputsDisabled, setIsInputsDisabled] = useState(true);
 
-    const {register, formState: {errors}, handleSubmit, watch, clearErrors} = useForm<UserProfile>({
+    const {register, formState: {errors}, handleSubmit, watch, setValue, getValues} = useForm<UserProfile>({
         mode: 'all',
+        reValidateMode: 'onBlur',
+        shouldFocusError: false,
         defaultValues: {
             login: user?.username,
             firstName: user?.firstName,
             lastName: user?.lastName,
+            password: '********',
             phone: user?.phone,
             email: user?.email
         },
@@ -57,6 +60,8 @@ export const ProfileForm = () => {
             });
         }
     }
+
+    console.log(getValues('phone'));
 
     const editHandler = () => {
         setIsInputsDisabled(!isInputsDisabled);
@@ -93,7 +98,6 @@ export const ProfileForm = () => {
                         type='text'
                         errors={errorsUsername}
                         isFullColorError={!!errors.login}
-                        clearErrors={clearErrors}
                         isDisabled={isInputsDisabled}
                     />
                     <CustomInput
@@ -105,7 +109,6 @@ export const ProfileForm = () => {
                         type='password'
                         errors={errorsPassword}
                         isFullColorError={!!errors.password}
-                        clearErrors={clearErrors}
                         isDisabled={isInputsDisabled}
                     />
                 </div>
@@ -117,9 +120,19 @@ export const ProfileForm = () => {
                         placeholder='Имя'
                         watchName={watch('firstName')}
                         type='text'
-                        clearErrors={clearErrors}
                         isDisabled={isInputsDisabled}
                     />
+                    <CustomInput
+                        label='lastName'
+                        register={register('lastName')}
+                        error={errors.lastName}
+                        placeholder='Фамилия'
+                        watchName={watch('lastName')}
+                        type='text'
+                        isDisabled={isInputsDisabled}
+                    />
+                </div>
+                <div className={classes.inputRow}>
                     <CustomInput
                         label='phone'
                         register={register('phone')}
@@ -130,19 +143,7 @@ export const ProfileForm = () => {
                         type='text'
                         mask='+375 (99) 999-99-99'
                         maskPlaceholder='x'
-                        clearErrors={clearErrors}
-                        isDisabled={isInputsDisabled}
-                    />
-                </div>
-                <div className={classes.inputRow}>
-                    <CustomInput
-                        label='lastName'
-                        register={register('lastName')}
-                        error={errors.lastName}
-                        placeholder='Фамилия'
-                        watchName={watch('lastName')}
-                        type='text'
-                        clearErrors={clearErrors}
+                        fromProfile={true}
                         isDisabled={isInputsDisabled}
                     />
                     <CustomInput
@@ -152,7 +153,6 @@ export const ProfileForm = () => {
                         placeholder='E-mail'
                         watchName={watch('email')}
                         type='email'
-                        clearErrors={clearErrors}
                         isDisabled={isInputsDisabled}
                     />
                 </div>

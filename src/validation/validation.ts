@@ -50,9 +50,10 @@ export const editUserProfileSchema = object({
         .min(8, RegistrationErrorMessages.atLeastEightCharacters)
         .matches(Regex.passwordUpperLetter,   RegistrationErrorMessages.withUpperLetter )
         .matches(Regex.passwordOneNum,  RegistrationErrorMessages.withNumber ),
-    firstName: string(),
-    lastName: string(),
+    firstName: string().required(RegistrationErrorMessages.required),
+    lastName: string().required(RegistrationErrorMessages.required),
     phone: string()
+        // .required(RegistrationErrorMessages.required)
         .matches(Regex.phone, RegistrationErrorMessages.phone),
     email: string()
         .required(RegistrationErrorMessages.required)
