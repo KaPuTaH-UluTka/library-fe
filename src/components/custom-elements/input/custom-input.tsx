@@ -1,4 +1,4 @@
-import React, {FormEvent, useState} from 'react';
+import React, {useState} from 'react';
 import {FieldError, UseFormClearErrors, UseFormRegisterReturn} from 'react-hook-form';
 import InputMask from 'react-input-mask';
 import classNames from 'classnames';
@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import CloseEye from '../../../assets/auth-icons/EyeClosed.svg';
 import OpenEye from '../../../assets/auth-icons/EyeOpen.svg';
 import PassCheck from '../../../assets/auth-icons/pass-check.svg';
-import {DataTestId} from '../../../types/constants/constants';
+import {DataTestId} from '../../../types/constants/data-test-id';
 
 import {HintHighlight} from './hint-highlight/hint-highlight';
 
@@ -107,6 +107,17 @@ export const CustomInput = ({
                 isFullColorError={isFullColorError}
             />
         )}
+        {isWithErrorsAndErrorTypeRequired && (
+            <p
+                className={classNames(classes.error, {
+                    [classes.visibleError]: error?.message,
+                    [classes.hideError]: withoutErrorMessage,
+                })}
+                data-test-id={DataTestId.Hint}
+            >
+                {error?.message}
+            </p>
+        )}
         {label === 'phone' && (
             <p
                 className={classNames(classes.errorPhone, {
@@ -119,18 +130,6 @@ export const CustomInput = ({
             </p>
         )}
         {isWithoutErrorsAndInputDontPhone && (
-            <p
-                className={classNames(classes.error, {
-                    [classes.visibleError]: error?.message,
-                    [classes.hideError]: withoutErrorMessage,
-                })}
-                data-test-id={DataTestId.Hint}
-            >
-                {error?.message}
-            </p>
-        )}
-
-        {isWithErrorsAndErrorTypeRequired && (
             <p
                 className={classNames(classes.error, {
                     [classes.visibleError]: error?.message,

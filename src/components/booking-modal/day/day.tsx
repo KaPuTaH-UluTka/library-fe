@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import dayjs, { Dayjs } from 'dayjs'
 
-import {DataTestId} from '../../../types/constants/constants';
+import {DataTestId} from '../../../types/constants/data-test-id';
 import { isCurrentDay, isCurrentOrNextDay, isWeekend } from '../../../utils/dayjs'
 
 import classes from './day.module.scss'

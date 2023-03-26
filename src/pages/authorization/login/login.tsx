@@ -6,19 +6,21 @@ import classNames from 'classnames';
 
 import RightArrow from '../../../assets/auth-icons/arrowRight.svg'
 import {AuthModalLayout} from '../../../components/auth-modal-layout/auth-modal-layout';
+import {CustomButton} from '../../../components/custom-elements/button/custom-button';
 import {CustomInput} from '../../../components/custom-elements/input/custom-input';
 import {Loader} from '../../../components/loader/loader';
 import {useAppDispatch} from '../../../hooks/redux';
 import {isFetchBaseQueryError} from '../../../store/api/api-helpers';
 import {libraryApi} from '../../../store/api/library-api';
 import {setToken, setUser} from '../../../store/reducers/user-reducer';
-import {AppPaths, DataTestId, LoginResponseErrors} from '../../../types/constants/constants';
+import {DataTestId} from '../../../types/constants/data-test-id';
+import {LoginResponseErrors} from '../../../types/constants/messages';
+import {AppPaths} from '../../../types/constants/paths';
+import {BtnType, Size} from '../../../types/custom-element';
 import {LoginUser} from '../../../types/user';
 import {loginSchema} from '../../../validation/validation';
 
 import classes from './login.module.scss';
-import {CustomButton} from "../../../components/custom-elements/button/custom-button";
-import {BtnType, Size} from "../../../types/custom-element";
 
 export const Login = () => {
     const dispatch = useAppDispatch();

@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-import {ToastMessages} from '../../types/constants/constants';
+import {ToastMessages} from '../../types/constants/messages';
 
 interface RequestStatusState {
     isRequestLoading: boolean;

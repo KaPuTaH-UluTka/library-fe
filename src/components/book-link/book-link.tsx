@@ -2,7 +2,7 @@
 import {Link} from 'react-router-dom';
 
 import {useAppSelector} from '../../hooks/redux';
-import {DataTestId} from '../../types/constants/constants';
+import {DataTestId} from '../../types/constants/data-test-id';
 
 import classes from './book-link.module.scss';
 

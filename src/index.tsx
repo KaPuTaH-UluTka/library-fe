@@ -15,7 +15,7 @@ import {MainPage} from './pages/main/main-page';
 import {Terms} from './pages/terms/terms';
 import {UserProfile} from './pages/user-profile/user-profile';
 import {store} from './store/store';
-import {AppPaths} from './types/constants/constants';
+import {AppPaths} from './types/constants/paths';
 
 import './index.scss';
 

@@ -7,7 +7,7 @@ import {
     BookingRequest,
     BookingResponse,
 } from '../../types/booking';
-import {ApiPaths} from '../../types/constants/constants';
+import {ApiPaths} from '../../types/constants/paths';
 import {CommentFields, CommentResponse} from '../../types/review';
 import {ImageFull} from '../../types/upload-images';
 import {
@@ -36,11 +36,6 @@ export const libraryApi = createApi({
     }),
     tagTypes: ['Book', 'AllBooks', 'User'],
     endpoints: (builder) => ({
-        getBookCategories: builder.query<BookCategoryInterface[], void>({
-            query: () => ({
-                url: ApiPaths.categories,
-            }),
-        }),
         getAllBooks: builder.query<BookCardInterface[], void>({
             keepUnusedDataFor: 0,
             query: () => ({
@@ -48,7 +43,12 @@ export const libraryApi = createApi({
             }),
             providesTags: () => ['AllBooks']
         }),
-        getBookById: builder.query<BookInterface | BookInterface[], string>({
+        getBookCategories: builder.query<BookCategoryInterface[], void>({
+            query: () => ({
+                url: ApiPaths.categories,
+            }),
+        }),
+        getBookById: builder.query<BookInterface | BookInterface[], number>({
             keepUnusedDataFor: 0,
             query: (id) => ({
                 url: `${ApiPaths.books}/${id}`,

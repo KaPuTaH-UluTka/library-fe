@@ -1,6 +1,7 @@
 import React from 'react';
 
-import {DataTestId, ProfileSectionText} from '../../types/constants/constants';
+import {DataTestId} from '../../types/constants/data-test-id';
+import {ProfileSectionText} from '../../types/constants/messages';
 
 import {AvatarUpload} from './avatar-upload/avatar-upload';
 import {ProfileBooked} from './profile-booked/profile-booked';

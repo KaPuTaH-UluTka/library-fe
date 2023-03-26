@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import classNames from 'classnames';
 
-import {useAppDispatch, useAppSelector} from '../../../hooks/redux';
-import {libraryApi} from '../../../store/api/library-api';
-import {setCategories, setCategory} from '../../../store/reducers/category-reducer';
-import {logout} from '../../../store/reducers/user-reducer';
-import {BookCategoryInterface} from '../../../types/book-category';
-import {AppPaths, DataTestId} from '../../../types/constants/constants';
-import {countCategories} from '../../../utils/categories-counter';
+import {useAppDispatch, useAppSelector} from '../../hooks/redux';
+import {setCategory} from '../../store/reducers/category-reducer';
+import {logout} from '../../store/reducers/user-reducer';
+import {BookCategoryInterface} from '../../types/book-category';
+import {DataTestId} from '../../types/constants/data-test-id';
+import {AppPaths} from '../../types/constants/paths';
+import {countCategories} from '../../utils/categories-counter';
 
 import classes from './menu.module.scss';
 
@@ -43,8 +43,6 @@ export const Menu = ({burger, menuToggle, isMenuOpen}: MenuProps) => {
     const {categories} = useAppSelector(state => state.categoryReducer);
 
     const {books} = useAppSelector(state => state.bookReducer);
-
-    const {data: bookCategories, isSuccess} = libraryApi.useGetBookCategoriesQuery();
 
     const [showcaseStatus, setShowcaseStatus] = useState(true);
 
@@ -136,7 +134,7 @@ export const Menu = ({burger, menuToggle, isMenuOpen}: MenuProps) => {
     let bookInCategory: { [key: string]: number } | null = null;
 
     useEffect(() => {
-        if (!categories) dispatch(setCategories(bookCategories));
+
     });
 
     if (books.length > 0) {
@@ -154,17 +152,17 @@ export const Menu = ({burger, menuToggle, isMenuOpen}: MenuProps) => {
                 <NavLink data-test-id={testId.showcaseId}
                          className={showcaseStatus ? classNames(classes.generalLink, classes.active) : classes.generalLink}
                          onClick={showcaseHandler} to={AppPaths.booksAll}>Витрина книг
-                    {isSuccess && showcaseStatus && <div
+                    {showcaseStatus && <div
                         className={categoryStatus ? classes.generalLinkChevronActive : classes.generalLinkChevron}
                     />}
                 </NavLink>
                 <ul className={categoryStatus ? classes.categoryListActive : classes.categoryList}>
-                    {isSuccess && <li className={classes.categoryListItem}><NavLink
+                    <li className={classes.categoryListItem}><NavLink
                         data-test-id={testId.booksId}
                         onClick={(e) => burger ? booksHandler(e) : desktopBooksHandler(defaultCategory)}
                         className={({isActive}) => isActive ? classes.categoryListItemLinkActive : classes.categoryListItemLink}
                         to={AppPaths.booksAll}>Все книги</NavLink>
-                    </li>}
+                    </li>
 
                     {categories && categories.map((el) => <li
                         className={classes.categoryListItem}

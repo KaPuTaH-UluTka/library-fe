@@ -2,17 +2,21 @@
     display: flex;
     flex-direction: column;
 }
-.columnWrapper {
-    display: flex;
-    flex-direction: row;
-    column-gap: 30px;
-}
-.column {
+.rowWrapper {
     display: flex;
     flex-direction: column;
-    row-gap: 16px;
-    max-width: 540px;
     width: 100%;
+    row-gap: 16px;
+    column-gap: 30px;
+}
+.inputRow {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+   justify-content: space-between;
+    div {
+        width: 48%;
+    }
 }
 
 .btnWrapper {
@@ -25,23 +29,15 @@
 }
 
 @media (max-width: 768px) {
-    .column {
-        max-width: 305px;
-    }
+
 }
 
 @media (max-width: 550px) {
-    .columnWrapper {
+    .inputRow {
         flex-direction: column;
-    }
-    .column {
-        max-width: 100%;
-    }
-}
-
-@media (max-width: 320px) {
-    .column {
-        max-width: 288px;
+        div {
+            width: 100%;
+        }
     }
     .btnWrapper {
         flex-direction: column;

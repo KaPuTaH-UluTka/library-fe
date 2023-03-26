@@ -5,11 +5,14 @@ import {CommentShort} from '../../types/review';
 interface ReviewModalState {
     isReviewModal: boolean;
     currentComment: CommentShort | null;
+
+    currentBookId: number | null;
 }
 
 const initialState: ReviewModalState = {
     isReviewModal: false,
     currentComment: null,
+    currentBookId: null,
 }
 
 export const ReviewModalReducer = createSlice({
@@ -25,9 +28,12 @@ export const ReviewModalReducer = createSlice({
             setCurrentComment: (state, comment) => {
                 state.currentComment = comment.payload;
             },
+            setCurrentBookId: (state, bookId) => {
+                state.currentBookId = bookId.payload;
+            },
         }
     }
 );
 
 export default ReviewModalReducer.reducer;
-export const { setIsReviewModalTrue, setIsReviewModalFalse, setCurrentComment } = ReviewModalReducer.actions;
+export const { setIsReviewModalTrue, setIsReviewModalFalse, setCurrentComment, setCurrentBookId } = ReviewModalReducer.actions;

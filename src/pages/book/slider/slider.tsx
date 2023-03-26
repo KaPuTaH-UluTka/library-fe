@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperInterface } from 'swiper/types';
 
 import {API_URL} from '../../../store/api/api-url';
-import {DataTestId} from '../../../types/constants/constants';
+import {DataTestId} from '../../../types/constants/data-test-id';
 
 import classes from './slider.module.scss';
 

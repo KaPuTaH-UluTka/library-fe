@@ -1,16 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Link, NavLink, useLocation} from 'react-router-dom';
 import classNames from 'classnames';
 
 import defaultAvatar from '../assets/header/defaultAvatar.jpg';
 import logoClevertec from '../assets/header/logoCleverland.svg';
+import {Menu} from '../components/menu/menu';
 import {useAppDispatch, useAppSelector} from '../hooks/redux';
-import {Menu} from '../pages/main/menu/menu';
+import {API_URL} from '../store/api/api-url';
 import {logout} from '../store/reducers/user-reducer';
-import {AppPaths, DataTestId} from '../types/constants/constants';
+import {DataTestId} from '../types/constants/data-test-id';
+import {AppPaths} from '../types/constants/paths';
 
 import classes from './header.module.scss';
-import {API_URL} from "../store/api/api-url";
 
 export const Header = () => {
     const [isContextMenu, setIsContextMenu] = useState(false);
@@ -53,7 +54,7 @@ export const Header = () => {
                 <NavLink data-test-id={DataTestId.ProfileButton}
                     className={classNames(classes.contextLink, {[classes.activeLink]: isContextMenu})}
                     to={AppPaths.userProfile} onClick={contextMenuHandler}>Профиль</NavLink>
-                <NavLink data-test-id={DataTestId.ExitButton}
+                <NavLink data-test-id={isContextMenu ? DataTestId.ExitButton : ''}
                          className={classNames(classes.contextLink, {[classes.activeLink]: isContextMenu})}
                          to={AppPaths.auth} onClick={logoutHandler}>Выход</NavLink>
             </div>

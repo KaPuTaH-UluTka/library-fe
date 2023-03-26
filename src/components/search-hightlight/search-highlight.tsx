@@ -1,7 +1,8 @@
 import React from 'react'
 
+import {DataTestId} from '../../types/constants/data-test-id';
+
 import classes from './search-highlight.module.scss'
-import {DataTestId} from '../../types/constants/constants';
 
 interface HighlightProps { filter: string; title: string }
 

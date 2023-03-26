@@ -3,8 +3,8 @@ import {useParams} from 'react-router-dom';
 import {skipToken} from '@reduxjs/toolkit/query/react';
 import classNames from 'classnames';
 
-import BlackChevron from '../../assets/black-chevron.svg';
-import noImageBook from '../../assets/defaultBook.png';
+import BlackChevron from '../../assets/other/black-chevron.svg';
+import noImageBook from '../../assets/other/defaultBook.png';
 import {BookDetails} from '../../components/book-details/book-details';
 import {BookLink} from '../../components/book-link/book-link';
 import {BookRating} from '../../components/book-rating/book-rating';
@@ -21,10 +21,14 @@ import {
     setLoadingFalse,
     setLoadingTrue
 } from '../../store/reducers/request-status-reducer';
-import {setCurrentComment, setIsReviewModalTrue} from '../../store/reducers/review-modal-reducer';
+import {
+    setCurrentBookId,
+    setCurrentComment,
+    setIsReviewModalTrue
+} from '../../store/reducers/review-modal-reducer';
 import {BookInterface, CommentInterface} from '../../types/book';
 import {BookCardInterface} from '../../types/book-card';
-import {DataTestId} from '../../types/constants/constants';
+import {DataTestId} from '../../types/constants/data-test-id';
 import {BtnType, BtnVariant, Size} from '../../types/custom-element';
 import {bookingBtnText} from '../../utils/btn-text';
 import {commentExist} from '../../utils/comment-exist';
@@ -45,7 +49,9 @@ export const BookPage = () => {
         data: bookData,
         isError,
         isFetching
-    } = libraryApi.useGetBookByIdQuery(bookId || skipToken);
+    } = libraryApi.useGetBookByIdQuery(Number(bookId) || skipToken);
+
+    const {data: categories} = libraryApi.useGetBookCategoriesQuery();
 
     const [isReviewsOpen, setReviewsState] = useState(false);
     const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
@@ -71,10 +77,11 @@ export const BookPage = () => {
 
     const openReviewModalHandler = () => {
         if(book){
-            trigger(book?.id.toString());
+            trigger(book?.id);
         }
         const userComment = user?.comments?.find((comment) => comment.bookId === book?.id);
 
+        dispatch(setCurrentBookId(book?.id));
         dispatch(setCurrentComment(userComment));
         dispatch(setIsReviewModalTrue());
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import OrangeCloseImg from '../../assets/orange-close.svg';
-import {DataTestId} from '../../types/constants/constants';
+import OrangeCloseImg from '../../assets/other/orange-close.svg';
+import {DataTestId} from '../../types/constants/data-test-id';
 
 import classes from './book-modal-layout.module.scss';
 

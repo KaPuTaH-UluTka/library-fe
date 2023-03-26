@@ -40,36 +40,12 @@ export const ListSettings = (props: {sortOrder: boolean, searchValue: string, se
         dispatch(setSortOrder());
     }
 
-    const [size, setSize] = useState<{ clientHeight: null | number, clientWidth: null | number }>({
-        clientHeight: null,
-        clientWidth: null
-    });
-
-    const searchState = size.clientWidth && size.clientWidth < 550 && isSearchOpen;
-
-    const ref = useRef<HTMLDivElement>(null);
-    const resizeHandler = () => {
-        if (ref.current) {
-            const {clientHeight, clientWidth} = ref.current;
-
-            setSize({clientHeight, clientWidth});
-        }
-    };
-
-    useEffect(() => {
-        window.addEventListener('resize', resizeHandler);
-        resizeHandler();
-
-        return () => {
-            window.removeEventListener('resize', resizeHandler);
-        };
-    }, [size.clientWidth]);
-
+    const searchState = window.innerWidth < 550 && isSearchOpen;
 
     return (
-        <div className={classes.settings} ref={ref}>
+        <div className={classes.settings}>
             <div className={classes['search-and-sort']}>
-                {size.clientWidth && size.clientWidth < 550 ? <React.Fragment>
+                {window.innerWidth < 550 ? <React.Fragment>
                         <form className={classes['search-form']} onChange={handleSearch}>
                             <input
                                 className={isSearchOpen ? classNames(classes.search, {[classes['search-active']]: props.searchValue}) : classes.hide}

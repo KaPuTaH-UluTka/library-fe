@@ -1,9 +1,9 @@
 import React from 'react';
 
-import reviewAvatar from '../../assets/review_avatar.svg';
+import reviewAvatar from '../../assets/other/review_avatar.svg';
 import {API_URL} from '../../store/api/api-url';
 import {CommentInterface} from '../../types/book';
-import {DataTestId} from '../../types/constants/constants';
+import {DataTestId} from '../../types/constants/data-test-id';
 import {BookRating} from '../book-rating/book-rating';
 
 import classes from './review-item.module.scss';

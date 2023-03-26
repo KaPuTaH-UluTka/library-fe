@@ -1,6 +1,6 @@
 import {lazy, object, ref, string} from 'yup';
 
-import {RegistrationErrorMessages} from '../types/constants/constants';
+import {RegistrationErrorMessages} from '../types/constants/messages';
 
 export const Regex = {
     loginLetter: /(?=.*[a-zA-Z]).+/,
@@ -50,10 +50,9 @@ export const editUserProfileSchema = object({
         .min(8, RegistrationErrorMessages.atLeastEightCharacters)
         .matches(Regex.passwordUpperLetter,   RegistrationErrorMessages.withUpperLetter )
         .matches(Regex.passwordOneNum,  RegistrationErrorMessages.withNumber ),
-    firstName: string().required(RegistrationErrorMessages.required),
-    lastName: string().required(RegistrationErrorMessages.required),
+    firstName: string(),
+    lastName: string(),
     phone: string()
-        .required(RegistrationErrorMessages.required)
         .matches(Regex.phone, RegistrationErrorMessages.phone),
     email: string()
         .required(RegistrationErrorMessages.required)

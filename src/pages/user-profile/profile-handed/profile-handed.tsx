@@ -1,12 +1,13 @@
 import React from 'react';
 
+import {BookCard} from '../../../components/book-card/book-card';
 import {Plug} from '../../../components/plug/plug';
-import {DataTestId, PlugMessages} from '../../../types/constants/constants';
+import {useAppSelector} from '../../../hooks/redux';
+import {DataTestId} from '../../../types/constants/data-test-id';
+import {PlugMessages} from '../../../types/constants/messages';
 import {isDateExpired} from '../../../utils/date-utils';
-import {BookCard} from '../../main/book-list/book-card/book-card';
 
 import classes from './profile-handed.module.scss';
-import {useAppSelector} from '../../../hooks/redux';
 
 export const ProfileHanded = () => {
 

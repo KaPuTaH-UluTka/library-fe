@@ -4,11 +4,9 @@
     background: var(--negtiveBg);
     max-width: 1110px;
     margin: 0 auto;
-    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 80px;
     padding: 28px 32px;
     position: fixed;
     z-index: 30;
@@ -16,6 +14,7 @@
     left: 0;
     bottom: 0;
     right: 0;
+    visibility: hidden;
 }
 
 .toastInfo {
@@ -43,6 +42,12 @@
 .positive {
     border: 1.5px solid var(--positive);
     background: var(--positiveBg);
+}
+
+.visible {
+    visibility: visible;
+    width: 100%;
+    height: 80px;
 }
 
 @media (max-width: 768px) {

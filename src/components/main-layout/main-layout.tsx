@@ -6,14 +6,10 @@ import {Header} from '../../header/header';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {libraryApi} from '../../store/api/library-api';
 import {setUser} from '../../store/reducers/user-reducer';
-import {AppPaths} from '../../types/constants/constants';
+import {AppPaths} from '../../types/constants/paths';
 import {Loader} from '../loader/loader';
-import {Toast} from '../toast/toast';
 import {ReviewModal} from '../review-modal/review-modal';
-import {
-    setBaseResponseErrorTrue, setFetchingFalse, setFetchingTrue, setLoadingFalse,
-    setLoadingTrue
-} from "../../store/reducers/request-status-reducer";
+import {Toast} from '../toast/toast';
 
 export const MainLayout = ({children}: { children: JSX.Element }) => {
     const {token} = useAppSelector(state => state.userReducer);

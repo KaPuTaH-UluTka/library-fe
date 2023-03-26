@@ -6,18 +6,20 @@ import classNames from 'classnames';
 
 import LeftArrow from '../../../assets/auth-icons/arrowLeft.svg';
 import RightArrow from '../../../assets/auth-icons/arrowRight.svg';
+import {AuthModalLayout} from '../../../components/auth-modal-layout/auth-modal-layout';
+import {CustomButton} from '../../../components/custom-elements/button/custom-button';
 import {CustomInput} from '../../../components/custom-elements/input/custom-input';
 import {Loader} from '../../../components/loader/loader';
-import {AuthModalLayout} from '../../../components/auth-modal-layout/auth-modal-layout';
 import {useRegistrationErrors} from '../../../hooks/use-registration-errors';
 import {libraryApi} from '../../../store/api/library-api';
-import {AppPaths, DataTestId, ForgotErrorMessages,} from '../../../types/constants/constants';
+import {DataTestId} from '../../../types/constants/data-test-id';
+import {ForgotErrorMessages} from '../../../types/constants/messages';
+import {AppPaths} from '../../../types/constants/paths';
+import {BtnType, Size} from '../../../types/custom-element';
 import {ForgotPasswordFields} from '../../../types/user';
 import {forgotPasswordSchema, resetPasswordSchema} from '../../../validation/validation';
 
 import classes from './forgot-pass.module.scss';
-import {CustomButton} from "../../../components/custom-elements/button/custom-button";
-import {BtnType, Size} from "../../../types/custom-element";
 
 export const ForgotPass = () => {
     const navigate = useNavigate();

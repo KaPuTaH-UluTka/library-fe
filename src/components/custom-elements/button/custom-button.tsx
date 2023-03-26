@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import {DataTestId} from '../../../types/constants/constants';
+import {DataTestId} from '../../../types/constants/data-test-id';
 import {BtnType, BtnVariant, Size} from '../../../types/custom-element';
 
 import classes from './custom-button.module.scss'

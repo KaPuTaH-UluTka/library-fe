@@ -24,7 +24,7 @@
                 width: 15px;
                 height: 15px;
                 transform: rotate(0deg);
-                background: url("../../../assets/orange-chevron.svg") center no-repeat;
+                background: url("../../assets/other/orange-chevron.svg") center no-repeat;
                 animation: 0.2s closeToggle linear;
 
                 &Active {
@@ -34,7 +34,7 @@
                     margin-left: 225px;
                     width: 15px;
                     height: 15px;
-                    background: url("../../../assets/orange-chevron.svg") center no-repeat;
+                    background: url("../../assets/other/orange-chevron.svg") center no-repeat;
                     transform: rotate(180deg);
                     animation: 0.2s openToggle linear;
                 }

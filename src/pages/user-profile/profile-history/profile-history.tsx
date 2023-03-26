@@ -2,11 +2,12 @@ import React, {} from 'react';
 import {A11y, Pagination} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
+import {BookCard} from '../../../components/book-card/book-card';
 import {Plug} from '../../../components/plug/plug';
 import {useAppSelector} from '../../../hooks/redux';
 import {libraryApi} from '../../../store/api/library-api';
-import {DataTestId, PlugMessages} from '../../../types/constants/constants';
-import {BookCard} from '../../main/book-list/book-card/book-card';
+import {DataTestId} from '../../../types/constants/data-test-id';
+import {PlugMessages} from '../../../types/constants/messages';
 
 import classes from './profile-history.module.scss';
 

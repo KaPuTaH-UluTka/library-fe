@@ -2,36 +2,36 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import classNames from 'classnames';
 
-import noImageBook from '../../../../assets/defaultBook.png'
-import {BookRating} from '../../../../components/book-rating/book-rating';
-import {BookingModal} from '../../../../components/booking-modal/booking-modal';
-import {CustomButton} from '../../../../components/custom-elements/button/custom-button';
-import {Highlight} from '../../../../components/search-hightlight/search-highlight';
-import {useAppDispatch, useAppSelector} from '../../../../hooks/redux';
-import {API_URL} from '../../../../store/api/api-url';
-import {libraryApi} from '../../../../store/api/library-api';
+import noImageBook from '../../assets/other/defaultBook.png'
+import {useAppDispatch, useAppSelector} from '../../hooks/redux';
+import {API_URL} from '../../store/api/api-url';
+import {libraryApi} from '../../store/api/library-api';
 import {
     setBookingCancelResponseErrorTrue,
     setBookingCancelResponseSuccessTrue,
     setLoadingFalse,
     setLoadingTrue
-} from '../../../../store/reducers/request-status-reducer';
-import {UserBook} from '../../../../types/book';
-import {BookCardInterface} from '../../../../types/book-card';
-import {DataTestId} from '../../../../types/constants/constants';
-import {BtnType, BtnVariant, Size} from '../../../../types/custom-element';
-import {bookingBtnText} from '../../../../utils/btn-text';
-import {cutTitle} from '../../../../utils/cut-title';
-import {dateParser} from '../../../../utils/date-utils';
+} from '../../store/reducers/request-status-reducer';
+import {
+    setCurrentBookId,
+    setCurrentComment,
+    setIsReviewModalTrue
+} from '../../store/reducers/review-modal-reducer';
+import {UserBook} from '../../types/book';
+import {BookCardInterface} from '../../types/book-card';
+import {DataTestId} from '../../types/constants/data-test-id';
+import {BtnType, BtnVariant, Size} from '../../types/custom-element';
+import {CommentShort} from '../../types/review';
+import {bookingBtnText} from '../../utils/btn-text';
+import {cutTitle} from '../../utils/cut-title';
+import {dateParser} from '../../utils/date-utils';
+import {BookRating} from '../book-rating/book-rating';
+import {BookingModal} from '../booking-modal/booking-modal';
+import {CustomButton} from '../custom-elements/button/custom-button';
+import {Highlight} from '../search-hightlight/search-highlight';
 
 import classesList from './book-card-list.module.scss';
 import classesWindow from './book-card-window.module.scss';
-import {CommentShort} from "../../../../types/review";
-import {
-    setCurrentComment,
-    setIsReviewModalTrue
-} from "../../../../store/reducers/review-modal-reducer";
-import {skipToken} from "@reduxjs/toolkit/dist/query/react";
 
 interface BookCardProps {
     book: BookCardInterface | UserBook,
@@ -81,7 +81,9 @@ export const BookCard = ({book, cardView, searchValue, bookingId, handedIssue, f
     }
 
     const openReviewModalHandler = () => {
-        trigger(book.id.toString());
+        trigger(book.id);
+
+        dispatch(setCurrentBookId(book.id));
         dispatch(setCurrentComment(userComment));
         dispatch(setIsReviewModalTrue());
     }

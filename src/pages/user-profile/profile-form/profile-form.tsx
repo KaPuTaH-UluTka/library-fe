@@ -12,13 +12,12 @@ import {
     setLoadingTrue, setUserUpdateResponseErrorTrue,
     setUserUpdateResponseSuccessTrue
 } from '../../../store/reducers/request-status-reducer';
-import {DataTestId} from '../../../types/constants/constants';
+import {DataTestId} from '../../../types/constants/data-test-id';
 import {BtnType, BtnVariant, Size} from '../../../types/custom-element';
-import {User, UserProfile} from '../../../types/user';
+import {UserProfile} from '../../../types/user';
 import {
     editUserProfileSchema, loginProfileSchema,
     passwordSchema,
-    usernameSchema
 } from '../../../validation/validation';
 
 import classes from './profile-form.module.scss';
@@ -31,9 +30,7 @@ export const ProfileForm = () => {
     const [isInputsDisabled, setIsInputsDisabled] = useState(true);
 
     const {register, formState: {errors}, handleSubmit, watch, clearErrors} = useForm<UserProfile>({
-        mode: 'onBlur',
-        reValidateMode: 'onBlur',
-        shouldFocusError: false,
+        mode: 'all',
         defaultValues: {
             login: user?.username,
             firstName: user?.firstName,
@@ -85,8 +82,8 @@ export const ProfileForm = () => {
     return (
         <form onSubmit={handleSubmit(submitHandler)} className={classes.profileForm}
               data-test-id={DataTestId.ProfileForm}>
-            <div className={classes.columnWrapper}>
-                <div className={classes.column}>
+            <div className={classes.rowWrapper}>
+                <div className={classes.inputRow}>
                     <CustomInput
                         label='username'
                         register={register('login', {required: true})}
@@ -99,6 +96,20 @@ export const ProfileForm = () => {
                         clearErrors={clearErrors}
                         isDisabled={isInputsDisabled}
                     />
+                    <CustomInput
+                        label='password'
+                        register={register('password')}
+                        error={errors.password}
+                        placeholder='Пароль'
+                        watchName={watch('password')}
+                        type='password'
+                        errors={errorsPassword}
+                        isFullColorError={!!errors.password}
+                        clearErrors={clearErrors}
+                        isDisabled={isInputsDisabled}
+                    />
+                </div>
+                <div className={classes.inputRow}>
                     <CustomInput
                         label='firstName'
                         register={register('firstName')}
@@ -123,19 +134,7 @@ export const ProfileForm = () => {
                         isDisabled={isInputsDisabled}
                     />
                 </div>
-                <div className={classes.column}>
-                    <CustomInput
-                        label='password'
-                        register={register('password')}
-                        error={errors.password}
-                        placeholder='Пароль'
-                        watchName={watch('password')}
-                        type='password'
-                        errors={errorsPassword}
-                        isFullColorError={!!errors.password}
-                        clearErrors={clearErrors}
-                        isDisabled={isInputsDisabled}
-                    />
+                <div className={classes.inputRow}>
                     <CustomInput
                         label='lastName'
                         register={register('lastName')}
@@ -146,7 +145,6 @@ export const ProfileForm = () => {
                         clearErrors={clearErrors}
                         isDisabled={isInputsDisabled}
                     />
-
                     <CustomInput
                         label='email'
                         register={register('email')}

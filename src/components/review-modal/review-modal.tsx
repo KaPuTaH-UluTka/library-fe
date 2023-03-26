@@ -1,7 +1,5 @@
 import React, {useEffect} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
-import {useParams} from 'react-router-dom';
-import {skipToken} from '@reduxjs/toolkit/query/react';
 
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {libraryApi} from '../../store/api/library-api';
@@ -14,7 +12,7 @@ import {
     setLoadingTrue
 } from '../../store/reducers/request-status-reducer';
 import {setIsReviewModalFalse} from '../../store/reducers/review-modal-reducer';
-import {DataTestId} from '../../types/constants/constants';
+import {DataTestId} from '../../types/constants/data-test-id';
 import {BtnType, Size} from '../../types/custom-element';
 import {CommentFields} from '../../types/review';
 import {BookModalLayout} from '../book-modal-layout/book-modal-layout';
@@ -27,7 +25,7 @@ export const ReviewModal = () => {
 
     const dispatch = useAppDispatch();
 
-    const {currentComment} = useAppSelector(state => state.reviewModalReducer);
+    const {currentComment, currentBookId} = useAppSelector(state => state.reviewModalReducer);
 
     const {user} = useAppSelector(state => state.userReducer);
 
@@ -41,26 +39,28 @@ export const ReviewModal = () => {
 
     const [updateComment, {isSuccess: isUpdateSuccess, isError: isUpdateError, isLoading: isUpdateLoading}] = libraryApi.useUpdateCommentMutation();
 
-    const {bookId} = useParams();
+
+
 
     const submitHandler: SubmitHandler<CommentFields> = data => {
-        if (user && bookId && !currentComment){
+        if (user && currentBookId && !currentComment){
             createComment({
                 data: {
                     ...data,
                     user: user.id.toString(),
-                    book: bookId
+                    book: currentBookId.toString()
                 }
-            })} else if (user && bookId && currentComment) {
+            })} else if (user && currentBookId && currentComment) {
             updateComment({
                 commentId: currentComment.id,
                 data: {
                     ...data,
                     user: user.id.toString(),
-                    book: bookId
+                    book: currentBookId.toString()
                 },
             })
         }
+
     }
 
     useEffect(() => {

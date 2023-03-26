@@ -1,4 +1,4 @@
-export const isDateExpired = (date: string | null) => (date ? new Date().getDate() > new Date(date).getDate() : false);
+export const isDateExpired = (date: string | null) => (date ? new Date().getTime() > new Date(date).getTime() : false);
 
 export const dateParser = (date: string) => {
     const dateObj = new Date(date);
