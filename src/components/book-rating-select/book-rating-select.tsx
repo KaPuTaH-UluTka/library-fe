@@ -3,15 +3,16 @@ import {Control, Controller} from 'react-hook-form';
 
 import EmptyStar from '../../assets/rating-icons/Icon_star.svg';
 import FilledStar from '../../assets/rating-icons/Icon_star_filled.svg';
-import {DataTestId} from '../../types/constants/constants';
+import {DataTestId} from '../../types/constants/data-test-id';
 
 import classes from './book-rating-select.module.scss';
 
 interface RatingProps  {
-    control: Control<any>
+    control: Control<any>;
+    userRating?: number
 }
-export const BookRatingSelect = ({ control }: RatingProps) => {
-    const [rating, setRating] = useState(1);
+export const BookRatingSelect = ({ control , userRating}: RatingProps) => {
+    const [rating, setRating] = useState(userRating || 5);
 
     return (
         <div className={classes.ratingWrapper} data-test-id={DataTestId.Rating}>
@@ -20,7 +21,7 @@ export const BookRatingSelect = ({ control }: RatingProps) => {
                     <Controller
                         name='rating'
                         control={control}
-                        defaultValue={1}
+                        defaultValue={userRating || 5}
                         rules={{ required: true }}
                         render={({ field }) => (
                             <input

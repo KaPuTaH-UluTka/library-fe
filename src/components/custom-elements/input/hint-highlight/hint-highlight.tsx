@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 
-import {DataTestId, RegistrationErrorMessages} from '../../../../types/constants/constants';
+import {DataTestId} from '../../../../types/constants/data-test-id';
+import {RegistrationErrorMessages} from '../../../../types/constants/messages';
 
 import classes from './hint-highlight.module.scss';
 

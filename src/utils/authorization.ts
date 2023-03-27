@@ -1,6 +1,6 @@
 import {
     registrationStageOneSchema, registrationStageThreeSchema, registrationStageTwoSchema,
-} from '../pages/authorization/validation';
+} from '../validation/validation';
 
 export const selectRegistrationSchema = (registrationStage: number) => {
     switch (registrationStage) {

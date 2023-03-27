@@ -20,7 +20,7 @@ import {BookCardInterface} from '../../types/book-card';
 import {
     BookingRequest,
 } from '../../types/booking';
-import {DataTestId} from '../../types/constants/constants';
+import {DataTestId} from '../../types/constants/data-test-id';
 import {getMonthMatrix, getYear} from '../../utils/dayjs';
 import {BookModalLayout} from '../book-modal-layout/book-modal-layout';
 

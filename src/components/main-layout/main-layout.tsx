@@ -1,27 +1,15 @@
 import React from 'react';
-import {Navigate} from 'react-router-dom';
 
 import {Footer} from '../../footer/footer';
 import {Header} from '../../header/header';
-import {useAppSelector} from '../../hooks/redux';
-import {AppPaths} from '../../types/constants/constants';
 import {Loader} from '../loader/loader';
+import {ReviewModal} from '../review-modal/review-modal';
 import {Toast} from '../toast/toast';
 
+import {useMainLayout} from './use-main-layout';
+
 export const MainLayout = ({children}: { children: JSX.Element }) => {
-    const {token} = useAppSelector(state => state.userReducer);
-
-    const {
-        isRequestLoading,
-        isRequestFetching,
-        isResponseError,
-        isResponseSuccess,
-        responseErrorText,
-    } = useAppSelector(state => state.requestStatusReducer);
-
-    if (!token) {
-        return <Navigate to={AppPaths.auth}/>;
-    }
+    const {isRequestLoading,isRequestFetching,isResponseSuccess,isResponseError,responseErrorText,isReviewModal} = useMainLayout();
 
     return <>
         <Header/>
@@ -29,5 +17,6 @@ export const MainLayout = ({children}: { children: JSX.Element }) => {
         <Footer/>
         {isRequestLoading && <Loader/> || isRequestFetching && <Loader/>}
         {(isResponseSuccess || isResponseError) && !isRequestFetching && <Toast error={isResponseError} message={responseErrorText}/>}
+        {isReviewModal && <ReviewModal/>}
     </>
 };

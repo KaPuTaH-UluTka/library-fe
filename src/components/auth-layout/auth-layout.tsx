@@ -1,8 +1,8 @@
 import React from 'react';
 import {Navigate} from 'react-router-dom';
 
-import {useAppSelector} from '../../hooks/redux';
-import {AppPaths, DataTestId} from '../../types/constants/constants';
+import {DataTestId} from '../../types/constants/data-test-id';
+import {AppPaths} from '../../types/constants/paths';
 
 import classes from './auth-layout.module.scss';
 

@@ -4,19 +4,19 @@
     width: 445px;
     height: 710px;
 
-    .slider-wrapper {
+    .sliderWrapper {
         width: 100%;
         height: 594px;
         border-radius: 10px;
     }
 
-    .thumbs-wrapper {
+    .thumbsWrapper {
         height: 100px;
         max-width: 100%;
         margin-top: 16px;
 
 
-        .thumbs-item {
+        .thumbsItem {
             min-width: 65px;
             max-width: 65px;
             height: 86px;
@@ -46,22 +46,23 @@
         width: 136px;
         height: 238px;
 
-        .slider-wrapper {
+        .sliderWrapper {
             width: 100%;
             min-height: 100%;
             border-radius: 3px;
-            .main-slide {
+            .mainSlide {
                 img {
                     height: 198px;
                 }
             }
         }
 
-        .thumbs-wrapper {
+        .thumbsWrapper {
             visibility: hidden;
             width: 0;
             height: 0;
         }
+
     }
     .shadow {
         display: none;
@@ -75,9 +76,9 @@
         width: 188px;
         height: 290px;
 
-        .slider-wrapper {
+        .sliderWrapper {
             border-radius: 5px;
-            .main-slide {
+            .mainSlide {
                 img {
                     height: 260px;
                 }

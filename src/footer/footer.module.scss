@@ -30,6 +30,7 @@
 
 @media (max-width: 768px) {
     .footer {
+        padding: 0 64px;
         &-bar {
             max-width: 640px;
             display: flex;
@@ -37,8 +38,9 @@
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 320px) {
     .footer {
+        padding: 0 16px;
         &-bar {
             flex-direction: column;
             justify-content: center;

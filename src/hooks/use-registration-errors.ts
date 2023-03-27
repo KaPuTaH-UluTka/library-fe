@@ -4,7 +4,7 @@ import { ObjectSchema } from 'yup'
 export const useRegistrationErrors = (
     schema: ObjectSchema<any>,
     text: string,
-    type: 'password' | 'username'
+    type: 'password' | 'username' | 'login'
 ) => {
     const [errorsArr, setErrorsArr] = useState<string[]>([]);
 
@@ -26,6 +26,18 @@ export const useRegistrationErrors = (
                 await schema.validate(
                     {
                         username,
+                    },
+                    {abortEarly: false}
+                ).then(() => setErrorsArr([])).catch(e => setErrorsArr(e.errors));
+            }
+
+            validate(text);
+        }
+        if (type === 'login') {
+            const validate = async (login: string) => {
+                await schema.validate(
+                    {
+                        login,
                     },
                     {abortEarly: false}
                 ).then(() => setErrorsArr([])).catch(e => setErrorsArr(e.errors));

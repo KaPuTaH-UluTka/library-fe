@@ -1,4 +1,4 @@
-import React, {FormEvent, useState} from 'react';
+import React, {useState} from 'react';
 import {FieldError, UseFormClearErrors, UseFormRegisterReturn} from 'react-hook-form';
 import InputMask from 'react-input-mask';
 import classNames from 'classnames';
@@ -6,26 +6,29 @@ import classNames from 'classnames';
 import CloseEye from '../../../assets/auth-icons/EyeClosed.svg';
 import OpenEye from '../../../assets/auth-icons/EyeOpen.svg';
 import PassCheck from '../../../assets/auth-icons/pass-check.svg';
-import {DataTestId} from '../../../types/constants/constants';
+import {DataTestId} from '../../../types/constants/data-test-id';
 
 import {HintHighlight} from './hint-highlight/hint-highlight';
 
 import classes from './custom-input.module.scss';
 
 type CustomInputProps = {
-    label: string
-    register: UseFormRegisterReturn
-    placeholder: string
-    watchName: string
-    messageHelper?: string
-    error?: FieldError
-    type: string
-    withoutErrorMessage?: boolean
-    mask?: string
-    maskPlaceholder?: string
-    errors?: string[]
-    isFullColorError?: boolean
-    clearErrors?: UseFormClearErrors<any>
+    label: string;
+    register: UseFormRegisterReturn;
+    placeholder: string;
+    watchName: string;
+    messageHelper?: string;
+    error?: FieldError;
+    type: string;
+    withoutErrorMessage?: boolean;
+    mask?: string;
+    maskPlaceholder?: string;
+    errors?: string[];
+    isFullColorError?: boolean;
+    clearErrors?: UseFormClearErrors<any>;
+    isDisabled?: boolean;
+    fromProfile?: boolean;
+    responseError?: boolean;
 }
 
 export const CustomInput = ({
@@ -42,6 +45,7 @@ export const CustomInput = ({
                                 errors,
                                 isFullColorError,
                                 clearErrors,
+    isDisabled, fromProfile, responseError
                             }: CustomInputProps) => {
     const [isOpenEye, setIsOpenEye] = useState(false);
     const [isOnFocus, setIsOnFocus] = useState(false);
@@ -79,17 +83,19 @@ export const CustomInput = ({
             maskChar={maskPlaceholder}
             mask={mask}
             {...register}
-            alwaysShowMask={!error?.message && !watchName && label !== 'phone'}
+            alwaysShowMask={fromProfile ? fromProfile : !error?.message && !watchName && label !== 'phone'}
             onFocus={focusHandler}
             onBlur={blurHandler}
+            disabled={isDisabled ? isDisabled : false}
         />
     ) : (
         <input
-            className={classNames(classes.input, {[classes.inputError]: error?.message})}
+            className={classNames(classes.input, {[classes.inputError]: error?.message || responseError})}
             {...register}
             type={isOpenEye ? 'text' : type}
             onFocus={focusHandler}
             onBlur={blurHandler}
+            disabled={isDisabled ? isDisabled : false}
         />
     )}
         <label
@@ -103,6 +109,17 @@ export const CustomInput = ({
                 isFullColorError={isFullColorError}
             />
         )}
+        {isWithErrorsAndErrorTypeRequired && (
+            <p
+                className={classNames(classes.error, {
+                    [classes.visibleError]: error,
+                    [classes.hideError]: withoutErrorMessage,
+                })}
+                data-test-id={DataTestId.Hint}
+            >
+                {error?.message}
+            </p>
+        )}
         {label === 'phone' && (
             <p
                 className={classNames(classes.errorPhone, {
@@ -115,18 +132,6 @@ export const CustomInput = ({
             </p>
         )}
         {isWithoutErrorsAndInputDontPhone && (
-            <p
-                className={classNames(classes.error, {
-                    [classes.visibleError]: error?.message,
-                    [classes.hideError]: withoutErrorMessage,
-                })}
-                data-test-id={DataTestId.Hint}
-            >
-                {error?.message}
-            </p>
-        )}
-
-        {isWithErrorsAndErrorTypeRequired && (
             <p
                 className={classNames(classes.error, {
                     [classes.visibleError]: error?.message,

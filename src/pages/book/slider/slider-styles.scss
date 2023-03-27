@@ -36,18 +36,3 @@
     height: 9px;
     background: var(--black100);
 }
-
-.swiper-wrapper {
-
-}
-@media (max-width: 768px) {
-    .swiper-scrollbar {
-        display: none;
-    }
-}
-
-@media (min-width: 769px) {
-    .swiper-pagination {
-        display: none;
-    }
-}

@@ -1,0 +1,46 @@
+.profileForm {
+    display: flex;
+    flex-direction: column;
+}
+.rowWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    row-gap: 16px;
+    column-gap: 30px;
+}
+.inputRow {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+   justify-content: space-between;
+    div {
+        width: 48%;
+    }
+}
+
+.btnWrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 540px;
+    column-gap: 30px;
+    margin-top: 32px;
+}
+
+@media (max-width: 768px) {
+
+}
+
+@media (max-width: 550px) {
+    .inputRow {
+        flex-direction: column;
+        div {
+            width: 100%;
+        }
+    }
+    .btnWrapper {
+        flex-direction: column;
+        row-gap: 16px;
+    }
+}

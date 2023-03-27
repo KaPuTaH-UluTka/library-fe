@@ -1,53 +1,33 @@
 import React from 'react';
-import {SubmitHandler, useForm} from 'react-hook-form';
-import {Link, useNavigate} from 'react-router-dom';
-import {yupResolver} from '@hookform/resolvers/yup';
+import {Link} from 'react-router-dom';
 import classNames from 'classnames';
 
 import RightArrow from '../../../assets/auth-icons/arrowRight.svg'
+import {AuthModalLayout} from '../../../components/auth-modal-layout/auth-modal-layout';
+import {CustomButton} from '../../../components/custom-elements/button/custom-button';
 import {CustomInput} from '../../../components/custom-elements/input/custom-input';
 import {Loader} from '../../../components/loader/loader';
-import {AuthModalLayout} from '../../../components/auth-modal-layout/auth-modal-layout';
-import {useAppDispatch} from '../../../hooks/redux';
 import {isFetchBaseQueryError} from '../../../store/api/api-helpers';
-import {libraryApi} from '../../../store/api/library-api';
-import {setToken, setUser} from '../../../store/reducers/user-reducer';
-import {AppPaths, DataTestId, LoginResponseErrors} from '../../../types/constants/constants';
-import {LoginUser} from '../../../types/user';
-import {loginSchema} from '../validation';
+import {DataTestId} from '../../../types/constants/data-test-id';
+import {LoginResponseErrors} from '../../../types/constants/messages';
+import {AppPaths} from '../../../types/constants/paths';
+import {BtnType, Size} from '../../../types/custom-element';
+
+import {useLogin} from './use-login';
 
 import classes from './login.module.scss';
 
 export const Login = () => {
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-
-    const [loginUser, {
-        isLoading,
+    const {
         isError,
         error,
-    }] = libraryApi.useLoginUserMutation();
-
-    const {
-        register,
         handleSubmit,
-        formState: {errors},
+        submitHandler,
+        register,
+        errors,
         watch,
-    } = useForm<LoginUser>({
-        mode: 'all',
-        resolver: yupResolver(loginSchema),
-    })
-
-    const submitHandler: SubmitHandler<LoginUser> = data => {
-            const user = loginUser(data).unwrap();
-
-                user.then(userData => {
-                    dispatch(setUser(userData.user));
-                    dispatch(setToken(userData.jwt));
-                    navigate(AppPaths.booksAll);
-                }).catch(err => err);
-
-    }
+        isLoading
+    } = useLogin();
 
     return (<>
             {(!localStorage.getItem('user') && !isError || isFetchBaseQueryError(error) && error.status === 400) &&
@@ -64,6 +44,7 @@ export const Login = () => {
                                 watchName={watch('identifier')}
                                 type='text'
                                 withoutErrorMessage={!errors.identifier}
+                                responseError={!!error}
                             />
                             <CustomInput
                                 label='password'
@@ -73,6 +54,7 @@ export const Login = () => {
                                 watchName={watch('password')}
                                 type='password'
                                 withoutErrorMessage={!errors.password}
+                                responseError={!!error}
                             />
                             <p
                                 className={classNames(classes.errorMessage, {
@@ -85,7 +67,12 @@ export const Login = () => {
                             <Link className={classes.forgotLink} to={AppPaths.forgotPass}>
                                 {isFetchBaseQueryError(error) && error.status === 400 ? 'Восстановить?' :
                                     'Забыли логин или пароль?'}</Link>
-                            <button type="submit" className={classes.submitBtn}>Вход</button>
+                            <div className={classes.btnWrapper}><CustomButton type={BtnType.submit}
+                                                                              text='Вход'
+                                                                              clickHandler={() => submitHandler}
+                                                                              size={Size.big}/>
+                            </div>
+
                         </form>
                         <p className={classes.accountNotExist}>Нет учётной записи? <Link
                             className={classes.registrationLink}
@@ -101,10 +88,8 @@ export const Login = () => {
                         {LoginResponseErrors.smthWrong}
                     </p>
                     <form className={classes.loginForm} onSubmit={handleSubmit(submitHandler)}>
-                        <button type="submit"
-                                className={classes.submitBtn}>
-                            Повторить
-                        </button>
+                        <CustomButton type={BtnType.submit} text='Повторить'
+                                      clickHandler={() => submitHandler} size={Size.big}/>
                     </form>
                 </AuthModalLayout>
             )}

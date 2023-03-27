@@ -1,6 +1,6 @@
 import React, {ReactNode} from 'react';
 
-import {DataTestId} from '../../types/constants/constants';
+import {DataTestId} from '../../types/constants/data-test-id';
 
 import classes from './auth-modal-layout.module.scss';
 

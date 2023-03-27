@@ -7,11 +7,11 @@ import classes from './book-rating.module.scss';
 
 interface BookRatingProps {
     rating: number,
-    wrapperTestId: string,
+    wrapperTestId?: string,
 
-    filledStarTestId: string,
+    filledStarTestId?: string,
 
-    emptyStarTestId: string,
+    emptyStarTestId?: string,
 }
 
 export const BookRating = ({

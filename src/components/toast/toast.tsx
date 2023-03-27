@@ -5,7 +5,7 @@ import ErrorIcon from '../../assets/toast/errorIcon.svg';
 import OkIcon from '../../assets/toast/okIcon.svg';
 import {useAppDispatch} from '../../hooks/redux';
 import {setResponseStatusesFalse} from '../../store/reducers/request-status-reducer';
-import {DataTestId} from '../../types/constants/constants';
+import {DataTestId} from '../../types/constants/data-test-id';
 
 import classes from './toast.module.scss'
 
@@ -30,7 +30,7 @@ export const Toast = ({error, message}: ToastProps) => {
     }, [closeError, dispatch]);
 
     return (
-        <div className={classNames(classes.toast, {[classes.positive]: !error})}
+        <div className={classNames(classes.toast, {[classes.positive]: !error, [classes.visible]: !!message})}
              data-test-id={DataTestId.Error}>
             <div className={classes.toastInfo}>
                 <img className={classes.toastIcon} src={error ? ErrorIcon : OkIcon}

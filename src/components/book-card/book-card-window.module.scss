@@ -1,0 +1,127 @@
+.card {
+    width: 190px;
+    height: 470px;
+    padding: 8px 8px 16px 8px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--box-shadow);
+    border-radius: 10px;
+    background: var(--whiteMain);
+    justify-content: space-between;
+    cursor: pointer;
+
+    &Img {
+        width: 174px;
+        height: 242px;
+        border-radius: 10px;
+        border: 1px solid var(--black43);
+    }
+
+    &Rating {
+        display: flex;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 18px;
+        margin-top: 18px;
+        color: var(--black40);
+    }
+
+    &Title {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 18px;
+        letter-spacing: 0.1px;
+        margin-top: 16px;
+        color: var(--black100);
+        word-break: break-word;
+        hyphens: auto;
+    }
+
+    &Author {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 18px;
+        margin-top: 8px;
+        color: var(--black43);
+    }
+
+    &BtnWrapper {
+        width: 100%;
+    }
+
+
+}
+
+.wide {
+    width: 255px;
+}
+
+@media (max-width: 900px) {
+    .wide {
+        width: 190px;
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+
+        &Rating {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 18px;
+            margin-top: 18px;
+        }
+
+        &Title {
+            font-weight: 700;
+            font-size: 12px;
+            line-height: 18px;
+            margin-top: 23px;
+        }
+
+        &Author {
+            font-weight: 700;
+            font-size: 12px;
+            line-height: 18px;
+            text-transform: uppercase;
+            margin-top: 8px;
+        }
+    }
+}
+
+@media (max-width: 320px) {
+    .card {
+        width: 288px;
+        padding: 8px 16px 16px 16px;
+
+        &Img {
+            margin: 0 auto;
+        }
+
+        &Rating {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 18px;
+            margin-top: 16px;
+        }
+
+        &Title {
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 18px;
+            margin-top: 16px;
+        }
+
+        &Author {
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 18px;
+            text-transform: none;
+            margin-top: 8px;
+        }
+    }
+
+    .wide {
+        width: 288px;
+    }
+}

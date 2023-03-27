@@ -1,59 +1,38 @@
-import React, {useState} from 'react';
-import {useForm} from 'react-hook-form';
-import {Link, useNavigate} from 'react-router-dom';
-import {yupResolver} from '@hookform/resolvers/yup';
+import React from 'react';
+import {Link} from 'react-router-dom';
 
 import RightArrow from '../../../assets/auth-icons/arrowRight.svg'
+import {AuthModalLayout} from '../../../components/auth-modal-layout/auth-modal-layout';
+import {CustomButton} from '../../../components/custom-elements/button/custom-button';
 import {CustomInput} from '../../../components/custom-elements/input/custom-input';
 import {Loader} from '../../../components/loader/loader';
-import {AuthModalLayout} from '../../../components/auth-modal-layout/auth-modal-layout';
-import {useRegistrationErrors} from '../../../hooks/use-registration-errors';
 import {isFetchBaseQueryError} from '../../../store/api/api-helpers';
-import {libraryApi} from '../../../store/api/library-api';
-import {AppPaths, DataTestId, RegistrationResponseErrors} from '../../../types/constants/constants';
-import {User} from '../../../types/user';
-import {selectRegistrationSchema} from '../../../utils/authorization';
-import {passwordSchema, usernameSchema} from '../validation';
+import {DataTestId} from '../../../types/constants/data-test-id';
+import {RegistrationResponseErrors} from '../../../types/constants/messages';
+import {AppPaths} from '../../../types/constants/paths';
+import {BtnType, Size} from '../../../types/custom-element';
+import {registrationBtnText} from '../../../utils/btn-text';
+
+import {useRegistration} from './use-registration';
 
 import classes from './registration.module.scss';
 
 export const Registration = () => {
-    const [registrationStage, setRegistrationStage] = useState(1);
-    const navigate = useNavigate();
-    const [createUser, {
+    const {
         isSuccess,
-        isError,
-        isLoading,
+        handleSubmit,
+        submitHandler,
         error,
-        reset: apiReset
-    }] = libraryApi.useCreateUserMutation()
-
-    const {register, formState: {errors}, handleSubmit, watch, clearErrors, reset} = useForm<User>({
-        mode: 'onBlur',
-        reValidateMode: 'onBlur',
-        shouldFocusError: false,
-        resolver: yupResolver(selectRegistrationSchema(registrationStage))
-    });
-
-    const submitHandler = (data: User) => {
-        if (registrationStage < 3) {
-            setRegistrationStage(registrationStage + 1);
-        }
-        if (registrationStage === 3 && !isError && !isSuccess) {
-            createUser(data).catch(err => err);
-        }
-        if (isSuccess) {
-            navigate(AppPaths.auth)
-        }
-        if (isError) {
-            reset();
-            apiReset();
-            setRegistrationStage(1);
-        }
-    }
-
-    const {errorsArr: errorsUsername} = useRegistrationErrors(usernameSchema, watch('username'), 'username');
-    const {errorsArr: errorsPassword} = useRegistrationErrors(passwordSchema, watch('password'), 'password');
+        isError,
+        register,
+        registrationStage,
+        errors,
+        watch,
+        errorsUsername,
+        clearErrors,
+        errorsPassword,
+        isLoading
+    } = useRegistration();
 
     return (<>
             {isSuccess && (
@@ -65,10 +44,10 @@ export const Registration = () => {
                     </p>
                     <form className={classes.registrationForm}
                           onSubmit={handleSubmit(submitHandler)}>
-                        <button type="submit"
-                                className={classes.submitBtn}>
-                            Вход
-                        </button>
+                        <div className={classes.btnWrapper}>
+                            <CustomButton type={BtnType.submit} text='Вход'
+                                          clickHandler={() => submitHandler} size={Size.big}/>
+                        </div>
                     </form>
                 </AuthModalLayout>
             )}
@@ -85,6 +64,11 @@ export const Registration = () => {
                             {isFetchBaseQueryError(error) && error.status === 400 ? 'Назад к регистрации' : 'Повторить'}
 
                         </button>
+                        <div className={classes.btnWrapper}>
+                            <CustomButton type={BtnType.submit}
+                                          text={isFetchBaseQueryError(error) && error.status === 400 ? 'Назад к регистрации' : 'Повторить'}
+                                          clickHandler={() => submitHandler} size={Size.big}/>
+                        </div>
                     </form>
                 </AuthModalLayout>
             )}
@@ -158,18 +142,15 @@ export const Registration = () => {
                             type='email'
                             clearErrors={clearErrors}
                         /></>}
-                    <button type="submit"
-                            className={classes.submitBtn} disabled={
-                        !!errors.username ||
-                        !!errors.password ||
-                        !!errors.firstName ||
-                        !!errors.lastName ||
-                        !!errors.phone ||
-                        !!errors.email}>
-                        {registrationStage === 1 && 'Следующий шаг'}
-                        {registrationStage === 2 && 'Последний шаг'}
-                        {registrationStage === 3 && 'Зарегистрироваться'}
-                    </button>
+                    <div className={classes.btnWrapper}>
+                        <CustomButton type={BtnType.submit} isDisabled={!!errors.username ||
+                            !!errors.password ||
+                            !!errors.firstName ||
+                            !!errors.lastName ||
+                            !!errors.phone ||
+                            !!errors.email} text={registrationBtnText(registrationStage)}
+                                      clickHandler={() => submitHandler} size={Size.big}/>
+                    </div>
                 </form>
                 <p className={classes.accountExist}>Есть учётная запись?<Link
                     className={classes.loginLink} to={AppPaths.auth}>Войти<img src={RightArrow}

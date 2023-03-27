@@ -7,12 +7,13 @@ import {
     BookingRequest,
     BookingResponse,
 } from '../../types/booking';
-import {ApiPaths} from '../../types/constants/constants';
-import {ReviewFields, ReviewResponse} from '../../types/review';
+import {ApiPaths} from '../../types/constants/paths';
+import {CommentFields, CommentResponse} from '../../types/review';
+import {ImageFull} from '../../types/upload-images';
 import {
     AuthResponse,
     ForgotPassword,
-    LoginUser,
+    LoginUser, RegisteredUser,
     ResetPassword,
     User
 } from '../../types/user';
@@ -27,19 +28,14 @@ export const libraryApi = createApi({
             const {token} = (getState() as RootState).userReducer
 
             if (token) {
-                headers.set('authorization', `Bearer ${token}`)
+                headers.set('authorization', `Bearer ${token}`);
             }
 
-            return headers
+            return headers;
         },
     }),
-    tagTypes: ['Book', 'AllBooks'],
+    tagTypes: ['Book', 'AllBooks', 'User'],
     endpoints: (builder) => ({
-        getBookCategories: builder.query<BookCategoryInterface[], void>({
-            query: () => ({
-                url: ApiPaths.categories,
-            }),
-        }),
         getAllBooks: builder.query<BookCardInterface[], void>({
             keepUnusedDataFor: 0,
             query: () => ({
@@ -47,27 +43,33 @@ export const libraryApi = createApi({
             }),
             providesTags: () => ['AllBooks']
         }),
-        getBookById: builder.query<BookInterface, string>({
+        getBookCategories: builder.query<BookCategoryInterface[], void>({
+            query: () => ({
+                url: ApiPaths.categories,
+            }),
+        }),
+        getBookById: builder.query<BookInterface | BookInterface[], number>({
             keepUnusedDataFor: 0,
             query: (id) => ({
                 url: `${ApiPaths.books}/${id}`,
             }),
             providesTags: () => ['Book']
         }),
-        createComment: builder.mutation<ReviewResponse, { data: ReviewFields }>({
+        createComment: builder.mutation<CommentResponse, { data: CommentFields }>({
             query: (comment) => ({
                 url: ApiPaths.comment,
                 method: 'POST',
                 body: comment,
             }),
-            invalidatesTags: ['Book']
+            invalidatesTags: ['Book', 'User']
         }),
-        updateComment: builder.mutation<BookInterface, { id: string, data: ReviewFields }>({
-            query: ({id, data}) => ({
-                url: `${ApiPaths.comment}/${id}`,
+        updateComment: builder.mutation<CommentResponse, { commentId: number, data: CommentFields }>({
+            query: ({commentId, data}) => ({
+                url: `${ApiPaths.comment}/${commentId}`,
                 method: 'PUT',
-                body: data,
+                body: {data},
             }),
+            invalidatesTags: ['Book', 'User']
         }),
         createBooking: builder.mutation<BookingResponse, BookingRequest>({
             query: (data) => ({
@@ -90,7 +92,7 @@ export const libraryApi = createApi({
                 url: `${ApiPaths.booking}/${id}`,
                 method: 'DElETE',
             }),
-            invalidatesTags: ['Book', 'AllBooks']
+            invalidatesTags: ['Book', 'AllBooks', 'User']
         }),
         createUser: builder.mutation<AuthResponse, User>({
             query: (user) => ({
@@ -99,12 +101,41 @@ export const libraryApi = createApi({
                 body: user
             })
         }),
+        updateUser: builder.mutation<RegisteredUser, {userId: number, user: User }>({
+            query: ({userId, user}) => ({
+                url:`${ApiPaths.updateUser}/${userId}`,
+                method: 'PUT',
+                body: user
+            }),
+            invalidatesTags: ['User']
+        }),
+        uploadAvatar: builder.mutation<ImageFull[], FormData>({
+            query: (file) => ({
+                url:ApiPaths.uploadAvatar,
+                method: 'POST',
+                body: file,
+            }),
+        }),
+        updateAvatar: builder.mutation<RegisteredUser,{userId: number, avatar: number}>({
+            query: ({userId, avatar}) => ({
+                url:`${ApiPaths.updateUser}/${userId}`,
+                method: 'PUT',
+                body: {avatar}
+            }),
+            invalidatesTags: ['User']
+        }),
         loginUser: builder.mutation<AuthResponse, LoginUser>({
             query: (user) => ({
                 url: ApiPaths.loginUser,
                 method: 'POST',
                 body: user
             })
+        }),
+        me: builder.query<RegisteredUser, void>({
+            query: () => ({
+                url: ApiPaths.me,
+            }),
+            providesTags: () => ['User']
         }),
         forgotPassword: builder.mutation<{ ok: boolean }, ForgotPassword>({
             query: (email) => ({

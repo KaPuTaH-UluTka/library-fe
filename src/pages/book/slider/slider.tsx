@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperInterface } from 'swiper/types';
 
 import {API_URL} from '../../../store/api/api-url';
+import {DataTestId} from '../../../types/constants/data-test-id';
 
 import classes from './slider.module.scss';
 
@@ -21,17 +22,17 @@ export const Slider = (props: { images: Array<{url: string}> }) => {
 
     return (
         <div className={classes.slider}>
-            <Swiper data-test-id="slide-big"
+            <Swiper data-test-id={DataTestId.SlideBig}
                     loop={true}
                     thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
-                    modules={[FreeMode, Navigation, Thumbs, Pagination]}
+                    modules={[FreeMode, Navigation, Thumbs, Scrollbar, Pagination]}
                     pagination={{
                         clickable: true
                     }}
-                    className={classes['slider-wrapper']}
+                    className={classes.sliderWrapper}
             >
                 {props.images.map((el, index) =>
-                    <SwiperSlide key={index} className={classes['main-slide']}>
+                    <SwiperSlide key={index} className={classes.mainSlide}>
                         <img src={API_URL + el.url} alt={el.url}/>
                     </SwiperSlide>
                 )}
@@ -46,10 +47,19 @@ export const Slider = (props: { images: Array<{url: string}> }) => {
                 scrollbar={{draggable: true}}
                 watchSlidesProgress={true}
                 modules={[FreeMode, Navigation, Thumbs, Scrollbar, Pagination]}
-                className={classes['thumbs-wrapper']}
+                className={classes.thumbsWrapper}
+                breakpoints={{
+                    1110: {
+                        pagination: false,
+                    },
+                    768: {
+                        scrollbar: false,
+                        pagination: true,
+                    },
+                }}
             >
                 {props.images.map((el, index) =>
-                    <SwiperSlide data-test-id="slide-mini" key={index} className={classes['thumbs-item']}>
+                    <SwiperSlide data-test-id={DataTestId.SlideMini} key={index} className={classes.thumbsItem}>
                         <img src={API_URL + el.url} alt={el.url}/>
                     </SwiperSlide>
                 )}

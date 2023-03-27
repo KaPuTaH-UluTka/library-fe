@@ -1,0 +1,75 @@
+.userAvatarEdit {
+    display: flex;
+    align-items: center;
+
+    .userName {
+        font-weight: 500;
+        font-size: 52px;
+        line-height: 64px;
+        letter-spacing: 0.2px;
+        white-space: pre-wrap;
+        margin-left: 30px;
+    }
+}
+
+.userAvatarUpload {
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    .avatarUploadInput {
+        display: none;
+    }
+
+    .userAvatarMask {
+        position: absolute;
+        width: 141px;
+        height: 42px;
+        background: url('../../../assets/profile-icons/avatarMask.svg') center;
+        background-size:  141px 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        bottom: 0;
+    }
+
+    .avatarMaskIcon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .userAvatar {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+    }
+}
+
+@media (max-width: 600px) {
+    .userAvatarEdit {
+        flex-direction: column;
+        .userName {
+            margin-left: 0;
+            font-size: 26px;
+            line-height: 36px;
+            margin-top: 24px;
+        }
+    }
+    .userAvatarUpload {
+        .userAvatarMask {
+            width: 133px;
+            height: 40px;
+            background-size: 133px 40px;
+        }
+
+        .avatarMaskIcon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .userAvatar {
+            width: 150px;
+            height: 150px;
+        }
+    }
+}
