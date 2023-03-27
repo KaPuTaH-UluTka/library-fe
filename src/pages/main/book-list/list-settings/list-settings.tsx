@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import classNames from 'classnames';
 
 import ListGrayIcon from '../../../../assets/book-list-settings/list-gray.svg';
@@ -7,44 +7,34 @@ import SortIcon from '../../../../assets/book-list-settings/rating-sort.svg';
 import searchIcon from '../../../../assets/book-list-settings/search.svg';
 import WindowGrayIcon from '../../../../assets/book-list-settings/window-gray.svg';
 import WindowWhiteIcon from '../../../../assets/book-list-settings/window-white.svg';
-import {useAppDispatch, useAppSelector} from '../../../../hooks/redux';
-import {useWidth} from '../../../../hooks/use-width';
 import {
     setListView,
     setWindowView
 } from '../../../../store/reducers/card-view-reducer';
-import {setSortOrder} from '../../../../store/reducers/sort-order-reducer';
 import {DataTestId} from '../../../../types/constants/data-test-id';
+
+import {useListSettings} from './use-list-settings';
 
 import classes from './list-settings.module.scss';
 
-export const ListSettings = (props: {sortOrder: boolean, searchValue: string, setSearchValue: (searchValue: string) => void}) => {
-    const dispatch = useAppDispatch();
-    const {cardView} = useAppSelector(state => state.cardViewReducer);
+export interface ListSettingsProps {
+    sortOrder: boolean,
+    searchValue: string,
+    setSearchValue: (searchValue: string) => void
+}
 
-    const screenWidth = useWidth();
-
-    const [isSearchOpen, searchOpenToggle] = useState(false);
-
-    const openSearch = () => {
-        searchOpenToggle(true);
-    };
-
-    const closeSearch = () => {
-        searchOpenToggle(false);
-    };
-
-    const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
-        const target = event.target as HTMLInputElement;
-
-        props.setSearchValue(target.value);
-    }
-
-    const changeOrder = () => {
-        dispatch(setSortOrder());
-    }
-
-    const searchState = window.innerWidth < 550 && isSearchOpen;
+export const ListSettings = ({sortOrder, searchValue, setSearchValue}: ListSettingsProps) => {
+    const {
+        screenWidth,
+        handleSearch,
+        isSearchOpen,
+        closeSearch,
+        searchState,
+        openSearch,
+        changeOrder,
+        cardView,
+        dispatch
+    } = useListSettings({setSearchValue})
 
     return (
         <div className={classes.settings}>
@@ -52,7 +42,7 @@ export const ListSettings = (props: {sortOrder: boolean, searchValue: string, se
                 {screenWidth && screenWidth < 550 ? <>
                         <form className={classes.searchForm} onChange={handleSearch}>
                             <input
-                                className={isSearchOpen ? classNames(classes.search, {[classes.searchActive]: props.searchValue}) : classes.hide}
+                                className={isSearchOpen ? classNames(classes.search, {[classes.searchActive]: searchValue}) : classes.hide}
                                 type="search" data-test-id={DataTestId.InputSearch}
                                 placeholder="Поиск книги или автора…"/>
                             <button type="button" data-test-id={DataTestId.ButtonSearchClose}
@@ -69,7 +59,7 @@ export const ListSettings = (props: {sortOrder: boolean, searchValue: string, se
                     </> :
                     <form className={classes.searchForm} onChange={handleSearch}>
                         <input
-                            className={classNames(classes.search, {[classes.searchActive]: props.searchValue})}
+                            className={classNames(classes.search, {[classes.searchActive]: searchValue})}
                             type="search" data-test-id={DataTestId.InputSearch}
                             placeholder="Поиск книги или автора…"/>
                     </form>}
@@ -77,7 +67,7 @@ export const ListSettings = (props: {sortOrder: boolean, searchValue: string, se
                 <button className={searchState ? classes.hide : classes.sort} type="button"
                         data-test-id={DataTestId.SortRatingButton}
                         onClick={changeOrder}>
-                    <img className={props.sortOrder ? classes.sortIcon : classes.sortIconRotated}
+                    <img className={sortOrder ? classes.sortIcon : classes.sortIconRotated}
                          src={SortIcon} alt="sort-icon"/>По рейтингу
                 </button>
             </div>

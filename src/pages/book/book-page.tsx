@@ -1,108 +1,37 @@
-import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
-import {skipToken} from '@reduxjs/toolkit/query/react';
+import React from 'react';
 import classNames from 'classnames';
 
 import BlackChevron from '../../assets/other/black-chevron.svg';
 import noImageBook from '../../assets/other/defaultBook.png';
-import {BookDetails} from './book-details/book-details';
 import {BookLink} from '../../components/book-link/book-link';
 import {BookingModal} from '../../components/booking-modal/booking-modal';
 import {CustomButton} from '../../components/custom-elements/button/custom-button';
 import {ReviewItem} from '../../components/review-item/review-item';
-import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {API_URL} from '../../store/api/api-url';
-import {libraryApi} from '../../store/api/library-api';
-import {
-    setBaseResponseErrorTrue,
-    setFetchingFalse,
-    setFetchingTrue,
-    setLoadingFalse,
-    setLoadingTrue
-} from '../../store/reducers/request-status-reducer';
-import {
-    setCurrentBookId,
-    setCurrentComment,
-    setIsReviewModalTrue
-} from '../../store/reducers/review-modal-reducer';
-import {BookInterface, CommentInterface} from '../../types/book';
-import {BookCardInterface} from '../../types/book-card';
 import {DataTestId} from '../../types/constants/data-test-id';
 import {BtnType, BtnVariant, Size} from '../../types/custom-element';
 import {bookingBtnText} from '../../utils/btn-text';
 import {commentExist} from '../../utils/comment-exist';
 
+import {BookDetails} from './book-details/book-details';
 import {Rating} from './rating/rating';
 import {Slider} from './slider/slider';
+import {useBookPage} from './use-book-page';
 
 import classes from './book-page.module.scss';
 
 export const BookPage = () => {
 
-    const {bookId} = useParams();
-
-    const dispatch = useAppDispatch();
-
-    const {user} = useAppSelector(state => state.userReducer);
-
     const {
-        data: bookData,
-        isError,
-        isFetching
-    } = libraryApi.useGetBookByIdQuery(Number(bookId) || skipToken);
-
-    const {data: categories} = libraryApi.useGetBookCategoriesQuery();
-
-    const [isReviewsOpen, setReviewsState] = useState(false);
-    const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-
-    const [trigger] = libraryApi.useLazyGetBookByIdQuery();
-
-    const body = document.querySelector('body') as HTMLElement;
-
-    let book: BookCardInterface | BookInterface | null = null;
-
-    if (bookData && !('length' in bookData)) {
-        book = bookData;
-    }
-    if (bookData && ('length' in bookData) && bookId) {
-        book = bookData[+bookId - 1];
-    }
-
-    const copiedComments: CommentInterface[] = [];
-
-    book?.comments?.forEach((el: CommentInterface) => copiedComments.push(el));
-
-    const sortedComments = copiedComments.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
-
-    const openReviewModalHandler = () => {
-        if(book){
-            trigger(book?.id);
-        }
-        const userComment = user?.comments?.find((comment) => comment.bookId === book?.id);
-
-        dispatch(setCurrentBookId(book?.id));
-        dispatch(setCurrentComment(userComment));
-        dispatch(setIsReviewModalTrue());
-    }
-
-    useEffect(() => {
-        if (isError) {
-            dispatch(setBaseResponseErrorTrue());
-        }
-        if (isBookingModalOpen) {
-            body.classList.add('no-scroll');
-        } else {
-            body.classList.remove('no-scroll');
-        }
-        if (isFetching) {
-            dispatch(setLoadingTrue());
-            dispatch(setFetchingTrue());
-        } else {
-            dispatch(setLoadingFalse());
-            dispatch(setFetchingFalse());
-        }
-    }, [body.classList, dispatch, isBookingModalOpen, isError, isFetching]);
+        book,
+        setIsBookingModalOpen,
+        user,
+        isReviewsOpen,
+        setReviewsState,
+        sortedComments,
+        openReviewModalHandler,
+        isBookingModalOpen
+    } = useBookPage();
 
     return <section className={classes.bookPage}>
         {book && <div className={classes.bookPageWrapper}>
@@ -121,12 +50,12 @@ export const BookPage = () => {
                             ${book.authors.map(el => el)}
                             ${book.issueYear}`}</div>
                         <div className={classes.btnWrapper}>
-                        <CustomButton type={BtnType.button} text={bookingBtnText(book)}
-                                      dataTestId={DataTestId.BookingButton}
-                                      clickHandler={() => setIsBookingModalOpen(true)}
-                                      variant={book.booking === null && !book.delivery ? BtnVariant.primary : BtnVariant.secondary}
-                                      size={Size.big}
-                                      isDisabled={!!book.delivery?.dateHandedTo || (book.booking !== null && book.booking.customerId !== user?.id)}/>
+                            <CustomButton type={BtnType.button} text={bookingBtnText(book)}
+                                          dataTestId={DataTestId.BookingButton}
+                                          clickHandler={() => setIsBookingModalOpen(true)}
+                                          variant={book.booking === null && !book.delivery ? BtnVariant.primary : BtnVariant.secondary}
+                                          size={Size.big}
+                                          isDisabled={!!book.delivery?.dateHandedTo || (book.booking !== null && book.booking.customerId !== user?.id)}/>
                         </div>
                         <h5 className={classes.aboutBookTitle}>О книге</h5>
                         <p className={classes.aboutBookDescription}>{book.description}</p>
@@ -149,11 +78,12 @@ export const BookPage = () => {
                                                                 key={el.id}/>)}
                     </div>
                     <div className={classes.btnWrapper}>
-                    <CustomButton type={BtnType.button} text={book.comments && user && commentExist(book.comments, user.id) ? 'Изменить оценку' : 'Оценить книгу'}
-                                  dataTestId={DataTestId.ButtonRateBook}
-                                  clickHandler={openReviewModalHandler}
-                                  variant={book.comments && user && commentExist(book.comments, user.id) ? BtnVariant.secondary : BtnVariant.primary}
-                                  size={Size.big}/>
+                        <CustomButton type={BtnType.button}
+                                      text={book.comments && user && commentExist(book.comments, user.id) ? 'Изменить оценку' : 'Оценить книгу'}
+                                      dataTestId={DataTestId.ButtonRateBook}
+                                      clickHandler={openReviewModalHandler}
+                                      variant={book.comments && user && commentExist(book.comments, user.id) ? BtnVariant.secondary : BtnVariant.primary}
+                                      size={Size.big}/>
                     </div>
                 </div>
             </div>

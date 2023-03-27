@@ -1,6 +1,7 @@
-
-
-
+export enum EmptyBooksMessages  {
+    emptyCategory = 'В этой категории книг ещё нет',
+    noMatches = 'По запросу ничего не найдено'
+}
 
 export enum RegistrationErrorMessages {
     required = 'Поле не может быть пустым',

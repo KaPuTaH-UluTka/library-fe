@@ -1,7 +1,5 @@
 import React from 'react';
-import {SubmitHandler, useForm} from 'react-hook-form';
-import {Link, useLocation, useNavigate} from 'react-router-dom';
-import {yupResolver} from '@hookform/resolvers/yup';
+import {Link} from 'react-router-dom';
 import classNames from 'classnames';
 
 import LeftArrow from '../../../assets/auth-icons/arrowLeft.svg';
@@ -10,68 +8,33 @@ import {AuthModalLayout} from '../../../components/auth-modal-layout/auth-modal-
 import {CustomButton} from '../../../components/custom-elements/button/custom-button';
 import {CustomInput} from '../../../components/custom-elements/input/custom-input';
 import {Loader} from '../../../components/loader/loader';
-import {useRegistrationErrors} from '../../../hooks/use-registration-errors';
-import {libraryApi} from '../../../store/api/library-api';
 import {DataTestId} from '../../../types/constants/data-test-id';
 import {ForgotErrorMessages} from '../../../types/constants/messages';
 import {AppPaths} from '../../../types/constants/paths';
 import {BtnType, Size} from '../../../types/custom-element';
-import {ForgotPasswordFields} from '../../../types/user';
-import {forgotPasswordSchema, resetPasswordSchema} from '../../../validation/validation';
+
+import {useForgotPass} from './use-forgot-pass';
 
 import classes from './forgot-pass.module.scss';
 
 export const ForgotPass = () => {
-    const navigate = useNavigate();
-    const {search} = useLocation();
-    const code = search.split('=')[1];
-
-    const [forgotPassRequest, {
-        isLoading: isForgotLoading,
-        isSuccess: isForgotSuccess,
-        error: forgotError
-    }] = libraryApi.useForgotPasswordMutation();
-
-    const [resetPassRequest, {
-        isLoading: isResetLoading,
-        isError: isResetError,
-        isSuccess: isResetSuccess,
-    }] = libraryApi.useResetPasswordMutation();
-
     const {
-        register,
+        isForgotSuccess,
+        code,
         handleSubmit,
-        formState: {errors},
+        submitHandler,
+        register,
+        errors,
         watch,
         clearErrors,
-    } = useForm<ForgotPasswordFields>({
-        mode: 'onBlur',
-        reValidateMode: 'onBlur',
-        resolver: yupResolver(code ? resetPasswordSchema : forgotPasswordSchema),
-        shouldFocusError: false,
-    })
-
-    const submitHandler: SubmitHandler<ForgotPasswordFields> = data => {
-        if (code) {
-            resetPassRequest({
-                code,
-                password: data.password,
-                passwordConfirmation: data.passwordConfirmation,
-            }).catch(err => err);
-        }
-        if (isResetError && code) {
-            resetPassRequest({
-                code,
-                password: data.password,
-                passwordConfirmation: data.passwordConfirmation,
-            }).catch(err => err);
-        }
-        if (!code) {
-            forgotPassRequest({email: data.email}).catch(err => err);
-        }
-    }
-
-    const {errorsArr} = useRegistrationErrors(resetPasswordSchema, watch('password'), 'password')
+        forgotError,
+        isResetSuccess,
+        isResetError,
+        errorsArr,
+        navigate,
+        isForgotLoading,
+        isResetLoading
+    } = useForgotPass();
 
     return (<>
             {!isForgotSuccess && !code && <div className={classes.forgotWrapper}>
