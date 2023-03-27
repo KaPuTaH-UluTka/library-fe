@@ -48,15 +48,15 @@ export const Header = () => {
                     <h3 className={classes.welcomeTitle}>{`Привет, ${user?.firstName}!`}</h3>
                     <img className={classes.userAvatar} src={user?.avatar ? API_URL + user.avatar : defaultAvatar} alt="avatar"/>
                 </div>
-            </div>
-            <div
-                className={classNames(classes.contextMenu, {[classes.activeContext]: isContextMenu})}>
-                <NavLink data-test-id={DataTestId.ProfileButton}
-                    className={classNames(classes.contextLink, {[classes.activeLink]: isContextMenu})}
-                    to={AppPaths.userProfile} onClick={contextMenuHandler}>Профиль</NavLink>
-                <NavLink data-test-id={isContextMenu ? DataTestId.ExitButton : ''}
-                         className={classNames(classes.contextLink, {[classes.activeLink]: isContextMenu})}
-                         to={AppPaths.auth} onClick={logoutHandler}>Выход</NavLink>
+                <div
+                    className={classNames(classes.contextMenu, {[classes.activeContext]: isContextMenu})}>
+                    <NavLink data-test-id={DataTestId.ProfileButton}
+                             className={classNames(classes.contextLink, {[classes.activeLink]: isContextMenu})}
+                             to={AppPaths.userProfile} onClick={contextMenuHandler}>Профиль</NavLink>
+                    <NavLink data-test-id={isContextMenu ? DataTestId.ExitButton : ''}
+                             className={classNames(classes.contextLink, {[classes.activeLink]: isContextMenu})}
+                             to={AppPaths.auth} onClick={logoutHandler}>Выход</NavLink>
+                </div>
             </div>
         </header>);
 };

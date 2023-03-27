@@ -53,7 +53,6 @@ export const editUserProfileSchema = object({
     firstName: string().required(RegistrationErrorMessages.required),
     lastName: string().required(RegistrationErrorMessages.required),
     phone: string()
-        // .required(RegistrationErrorMessages.required)
         .matches(Regex.phone, RegistrationErrorMessages.phone),
     email: string()
         .required(RegistrationErrorMessages.required)

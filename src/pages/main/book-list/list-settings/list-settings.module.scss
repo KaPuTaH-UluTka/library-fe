@@ -3,13 +3,14 @@
     flex-direction: row;
     justify-content: space-between;
     padding-bottom: 30px;
+    width: 100%;
 
-    .search-and-sort {
+    .searchAndSort {
         display: flex;
         flex-direction: row;
         height: 38px;
 
-        .search-form {
+        .searchForm {
             border: none;
             display: flex;
             border-radius: 5px;
@@ -31,7 +32,7 @@
                 transition: 0.3s;
             }
 
-            .search-active{
+            .searchActive{
                 background-image: url('../../../../assets/book-list-settings/search-orange.svg');
                 transition: 0.3s;
             }
@@ -42,7 +43,7 @@
 
             }
 
-            .search-btn-close {
+            .searchBtnClose {
                 position: absolute;
                 margin-left: 255px;
                 margin-top: 5px;
@@ -84,7 +85,7 @@
             }
         }
 
-        .search-btn-open {
+        .searchBtnOpen {
             display: none;
             width: 32px;
             height: 32px;
@@ -113,12 +114,12 @@
             transition: 0.3s;
             cursor: pointer;
             box-shadow: var(--box-shadow);
-            .sort-icon {
+            .sortIcon {
                 transition: 0.3s;
                 transform: rotate(180deg);
 
             }
-            .sort-icon-rotated {
+            .sortIconRotated {
                 transition: 0.3s;
                 transform: rotate(0deg);
             }
@@ -133,11 +134,11 @@
         }
     }
 
-    .list-style {
+    .listStyle {
         display: flex;
         gap: 16px;
 
-        .change-view-btn {
+        .changeViewBtn {
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -151,11 +152,11 @@
             box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2),0px 3px 4px rgba(191, 196, 201, 0.18), 0px 1px 5px rgba(191, 196, 201, 0.24);
         }
 
-        .change-view-btn:hover {
+        .changeViewBtn:hover {
             transition: 0.3s;
             box-shadow: var(--box-shadow-hover);
         }
-        .change-view-btn:active {
+        .changeViewBtn:active {
             transition: 0.3s;
             box-shadow: var(--box-shadow-active);
         }
@@ -177,11 +178,11 @@
         margin-top: 0px;
         max-width: 640px;
 
-        .search-and-sort {
+        .searchAndSort {
             display: flex;
             flex-direction: row;
 
-            .search-form {
+            .searchForm {
 
                 .search {
                     width: 274px;
@@ -195,22 +196,21 @@
 @media (max-width: 550px) {
     .settings {
         display: flex;
-        width: 80%;
 
-        .search-and-sort {
+        .searchAndSort {
             height: 32px;
-            .search-form {
+            .searchForm {
 
                 .search {
                     width: 288px;
                 }
-                .search-btn-close {
+                .searchBtnClose {
                     display: block;
                 }
 
             }
 
-            .search-btn-open {
+            .searchBtnOpen {
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -226,8 +226,8 @@
             }
 
         }
-        .list-style {
-            .change-view-btn {
+        .listStyle {
+            .changeViewBtn {
                 width: 32px;
                 height: 32px;
                 img {
@@ -246,25 +246,25 @@
         margin-left: -3px;
         display: flex;
         width: 100%;
-        .search-and-sort {
+        .searchAndSort {
             height: 32px;
-            .search-form {
+            .searchForm {
 
                 .search {
                     width: 288px;
                 }
 
-                .search-btn-open {
+                .searchBtnOpen {
                     width: 32px;
                     height: 32px;
                 }
-                .search-btn-close {
+                .searchBtnClose {
                     display: block;
                 }
 
             }
 
-            .search-btn-open {
+            .searchBtnOpen {
                 display: flex;
                 align-items: center;
                 justify-content: center;

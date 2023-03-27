@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {BookInterface} from '../../types/book';
+import {BookInterface} from '../../../types/book';
 
 import classes from './book-details.module.scss';
 

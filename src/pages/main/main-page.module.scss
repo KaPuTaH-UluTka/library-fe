@@ -8,6 +8,13 @@
 @media (max-width: 768px) {
     .mainPage {
         margin-top: 38px;
+        padding: 0 64px;
+    }
+}
+
+@media (max-width: 450px) {
+    .mainPage {
+        padding: 0 16px;
     }
 }
 

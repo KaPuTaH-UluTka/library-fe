@@ -28,6 +28,7 @@ type CustomInputProps = {
     clearErrors?: UseFormClearErrors<any>;
     isDisabled?: boolean;
     fromProfile?: boolean;
+    responseError?: boolean;
 }
 
 export const CustomInput = ({
@@ -44,7 +45,7 @@ export const CustomInput = ({
                                 errors,
                                 isFullColorError,
                                 clearErrors,
-    isDisabled, fromProfile
+    isDisabled, fromProfile, responseError
                             }: CustomInputProps) => {
     const [isOpenEye, setIsOpenEye] = useState(false);
     const [isOnFocus, setIsOnFocus] = useState(false);
@@ -89,7 +90,7 @@ export const CustomInput = ({
         />
     ) : (
         <input
-            className={classNames(classes.input, {[classes.inputError]: error?.message})}
+            className={classNames(classes.input, {[classes.inputError]: error?.message || responseError})}
             {...register}
             type={isOpenEye ? 'text' : type}
             onFocus={focusHandler}

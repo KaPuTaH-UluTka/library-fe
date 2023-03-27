@@ -29,7 +29,7 @@ export const ProfileForm = () => {
 
     const [isInputsDisabled, setIsInputsDisabled] = useState(true);
 
-    const {register, formState: {errors}, handleSubmit, watch, setValue, getValues} = useForm<UserProfile>({
+    const {register, formState: {errors}, handleSubmit, watch} = useForm<UserProfile>({
         mode: 'all',
         reValidateMode: 'onBlur',
         shouldFocusError: false,
@@ -37,7 +37,7 @@ export const ProfileForm = () => {
             login: user?.username,
             firstName: user?.firstName,
             lastName: user?.lastName,
-            password: '********',
+            password: 'Default1',
             phone: user?.phone,
             email: user?.email
         },
@@ -60,8 +60,6 @@ export const ProfileForm = () => {
             });
         }
     }
-
-    console.log(getValues('phone'));
 
     const editHandler = () => {
         setIsInputsDisabled(!isInputsDisabled);

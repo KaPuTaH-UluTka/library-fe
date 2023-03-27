@@ -5,9 +5,8 @@ import classNames from 'classnames';
 
 import BlackChevron from '../../assets/other/black-chevron.svg';
 import noImageBook from '../../assets/other/defaultBook.png';
-import {BookDetails} from '../../components/book-details/book-details';
+import {BookDetails} from './book-details/book-details';
 import {BookLink} from '../../components/book-link/book-link';
-import {BookRating} from '../../components/book-rating/book-rating';
 import {BookingModal} from '../../components/booking-modal/booking-modal';
 import {CustomButton} from '../../components/custom-elements/button/custom-button';
 import {ReviewItem} from '../../components/review-item/review-item';
@@ -33,6 +32,7 @@ import {BtnType, BtnVariant, Size} from '../../types/custom-element';
 import {bookingBtnText} from '../../utils/btn-text';
 import {commentExist} from '../../utils/comment-exist';
 
+import {Rating} from './rating/rating';
 import {Slider} from './slider/slider';
 
 import classes from './book-page.module.scss';
@@ -132,19 +132,7 @@ export const BookPage = () => {
                         <p className={classes.aboutBookDescription}>{book.description}</p>
                     </div>
                 </div>
-                <div className={classes.rating}>
-                    <h5 className={classes.ratingTitle}>Рейтинг</h5>
-                    <div className={classes.ratingInfo}>
-                        {book.rating ?
-                            <BookRating rating={book.rating}/> :
-                            <><BookRating rating={0}/>
-                                <span
-                                    className={classes.emptyReviews}>еще нет оценок</span>
-                            </>}
-                        {book.rating &&
-                            <p className={classes.ratingNumber}>{book.rating}</p>}
-                    </div>
-                </div>
+                <Rating book={book}/>
                 <BookDetails book={book}/>
                 <div className={classes.reviews}>
                     <h5 className={classes.reviewsTitle}>Отзывы<span>{book.comments ? book.comments.length : 0}</span>

@@ -1,4 +1,10 @@
 export enum DataTestId {
+    InputSearch='input-search',
+    ButtonSearchClose='button-search-close',
+    ButtonSearchOpen='button-search-open',
+    SortRatingButton ='sort-rating-button',
+    ButtonMenuViewWindow='button-menu-view-window',
+    ButtonMenuViewList='button-menu-view-list',
     SlideBig = 'slide-big',
     SlideMini = 'slide-mini',
     HighLightMatches = 'highlight-matches',

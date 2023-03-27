@@ -51,7 +51,7 @@
         }
 
         .generalLink:nth-child(3) {
-            margin-top: 43px;
+            margin-top: 36px;
         }
 
         .categoryList {
@@ -61,7 +61,6 @@
             visibility: hidden;
 
             &Active {
-                margin-left: 23px;
                 height: unset;
                 visibility: visible;
                 display: block;
@@ -78,7 +77,6 @@
                     color: var(--black100);
 
                     &Active {
-                        transition: 0.3s;
                         font-weight: 700;
                         font-size: 18px;
                         line-height: 28px;
@@ -134,8 +132,8 @@
         .menu {
             position: absolute;
             width: 502px;
-            margin-left: 65px;
-            margin-top: 88px;
+            margin-left: 0;
+            margin-top: 50px;
             background: var(--black5);
             padding: 32px 32px 52px 32px;
             border-radius: 10px;
@@ -169,10 +167,10 @@
     .menuWrapper {
         .menu {
             width: 400px;
-            margin-left: 20px;
             padding: 16px 16px 26px 16px;
 
             .separator {
+                margin-left: -17px;
                 width: 400px;
             }
         }
@@ -183,10 +181,17 @@
     .menuWrapper {
         .menu {
             width: 300px;
-
             .separator {
                 width: 300px;
             }
+        }
+    }
+}
+
+@media (max-width: 380px) {
+    .menuWrapper {
+        .menu {
+            margin-left: -50px;
         }
     }
 }
@@ -195,8 +200,7 @@
     .menuWrapper {
         .menu {
             width: 288px;
-            margin-left: 19px;
-            margin-top: 74px;
+            margin-left: 0;
             padding: 32px 17px 52px 16px;
 
             .separator {

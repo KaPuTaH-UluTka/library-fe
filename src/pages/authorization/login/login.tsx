@@ -71,6 +71,7 @@ export const Login = () => {
                                 watchName={watch('identifier')}
                                 type='text'
                                 withoutErrorMessage={!errors.identifier}
+                                responseError={!!error}
                             />
                             <CustomInput
                                 label='password'
@@ -80,6 +81,7 @@ export const Login = () => {
                                 watchName={watch('password')}
                                 type='password'
                                 withoutErrorMessage={!errors.password}
+                                responseError={!!error}
                             />
                             <p
                                 className={classNames(classes.errorMessage, {
